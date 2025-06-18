@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "start": "node --env-file=.env .output/server/index.mjs",
+    "start": "bun --env-file=.env .output/server/index.mjs",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "format": "prettier --write .",
@@ -129,9 +129,7 @@
     "typescript-eslint": "^8.34.0",
     "vite-tsconfig-paths": "^5.1.4"
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "react-lite-youtube-embed@2.5.1": "patches/react-lite-youtube-embed.patch"
-    }
+  "patchedDependencies": {
+    "react-lite-youtube-embed@2.5.1": "patches/react-lite-youtube-embed.patch"
   }
 }

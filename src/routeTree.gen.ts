@@ -39,7 +39,7 @@ const EditorIndexRoute = EditorIndexRouteImport.update({
   id: "/editor/",
   path: "/editor/",
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any).lazy(() => import("./routes/editor/index.lazy").then((d) => d.Route));
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: "/",
   path: "/",

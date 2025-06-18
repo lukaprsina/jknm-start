@@ -1,8 +1,0 @@
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@tailwindcss/oxide'
-  - esbuild
-  - msgpackr-extract
-
-patchedDependencies:
-  react-lite-youtube-embed: patches/react-lite-youtube-embed.patch
