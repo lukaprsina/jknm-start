@@ -10,10 +10,10 @@
     "check-types": "tsc --noEmit",
     "format": "prettier --write .",
     "db": "drizzle-kit",
-    "deps": "pnpm dlx npm-check-updates@latest --interactive --format group",
-    "ui": "pnpm dlx shadcn@latest",
-    "auth:secret": "pnpm dlx @better-auth/cli@latest secret",
-    "auth:generate": "pnpm dlx @better-auth/cli@latest generate --config ./src/lib/auth/index.ts --y --output ./src/lib/db/schema/auth.schema.ts && prettier --write ./src/lib/db/schema/auth.schema.ts"
+    "deps": "bun x npm-check-updates@latest --interactive --format group",
+    "ui": "bun x shadcn@latest",
+    "auth:secret": "bun x @better-auth/cli@latest secret",
+    "auth:generate": "bun x @better-auth/cli@latest generate --config ./src/lib/auth/index.ts --y --output ./src/lib/db/schema/auth.schema.ts && prettier --write ./src/lib/db/schema/auth.schema.ts"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.7",

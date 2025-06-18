@@ -20,7 +20,7 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 2. Install dependencies:
 
    ```bash
-   pnpm install
+   bun install
    ```
 
 3. Create a `.env` file based on [`.env.example`](./.env.example).
@@ -28,7 +28,7 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 4. Push the schema to your database with drizzle-kit:
 
    ```bash
-   pnpm db push
+   bun db push
    ```
 
    https://orm.drizzle.team/docs/migrations
@@ -36,7 +36,7 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 5. Run the development server:
 
    ```bash
-   pnpm dev
+   bun dev
    ```
 
    The development server should now be running at [http://localhost:3000](http://localhost:3000).
@@ -50,11 +50,11 @@ A minimal starter template for 🏝️ TanStack Start. [→ Preview here](https:
 
 #### Scripts
 
-These scripts in [package.json](./package.json#L5) use **pnpm** by default, but you can modify them to use your preferred package manager.
+These scripts in [package.json](./package.json#L5) use **bun** by default, but you can modify them to use your preferred package manager.
 
 - **`auth:generate`** - Regenerate the [auth db schema](./src/lib/db/schema/auth.schema.ts) if you've made changes to your Better Auth [config](./src/lib/auth/index.ts).
-- **`db`** - Run drizzle-kit commands. (e.g. `pnpm db generate` to generate a migration)
-- **`ui`** - The shadcn/ui CLI. (e.g. `pnpm ui add button` to add the button component)
+- **`db`** - Run drizzle-kit commands. (e.g. `bun db generate` to generate a migration)
+- **`ui`** - The shadcn/ui CLI. (e.g. `bun ui add button` to add the button component)
 - **`format`** and **`lint`** - Run Prettier and ESLint.
 - **`deps`** - Selectively upgrade dependencies via npm-check-updates.
 
