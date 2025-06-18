@@ -51,7 +51,7 @@ export default defineConfig({
       },
 
       // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
-      target: process.env.VERCEL ? "vercel" : "bun",
+      target: process.env.VERCEL ? "vercel" : "node-server",
     }),
   ],
 });

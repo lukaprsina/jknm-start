@@ -8,6 +8,7 @@ import { Editor, EditorContainer } from "~/components/ui/editor";
 
 export const Route = createLazyFileRoute("/editor/")({
   component: PlateEditor,
+  pendingComponent: () => <div>Loading editor... Please wait!</div>,
 });
 
 export function PlateEditor() {
