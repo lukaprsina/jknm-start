@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from "./routes/__root";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as authRouteRouteImport } from "./routes/(auth)/route";
 import { Route as IndexRouteImport } from "./routes/index";
+import { Route as EditorIndexRouteImport } from "./routes/editor/index";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as authLoginRouteImport } from "./routes/(auth)/login";
 import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
@@ -32,6 +33,11 @@ const authRouteRoute = authRouteRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const EditorIndexRoute = EditorIndexRouteImport.update({
+  id: "/editor/",
+  path: "/editor/",
   getParentRoute: () => rootRouteImport,
 } as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -55,11 +61,13 @@ export interface FileRoutesByFullPath {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/editor": typeof EditorIndexRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof authRouteRouteWithChildren;
   "/login": typeof authLoginRoute;
   "/dashboard": typeof DashboardIndexRoute;
+  "/editor": typeof EditorIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -68,25 +76,28 @@ export interface FileRoutesById {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/(auth)/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/editor/": typeof EditorIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/dashboard" | "/login" | "/dashboard/";
+  fullPaths: "/" | "/dashboard" | "/login" | "/dashboard/" | "/editor";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/login" | "/dashboard";
+  to: "/" | "/login" | "/dashboard" | "/editor";
   id:
     | "__root__"
     | "/"
     | "/(auth)"
     | "/dashboard"
     | "/(auth)/login"
-    | "/dashboard/";
+    | "/dashboard/"
+    | "/editor/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   authRouteRoute: typeof authRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  EditorIndexRoute: typeof EditorIndexRoute;
 }
 export interface FileServerRoutesByFullPath {
   "/api/auth/$": typeof ApiAuthSplatServerRoute;
@@ -131,6 +142,13 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/editor/": {
+      id: "/editor/";
+      path: "/editor";
+      fullPath: "/editor";
+      preLoaderRoute: typeof EditorIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/dashboard/": {
@@ -189,6 +207,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authRouteRoute: authRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  EditorIndexRoute: EditorIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
