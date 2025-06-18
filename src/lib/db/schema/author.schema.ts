@@ -15,37 +15,37 @@ export const author_type_enum = pgEnum("author_type", ["member", "guest"]);
 
 // guests have name only
 export const Author = pgTable("author", {
-  id: serial("id").primaryKey(),
-  author_type: author_type_enum("author_type").notNull(),
-  name: varchar("name", { length: 255 }).notNull(),
-  google_id: varchar("google_id", { length: 255 }),
-  email: text("email"),
-  image: varchar("image", { length: 255 }),
+  id: serial().primaryKey(),
+  author_type: author_type_enum().notNull(),
+  name: varchar({ length: 255 }).notNull(),
+  google_id: varchar({ length: 255 }),
+  email: text(),
+  image: varchar({ length: 255 }),
 });
 
 export const PublishedArticlesToAuthors = pgTable(
   "p_articles_to_authors",
   {
-    published_id: integer("published_id")
+    published_id: integer()
       .notNull()
       .references(() => PublishedArticle.id, {
         onDelete: "cascade",
       }),
-    author_id: integer("author_id")
+    author_id: integer()
       .notNull()
       .references(() => Author.id, {
         onDelete: "cascade",
       }),
-    order: integer("order").default(0).notNull(),
+    order: integer().default(0).notNull(),
   },
-  (published_articles_to_authors) => ({
-    compoundKey: primaryKey({
+  (published_articles_to_authors) => [
+    primaryKey({
       columns: [
         published_articles_to_authors.published_id,
         published_articles_to_authors.author_id,
       ],
     }),
-  }),
+  ],
 );
 
 export const PublishedArticlesToAuthorsRelations = relations(
@@ -65,21 +65,21 @@ export const PublishedArticlesToAuthorsRelations = relations(
 export const DraftArticlesToAuthors = pgTable(
   "d_articles_to_authors",
   {
-    draft_id: integer("draft_id")
+    draft_id: integer()
       .notNull()
       .references(() => DraftArticle.id, { onDelete: "cascade" }),
-    author_id: integer("author_id")
+    author_id: integer()
       .notNull()
       .references(() => Author.id, {
         onDelete: "cascade",
       }),
-    order: integer("order").default(0).notNull(),
+    order: integer().default(0).notNull(),
   },
-  (draft_articles_to_authors) => ({
-    compoundKey: primaryKey({
+  (draft_articles_to_authors) => [
+    primaryKey({
       columns: [draft_articles_to_authors.draft_id, draft_articles_to_authors.author_id],
     }),
-  }),
+  ],
 );
 
 export const DraftArticlesToAuthorsRelations = relations(

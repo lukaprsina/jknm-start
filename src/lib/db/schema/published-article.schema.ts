@@ -1,4 +1,4 @@
-import { relations, sql } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   index,
   integer,
@@ -6,34 +6,27 @@ import {
   pgTable,
   serial,
   text,
-  timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
 import { ThumbnailType } from "~/lib/validators";
-import { ArticleContentType } from "..";
 import { PublishedArticlesToAuthors } from "./author.schema";
+import { timestamps } from "./columns.helpers";
+import { ArticleContentType } from "./type.helpers";
 
 export const PublishedArticle = pgTable(
   "published_article",
   {
-    id: serial("id").primaryKey(),
-    old_id: integer("old_id"),
-    title: varchar("title", { length: 255 }).notNull(),
-    url: varchar("url", { length: 255 }).notNull(),
-    created_at: timestamp("created_at", { withTimezone: true })
-      .default(sql`CURRENT_TIMESTAMP`)
-      .notNull(),
-    updated_at: timestamp("updated_at", { withTimezone: true })
-      .$onUpdate(() => new Date())
-      .notNull(),
-    content: json("content").$type<ArticleContentType>(),
-    content_preview: text("content_preview").default(""),
-    thumbnail_crop: json("thumbnail_crop").$type<ThumbnailType>(),
-    // image: varchar("image", { length: 255 }),
+    id: serial().primaryKey(),
+    old_id: integer(),
+    title: varchar({ length: 255 }).notNull(),
+    url: varchar({ length: 255 }).notNull(),
+    ...timestamps,
+    content: json().$type<ArticleContentType>(),
+    content_preview: text().default(""),
+    thumbnail_crop: json().$type<ThumbnailType>(),
+    // image: varchar({ length: 255 }),
   },
-  (published_article) => ({
-    created_at_index: index("p_created_at_idx").on(published_article.created_at),
-  }),
+  (published_article) => [index("p_created_at_idx").on(published_article.created_at)],
 );
 
 export const PublishedArticleRelations = relations(PublishedArticle, ({ many }) => ({
