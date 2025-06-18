@@ -3,6 +3,7 @@ import { getWebRequest } from "@tanstack/react-start/server";
 import { auth } from "~/lib/auth";
 
 export const getUser = createServerFn({ method: "GET" }).handler(async () => {
+  "use cache";
   const { headers } = getWebRequest();
   const session = await auth.api.getSession({ headers });
 
