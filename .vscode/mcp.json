@@ -7,6 +7,10 @@
       "env": {
         "REGISTRY_URL": "https://platejs.org/r/registry.json"
       }
+    },
+    "playwright": {
+      "command": "bunx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
