@@ -1,1 +1,3 @@
 after logging in, query isn't invalidated, so you see the logged out state until refreshing
+
+going from logged in to /, i get: Could not find match for from: /dashboard

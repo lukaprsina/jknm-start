@@ -8,17 +8,18 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from "@tanstack/react-router";
 import { createServerRootRoute } from "@tanstack/react-start/server";
 
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as authRouteRouteImport } from "./routes/(auth)/route";
 import { Route as IndexRouteImport } from "./routes/index";
-import { Route as EditorIndexRouteImport } from "./routes/editor/index";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as authLoginRouteImport } from "./routes/(auth)/login";
 import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
 
+const EditorIndexLazyRouteImport = createFileRoute("/editor/")();
 const rootServerRouteImport = createServerRootRoute();
 
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -35,7 +36,7 @@ const IndexRoute = IndexRouteImport.update({
   path: "/",
   getParentRoute: () => rootRouteImport,
 } as any);
-const EditorIndexRoute = EditorIndexRouteImport.update({
+const EditorIndexLazyRoute = EditorIndexLazyRouteImport.update({
   id: "/editor/",
   path: "/editor/",
   getParentRoute: () => rootRouteImport,
@@ -61,13 +62,13 @@ export interface FileRoutesByFullPath {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
-  "/editor": typeof EditorIndexRoute;
+  "/editor": typeof EditorIndexLazyRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof authRouteRouteWithChildren;
   "/login": typeof authLoginRoute;
   "/dashboard": typeof DashboardIndexRoute;
-  "/editor": typeof EditorIndexRoute;
+  "/editor": typeof EditorIndexLazyRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
@@ -76,7 +77,7 @@ export interface FileRoutesById {
   "/dashboard": typeof DashboardRouteRouteWithChildren;
   "/(auth)/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
-  "/editor/": typeof EditorIndexRoute;
+  "/editor/": typeof EditorIndexLazyRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
@@ -97,7 +98,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   authRouteRoute: typeof authRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
-  EditorIndexRoute: typeof EditorIndexRoute;
+  EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
 }
 export interface FileServerRoutesByFullPath {
   "/api/auth/$": typeof ApiAuthSplatServerRoute;
@@ -148,7 +149,7 @@ declare module "@tanstack/react-router" {
       id: "/editor/";
       path: "/editor";
       fullPath: "/editor";
-      preLoaderRoute: typeof EditorIndexRouteImport;
+      preLoaderRoute: typeof EditorIndexLazyRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/dashboard/": {
@@ -207,7 +208,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authRouteRoute: authRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  EditorIndexRoute: EditorIndexRoute,
+  EditorIndexLazyRoute: EditorIndexLazyRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
