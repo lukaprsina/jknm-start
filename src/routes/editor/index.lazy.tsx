@@ -4,7 +4,6 @@ import { Plate, usePlateEditor } from "platejs/react";
 import { useEffect } from "react";
 
 import { EditorKit } from "~/components/editor-kit";
-// import { SettingsDialog } from "~/components/editor/settings-dialog";
 import { Editor, EditorContainer } from "~/components/ui/editor";
 import { value } from "./-default-value";
 
@@ -28,8 +27,6 @@ export function PlateEditor() {
       <EditorContainer>
         <Editor variant="demo" />
       </EditorContainer>
-
-      {/* <SettingsDialog /> */}
     </Plate>
   );
 }
