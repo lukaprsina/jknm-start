@@ -1,0 +1,25 @@
+[
+  {
+    "title": "Algolia",
+    "permalink": "https://en.wikipedia.org/wiki/Algolia",
+    "content": "Algolia is a U.S. startup company offering a web search product through a SaaS (software as a service) model."
+  },
+  {
+    "title": "Algolia",
+    "section": "Company",
+    "permalink": "https://en.wikipedia.org/wiki/Algolia",
+    "content": "Algolia was founded in 2012 by Nicolas Dessaigne and Julien Lemoine, who are originally from Paris, France. It was originally a company focused on offline search on mobile phones. Later it was selected to be part of Y Combinator's[1] Winter 2014 class."
+  },
+  {
+    "title": "Algolia",
+    "section": "Company",
+    "permalink": "https://en.wikipedia.org/wiki/Algolia",
+    "content": "Starting with two data centres in Europe and the US, Algolia opened a third centre in Singapore in March 2014,[2] and as of 2016, claimed to be present in 47 locations across 15 worldwide regions.[3] It serves roughly 1,600 customers, handling 12 billion user queries per month.[4] Those customers are among e-commerce, medium and other fields, including DC Shoes, Medium and vevo.[5] In May 2015, Algolia received 18.3 million dollars in a series A investment from a financial group led by Accel Partners,[6] and in 2017 a $53M series B investment, also led by Accel Partners[7] From June 2016 to June 2017, the usage of Algolia by small websites has increased from 632 to 1,591 in the \"top 1mio websites\" evaluated by BuiltWith. In the same timeframe, BuiltWith recorded no significant usage increase among their \"top 10k homepages\".[8]"
+  },
+  {
+    "title": "Algolia",
+    "section": "Products and technology",
+    "permalink": "https://en.wikipedia.org/wiki/Algolia",
+    "content": "The Algolia model provides search as a service, offering web search across a client's website using an externally hosted search engine.[9][10] Although in-site search has long been available from general web search providers such as Google, this is typically done as a subset of general web searching. The search engine crawls or spiders the web at large, including the client site, and then offers search features restricted to only that target site. This is a large and complex task, available only to large organisations at the scale of Google or Microsoft."
+  }
+]
