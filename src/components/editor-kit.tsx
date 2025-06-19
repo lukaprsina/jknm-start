@@ -34,6 +34,7 @@ import { SlashKit } from "./plugins/slash-kit";
 import { SuggestionKit } from "./plugins/suggestion-kit";
 import { TableKit } from "./plugins/table-kit";
 import { TocKit } from "./plugins/toc-kit";
+import { TocSidebarKit } from "./plugins/toc-sidebar-kit";
 import { ToggleKit } from "./plugins/toggle-kit";
 
 export const EditorKit = [
@@ -84,6 +85,7 @@ export const EditorKit = [
   ...BlockPlaceholderKit,
   ...FixedToolbarKit,
   ...FloatingToolbarKit,
+  ...TocSidebarKit,
 ];
 
 export type MyEditor = TPlateEditor<Value, (typeof EditorKit)[number]>;
