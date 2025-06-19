@@ -33,15 +33,31 @@ export function EditorPreloader() {
     if (user && !isLoading && !hasPreloadedRef.current) {
       hasPreloadedRef.current = true;
 
+      // Preload editor code chunk to avoid lazy load delay
+      const editorRoute = router.routesByPath["/editor"];
+      router
+        .loadRouteChunk(editorRoute)
+        .then(() => {
+          if (import.meta.env.DEV) {
+            console.log("Editor code chunk loaded successfully!");
+          }
+        })
+        .catch((error) => {
+          if (import.meta.env.DEV) {
+            console.error("Failed to load editor code chunk:", error);
+          }
+        });
+
+      // Preload route data and component
       router
         .preloadRoute({ to: "/editor" })
         .then(() => {
-          if (import.meta.env.DEV || 1 == 1) {
+          if (import.meta.env.DEV) {
             console.log("Editor route preloaded successfully!");
           }
         })
         .catch((error) => {
-          if (import.meta.env.DEV || 1 == 1) {
+          if (import.meta.env.DEV) {
             console.error("Failed to preload editor route:", error);
           }
           // Reset flag on error so we can retry

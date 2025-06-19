@@ -34,6 +34,9 @@ function Home() {
           <Button type="button" asChild className="mb-2 w-fit" size="lg">
             <Link to="/dashboard">Go to Dashboard</Link>
           </Button>
+          <Button type="button" asChild className="mb-2 w-fit" size="lg">
+            <Link to="/editor">Go to Editor</Link>
+          </Button>
           <div className="text-center text-xs sm:text-sm">
             Session user:
             <pre className="max-w-screen overflow-x-auto px-2 text-start">
