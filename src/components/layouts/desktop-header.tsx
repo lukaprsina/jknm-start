@@ -65,8 +65,8 @@ export function NavigationMenuDemo() {
 
 export function NavigationMenuDemo2() {
   return (
-    <NavigationMenu viewport={false}>
-      <NavigationMenuList>
+    <NavigationMenu className="bg-accent z-50 h-20 w-full max-w-full" viewport={false}>
+      <NavigationMenuList className="h-20">
         <NavigationMenuItem>
           <NavigationMenuTrigger>Home</NavigationMenuTrigger>
           <NavigationMenuContent>
