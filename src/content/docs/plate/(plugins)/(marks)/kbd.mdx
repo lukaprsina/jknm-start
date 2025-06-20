@@ -34,8 +34,8 @@ The fastest way to add the kbd plugin is with the `BasicMarksKit`, which include
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit';
+import { createPlateEditor } from "platejs/react";
+import { BasicMarksKit } from "@/components/editor/plugins/basic-marks-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -62,8 +62,8 @@ npm install @platejs/basic-nodes
 Include `KbdPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { KbdPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
+import { KbdPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -78,9 +78,9 @@ const editor = createPlateEditor({
 You can configure the `KbdPlugin` with a custom component.
 
 ```tsx
-import { KbdPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
-import { KbdLeaf } from '@/components/ui/kbd-node';
+import { KbdPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
+import { KbdLeaf } from "@/components/ui/kbd-node";
 
 const editor = createPlateEditor({
   plugins: [
@@ -108,4 +108,4 @@ Plugin for keyboard input text formatting. Renders as `<kbd>` HTML element by de
 
 ### `tf.kbd.toggle`
 
-Toggles the kbd formatting for the selected text. 
+Toggles the kbd formatting for the selected text.

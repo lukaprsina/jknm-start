@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { SuggestionPlugin } from '@platejs/suggestion/react';
+import { SuggestionPlugin } from "@platejs/suggestion/react";
 import {
   type DropdownMenuProps,
   DropdownMenuItemIndicator,
-} from '@radix-ui/react-dropdown-menu';
-import { CheckIcon, EyeIcon, PencilLineIcon, PenIcon } from 'lucide-react';
-import { useEditorRef, usePlateState, usePluginOption } from 'platejs/react';
+} from "@radix-ui/react-dropdown-menu";
+import { CheckIcon, EyeIcon, PencilLineIcon, PenIcon } from "lucide-react";
+import { useEditorRef, usePlateState, usePluginOption } from "platejs/react";
 
 import {
   DropdownMenu,
@@ -16,35 +16,35 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from '~/components/ui/dropdown-menu';
+} from "~/components/ui/dropdown-menu";
 
-import { ToolbarButton } from './toolbar';
+import { ToolbarButton } from "./toolbar";
 
 export function ModeToolbarButton(props: DropdownMenuProps) {
   const editor = useEditorRef();
-  const [readOnly, setReadOnly] = usePlateState('readOnly');
+  const [readOnly, setReadOnly] = usePlateState("readOnly");
   const [open, setOpen] = React.useState(false);
 
-  const isSuggesting = usePluginOption(SuggestionPlugin, 'isSuggesting');
+  const isSuggesting = usePluginOption(SuggestionPlugin, "isSuggesting");
 
-  let value = 'editing';
+  let value = "editing";
 
-  if (readOnly) value = 'viewing';
+  if (readOnly) value = "viewing";
 
-  if (isSuggesting) value = 'suggestion';
+  if (isSuggesting) value = "suggestion";
 
   const item: Record<string, { icon: React.ReactNode; label: string }> = {
     editing: {
       icon: <PenIcon />,
-      label: 'Editing',
+      label: "Editing",
     },
     suggestion: {
       icon: <PencilLineIcon />,
-      label: 'Suggestion',
+      label: "Suggestion",
     },
     viewing: {
       icon: <EyeIcon />,
-      label: 'Viewing',
+      label: "Viewing",
     },
   };
 
@@ -61,7 +61,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
         <DropdownMenuRadioGroup
           value={value}
           onValueChange={(newValue) => {
-            if (newValue === 'viewing') {
+            if (newValue === "viewing") {
               setReadOnly(true);
 
               return;
@@ -69,15 +69,15 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
               setReadOnly(false);
             }
 
-            if (newValue === 'suggestion') {
-              editor.setOption(SuggestionPlugin, 'isSuggesting', true);
+            if (newValue === "suggestion") {
+              editor.setOption(SuggestionPlugin, "isSuggesting", true);
 
               return;
             } else {
-              editor.setOption(SuggestionPlugin, 'isSuggesting', false);
+              editor.setOption(SuggestionPlugin, "isSuggesting", false);
             }
 
-            if (newValue === 'editing') {
+            if (newValue === "editing") {
               editor.tf.focus();
 
               return;
@@ -85,7 +85,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
           }}
         >
           <DropdownMenuRadioItem
-            className="pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground"
+            className="*:[svg]:text-muted-foreground pl-2 *:first:[span]:hidden"
             value="editing"
           >
             <Indicator />
@@ -94,7 +94,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
           </DropdownMenuRadioItem>
 
           <DropdownMenuRadioItem
-            className="pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground"
+            className="*:[svg]:text-muted-foreground pl-2 *:first:[span]:hidden"
             value="viewing"
           >
             <Indicator />
@@ -103,7 +103,7 @@ export function ModeToolbarButton(props: DropdownMenuProps) {
           </DropdownMenuRadioItem>
 
           <DropdownMenuRadioItem
-            className="pl-2 *:first:[span]:hidden *:[svg]:text-muted-foreground"
+            className="*:[svg]:text-muted-foreground pl-2 *:first:[span]:hidden"
             value="suggestion"
           >
             <Indicator />

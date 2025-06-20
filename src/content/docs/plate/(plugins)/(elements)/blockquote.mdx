@@ -33,8 +33,8 @@ The fastest way to add the blockquote plugin is with the `BasicBlocksKit`, which
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit';
+import { createPlateEditor } from "platejs/react";
+import { BasicBlocksKit } from "@/components/editor/plugins/basic-blocks-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -61,8 +61,8 @@ npm install @platejs/basic-nodes
 Include `BlockquotePlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { BlockquotePlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
+import { BlockquotePlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -77,16 +77,16 @@ const editor = createPlateEditor({
 You can configure the `BlockquotePlugin` with options such as a specific rendering component or custom keyboard shortcuts.
 
 ```tsx
-import { BlockquotePlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
-import { BlockquoteElement } from '@/components/ui/blockquote-node';
+import { BlockquotePlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
+import { BlockquoteElement } from "@/components/ui/blockquote-node";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     BlockquotePlugin.configure({
       node: { component: BlockquoteElement },
-      shortcuts: { toggle: 'mod+shift+.' },
+      shortcuts: { toggle: "mod+shift+." },
     }),
   ],
 });

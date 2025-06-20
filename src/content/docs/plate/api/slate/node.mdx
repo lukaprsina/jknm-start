@@ -8,8 +8,8 @@ Nodes are the building blocks of Plate documents. It can either be the Editor ro
 ```ts
 type TNode = Editor | TElement | TText;
 
-type Descendant = Element | Text
-type Ancestor = Editor | Element
+type Descendant = Element | Text;
+type Ancestor = Editor | Element;
 ```
 
 - [Editor](/docs/api/slate/editor-api)
@@ -639,14 +639,14 @@ type TNode = Editor | TElement | TText;
 `NodeEntry` objects are returned when iterating over the nodes in a Plate document tree. They consist of an array with two elements: the `TNode` and its `Path` relative to the root node in the document.
 
 <API name="NodeEntry">
-<APIAttributes>
-  <APIItem name="0" type="TNode">
-    The node itself.
-  </APIItem>
-  <APIItem name="1" type="Path">
-    The path to the node.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="0" type="TNode">
+      The node itself.
+    </APIItem>
+    <APIItem name="1" type="Path">
+      The path to the node.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `Descendant`
@@ -656,7 +656,6 @@ The `Descendant` union type represents nodes that are descendants in the tree.
 ```ts
 type Descendant = TElement | TText;
 ```
-
 
 ### `Ancestor`
 
@@ -783,14 +782,14 @@ type Ancestor = Editor | TElement;
 Ancestor entries represent an ancestor node (Editor or Element) and its path.
 
 <API name="AncestorEntry">
-<APIAttributes>
-  <APIItem name="0" type="Ancestor">
-    The Editor or Element node.
-  </APIItem>
-  <APIItem name="1" type="Path">
-    The path to the ancestor.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="0" type="Ancestor">
+      The Editor or Element node.
+    </APIItem>
+    <APIItem name="1" type="Path">
+      The path to the ancestor.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `DescendantEntry`
@@ -798,14 +797,14 @@ Ancestor entries represent an ancestor node (Editor or Element) and its path.
 Descendant entries represent a descendant node (Element or Text) and its path.
 
 <API name="DescendantEntry">
-<APIAttributes>
-  <APIItem name="0" type="Descendant">
-    The Element or Text node.
-  </APIItem>
-  <APIItem name="1" type="Path">
-    The path to the descendant.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="0" type="Descendant">
+      The Element or Text node.
+    </APIItem>
+    <APIItem name="1" type="Path">
+      The path to the descendant.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `NodeChildEntry`
@@ -813,12 +812,12 @@ Descendant entries represent a descendant node (Element or Text) and its path.
 Node child entries represent a child node and its path relative to its parent.
 
 <API name="NodeChildEntry">
-<APIAttributes>
-  <APIItem name="0" type="TNode">
-    The child node.
-  </APIItem>
-  <APIItem name="1" type="Path">
-    The path to the child.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="0" type="TNode">
+      The child node.
+    </APIItem>
+    <APIItem name="1" type="Path">
+      The path to the child.
+    </APIItem>
+  </APIAttributes>
 </API>

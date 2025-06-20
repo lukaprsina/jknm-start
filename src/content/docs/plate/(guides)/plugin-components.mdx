@@ -20,7 +20,7 @@ Ensure the `children` prop is rendered unconditionally for the editor to functio
 ### Element Component
 
 ```tsx
-import { type PlateElementProps, PlateElement } from 'platejs/react';
+import { type PlateElementProps, PlateElement } from "platejs/react";
 
 export function BlockquoteElement(props: PlateElementProps) {
   // props contains attributes, children, element, editor, etc.
@@ -40,7 +40,7 @@ This example defines a `BlockquoteElement`. The `as` prop on `PlateElement` spec
 ### Leaf Component
 
 ```tsx
-import { type PlateLeafProps, PlateLeaf } from 'platejs/react';
+import { type PlateLeafProps, PlateLeaf } from "platejs/react";
 
 export function CodeLeaf(props: PlateLeafProps) {
   // props contains attributes, children, leaf, text, editor, etc.
@@ -48,7 +48,7 @@ export function CodeLeaf(props: PlateLeafProps) {
   return (
     <PlateLeaf
       as="code"
-      className="rounded-md bg-muted px-[0.3em] py-[0.2em] font-mono text-sm" // Apply custom styles
+      className="bg-muted rounded-md px-[0.3em] py-[0.2em] font-mono text-sm" // Apply custom styles
       {...props} // Pass all original props (attributes, children, leaf, text, etc.)
     />
   );
@@ -86,9 +86,8 @@ const plugins = [
   CodeBlockPlugin.withComponent(MyCodeBlockElement),
   CodeLinePlugin.withComponent(MyCodeLineElement),
   CodeSyntaxPlugin.withComponent(MyCodeSyntaxLeaf),
-]
+];
 ```
-
 
 ### Method 2: Plugin `override.components`
 

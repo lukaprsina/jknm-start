@@ -26,8 +26,8 @@ The fastest way to add exit break functionality is with the `ExitBreakKit`, whic
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { ExitBreakKit } from '@/components/editor/plugins/exit-break-kit';
+import { createPlateEditor } from "platejs/react";
+import { ExitBreakKit } from "@/components/editor/plugins/exit-break-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -46,8 +46,8 @@ const editor = createPlateEditor({
 ### Add Plugin
 
 ```tsx
-import { ExitBreakPlugin } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
+import { ExitBreakPlugin } from "platejs";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -60,16 +60,16 @@ const editor = createPlateEditor({
 ### Configure Plugin
 
 ```tsx
-import { ExitBreakPlugin } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
+import { ExitBreakPlugin } from "platejs";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     ExitBreakPlugin.configure({
       shortcuts: {
-        insert: { keys: 'mod+enter' },
-        insertBefore: { keys: 'mod+shift+enter' },
+        insert: { keys: "mod+enter" },
+        insertBefore: { keys: "mod+shift+enter" },
       },
     }),
   ],
@@ -132,6 +132,7 @@ When you trigger exit break:
 ### Examples
 
 **Code Block:**
+
 ```tsx
 <codeblock>                              // ← Exit point (top-level block)
   <codeline>code|</codeline>             // ← Starting position
@@ -140,10 +141,11 @@ When you trigger exit break:
 ```
 
 **Table in Column (exits at table level):**
+
 ```tsx
 // First exit
-<column_group>                           
-  <column>                               
+<column_group>
+  <column>
     <table>                              // ← Exit point (isStrictSiblings: false)
       <tr>                               // isStrictSiblings: true
         <td>                             // isStrictSiblings: true
@@ -158,9 +160,9 @@ When you trigger exit break:
 // Second exit
 <column_group>                           // ← Exit point (isStrictSiblings: false)
   <column>                               // isStrictSiblings: true
-    <table>                              
-      <tr>                               
-        <td>                             
+    <table>
+      <tr>
+        <td>
           <p>content</p>
         </td>
       </tr>
@@ -178,7 +180,7 @@ Configure [`isStrictSiblings`](/docs/api/core/plate-plugin#isstrictsiblings) for
 ```tsx
 // Table structure
 const CustomTablePlugin = createSlatePlugin({
-  key: 'table',
+  key: "table",
   node: {
     isElement: true,
     // isStrictSiblings: false (default) - allows paragraph siblings
@@ -186,7 +188,7 @@ const CustomTablePlugin = createSlatePlugin({
 });
 
 const CustomTableRowPlugin = createSlatePlugin({
-  key: 'tr',
+  key: "tr",
   node: {
     isElement: true,
     isStrictSiblings: true, // Only allows tr siblings
@@ -194,9 +196,10 @@ const CustomTableRowPlugin = createSlatePlugin({
 });
 
 const CustomTableCellPlugin = createSlatePlugin({
-  key: 'td',
+  key: "td",
   node: {
     isElement: true,
     isStrictSiblings: true, // Only allows td/th siblings
   },
 });
+```

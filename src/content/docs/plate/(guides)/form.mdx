@@ -20,9 +20,9 @@ This is the most straightforward approach: each time the editor changes, update 
 ### React Hook Form Example
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import type { Value } from 'platejs';
-import { Plate, PlateContent, usePlateEditor } from 'platejs/react';
+import { useForm } from "react-hook-form";
+import type { Value } from "platejs";
+import { Plate, PlateContent, usePlateEditor } from "platejs/react";
 
 type FormData = {
   content: Value;
@@ -30,8 +30,8 @@ type FormData = {
 
 export function RHFEditorForm() {
   const initialValue = [
-    { type: 'p', children: [{ text: 'Hello from react-hook-form!' }] },
-  ]
+    { type: "p", children: [{ text: "Hello from react-hook-form!" }] },
+  ];
 
   // Setup react-hook-form
   const { register, handleSubmit, setValue } = useForm<FormData>({
@@ -44,11 +44,13 @@ export function RHFEditorForm() {
   const editor = usePlateEditor({ value: initialValue });
 
   // Register the field for react-hook-form
-  register('content', { /* validation rules... */ });
+  register("content", {
+    /* validation rules... */
+  });
 
   const onSubmit = (data: FormData) => {
     // data.content will have final editor content
-    console.info('Submitted:', data.content);
+    console.info("Submitted:", data.content);
   };
 
   return (
@@ -57,7 +59,7 @@ export function RHFEditorForm() {
         editor={editor}
         onChange={({ value }) => {
           // Sync editor changes to the form
-          setValue('content', value);
+          setValue("content", value);
         }}
       >
         <PlateContent placeholder="Type here..." />
@@ -70,8 +72,9 @@ export function RHFEditorForm() {
 ```
 
 **Notes**:
+
 1. **`defaultValues.content`**: your initial editor content.
-2. **`register('content')`**: signals to RHF that the field is tracked.  
+2. **`register('content')`**: signals to RHF that the field is tracked.
 3. **`onChange({ value })`**: calls `setValue('content', value)` each time.
 
 If you expect large documents or fast typing, consider debouncing or switching to an `onBlur` approach to reduce form updates.
@@ -88,9 +91,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { Plate, PlateContent, usePlateEditor } from 'platejs/react';
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { Plate, PlateContent, usePlateEditor } from "platejs/react";
 
 type FormValues = {
   content: any;
@@ -100,9 +103,7 @@ export function EditorForm() {
   // 1. Create the form
   const form = useForm<FormValues>({
     defaultValues: {
-      content: [
-        { type: 'p', children: [{ text: 'Hello from shadcn/ui Form!' }] },
-      ],
+      content: [{ type: "p", children: [{ text: "Hello from shadcn/ui Form!" }] }],
     },
   });
 
@@ -110,7 +111,7 @@ export function EditorForm() {
   const editor = usePlateEditor();
 
   const onSubmit = (data: FormValues) => {
-    console.info('Submitted data:', data.content);
+    console.info("Submitted data:", data.content);
   };
 
   return (
@@ -150,6 +151,7 @@ This approach makes your editor content behave like any other field in the shadc
 ## Approach 2: Sync on Blur (or Another Trigger)
 
 Instead of syncing on every keystroke, you might only need the final value when the user:
+
 - Leaves the editor (`onBlur`),
 - Clicks a “Save” button, or
 - Reaches certain form submission logic.
@@ -159,7 +161,7 @@ Instead of syncing on every keystroke, you might only need the final value when 
   <PlateContent
     onBlur={() => {
       // Only sync on blur
-      setValue('content', editor.children);
+      setValue("content", editor.children);
     }}
   />
 </Plate>
@@ -170,10 +172,13 @@ This reduces overhead but your form state won't reflect partial updates while th
 ## Approach 3: Controlled Replacement (Advanced)
 
 If you want the form to be the single source of truth (completely [controlled](/docs/controlled)):
+
 ```ts
 editor.tf.setValue(formStateValue);
 ```
+
 But this has known drawbacks:
+
 - Potentially breaks cursor position and undo/redo.
 - Can cause frequent full re-renders for large docs.
 
@@ -184,15 +189,13 @@ But this has known drawbacks:
 Here's a more complete form demonstrating both saving and resetting the editor/form:
 
 ```tsx
-import { useForm } from 'react-hook-form';
-import { Plate, PlateContent, usePlateEditor } from 'platejs/react';
+import { useForm } from "react-hook-form";
+import { Plate, PlateContent, usePlateEditor } from "platejs/react";
 
 function MyForm() {
   const form = useForm({
     defaultValues: {
-      content: [
-        { type: 'p', children: [{ text: 'Initial content...' }] },
-      ],
+      content: [{ type: "p", children: [{ text: "Initial content..." }] }],
     },
   });
 
@@ -204,10 +207,7 @@ function MyForm() {
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Plate
-        editor={editor}
-        onChange={({ value }) => form.setValue('content', value)}
-      >
+      <Plate editor={editor} onChange={({ value }) => form.setValue("content", value)}>
         <PlateContent />
       </Plate>
 
@@ -294,8 +294,7 @@ import { Plate, PlateContent, usePlateEditor } from "platejs/react";
  *   )}
  * />
  */
-export interface EditorFieldProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface EditorFieldProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The current Plate Value. Should be an array of Plate nodes.
    */
@@ -395,10 +394,7 @@ export function EditorForm() {
             <FormItem>
               <FormLabel>Bio</FormLabel>
               <FormControl>
-                <EditorField
-                  {...field}
-                  placeholder="Tell us a bit about yourself..."
-                />
+                <EditorField {...field} placeholder="Tell us a bit about yourself..." />
               </FormControl>
               <FormDescription>
                 You can <span>@mention</span> other users and organizations.
@@ -407,7 +403,7 @@ export function EditorForm() {
             </FormItem>
           )}
         />
-        <button type="submit" className="py-2 px-4 bg-primary text-white">
+        <button type="submit" className="bg-primary px-4 py-2 text-white">
           Submit
         </button>
       </form>
@@ -422,7 +418,7 @@ export function EditorForm() {
 
 ## Best Practices
 
-1. **Use an Uncontrolled Editor**: Let Plate manage its own state, updating the form only when necessary.  
-2. **Minimize Replacements**: Avoid calling `editor.tf.setValue` too often; it can break selection, history, or degrade performance.  
-3. **Validate at the Right Time**: Decide if you need instant validation (typing) or upon blur/submit.  
+1. **Use an Uncontrolled Editor**: Let Plate manage its own state, updating the form only when necessary.
+2. **Minimize Replacements**: Avoid calling `editor.tf.setValue` too often; it can break selection, history, or degrade performance.
+3. **Validate at the Right Time**: Decide if you need instant validation (typing) or upon blur/submit.
 4. **Reset Both**: If you reset the form, call `editor.tf.reset()` to keep them in sync.

@@ -14,13 +14,13 @@ title: Forced Layout
 ## Usage
 
 ```tsx
-import { NormalizeTypesPlugin } from 'platejs';
+import { NormalizeTypesPlugin } from "platejs";
 
 const plugins = [
   // ...otherPlugins
   NormalizeTypesPlugin.configure({
     options: {
-      rules: [{ path: [0], strictType: 'h1' }],
+      rules: [{ path: [0], strictType: "h1" }],
     },
   }),
 ];
@@ -36,7 +36,7 @@ const plugins = [
 An array of rule objects for normalizing types.
 
 - **Default:** `[]`
-</APIItem>
+  </APIItem>
 </APIOptions>
 
 <APIOptions type="Rule">

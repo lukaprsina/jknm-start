@@ -37,8 +37,8 @@ The fastest way to add slash command functionality is with the `SlashKit`, which
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { SlashKit } from '@/components/editor/plugins/slash-kit';
+import { createPlateEditor } from "platejs/react";
+import { SlashKit } from "@/components/editor/plugins/slash-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -63,8 +63,8 @@ npm install @platejs/slash-command
 ### Add Plugins
 
 ```tsx
-import { SlashPlugin, SlashInputPlugin } from '@platejs/slash-command/react';
-import { createPlateEditor } from 'platejs/react';
+import { SlashPlugin, SlashInputPlugin } from "@platejs/slash-command/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -78,17 +78,17 @@ const editor = createPlateEditor({
 ### Configure Plugins
 
 ```tsx
-import { SlashPlugin, SlashInputPlugin } from '@platejs/slash-command/react';
-import { createPlateEditor } from 'platejs/react';
-import { SlashInputElement } from '@/components/ui/slash-node';
-import { KEYS } from 'platejs';
+import { SlashPlugin, SlashInputPlugin } from "@platejs/slash-command/react";
+import { createPlateEditor } from "platejs/react";
+import { SlashInputElement } from "@/components/ui/slash-node";
+import { KEYS } from "platejs";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     SlashPlugin.configure({
       options: {
-        trigger: '/',
+        trigger: "/",
         triggerPreviousCharPattern: /^\s?$/,
         triggerQuery: (editor) =>
           !editor.api.some({
@@ -118,13 +118,15 @@ How to use slash commands:
 4. Press Escape to close the menu without selecting
 
 Available options include:
+
 - Text blocks (paragraphs, headings)
 - Lists (bulleted, numbered, to-do)
 - Advanced blocks (tables, code blocks, callouts)
 - Inline elements (dates, equations)
 
 <Callout type="info">
-  Use keywords to quickly find options. For example, type '/ul' for Bulleted List or '/h1' for Heading 1.
+  Use keywords to quickly find options. For example, type '/ul' for Bulleted List or '/h1'
+  for Heading 1.
 </Callout>
 
 ## Plate Plus

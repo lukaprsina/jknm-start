@@ -2,6 +2,8 @@ after logging in, query isn't invalidated, so you see the logged out state until
 
 going from logged in to /, i get: Could not find match for from: /dashboard
 
+db size: 62 MB
+
 jknm total header count: 822
 algolia-init:
 - krajše dokumente ne lomt

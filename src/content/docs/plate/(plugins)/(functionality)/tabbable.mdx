@@ -26,8 +26,8 @@ The fastest way to add the tabbable plugin is with the `TabbableKit`, which incl
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { TabbableKit } from '@/components/editor/plugins/tabbable-kit';
+import { createPlateEditor } from "platejs/react";
+import { TabbableKit } from "@/components/editor/plugins/tabbable-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -52,8 +52,8 @@ npm install @platejs/tabbable
 ### Add Plugin
 
 ```tsx
-import { TabbablePlugin } from '@platejs/tabbable/react';
-import { createPlateEditor } from 'platejs/react';
+import { TabbablePlugin } from "@platejs/tabbable/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -66,9 +66,9 @@ const editor = createPlateEditor({
 ### Configure Plugin
 
 ```tsx
-import { TabbablePlugin } from '@platejs/tabbable/react';
-import { createPlateEditor } from 'platejs/react';
-import { KEYS } from 'platejs';
+import { TabbablePlugin } from "@platejs/tabbable/react";
+import { createPlateEditor } from "platejs/react";
+import { KEYS } from "platejs";
 
 const editor = createPlateEditor({
   plugins: [
@@ -82,8 +82,7 @@ const editor = createPlateEditor({
           return !inList && !inCodeBlock;
         },
         globalEventListener: true,
-        isTabbable: (tabbableEntry) => 
-          editor.api.isVoid(tabbableEntry.slateNode),
+        isTabbable: (tabbableEntry) => editor.api.isVoid(tabbableEntry.slateNode),
       },
     }),
   ],
@@ -171,24 +170,25 @@ insertTabbableEntries: (event) => {
 Plugin for managing tab order between tabbable elements.
 
 <API name="TabbablePlugin">
-<APIOptions>
-  <APIItem name="query" type="(event: KeyboardEvent) => boolean" optional>
-    Enable/disable plugin dynamically.
-    - **Default:** `() => true`
-  </APIItem>
-  <APIItem name="globalEventListener" type="boolean" optional>
-    Add event listener to document instead of editor.
-    - **Default:** `false`
-  </APIItem>
-  <APIItem name="insertTabbableEntries" type="(event: KeyboardEvent) => TabbableEntry[]" optional>
-    Add additional tabbable entries outside editor.
-    - **Default:** `() => []`
-  </APIItem>
-  <APIItem name="isTabbable" type="(tabbableEntry: TabbableEntry) => boolean" optional>
-    Determine if element should be tabbable.
-    - **Default:** `(tabbableEntry) => editor.api.isVoid(tabbableEntry.slateNode)`
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="query" type="(event: KeyboardEvent) => boolean" optional>
+      Enable/disable plugin dynamically. - **Default:** `() => true`
+    </APIItem>
+    <APIItem name="globalEventListener" type="boolean" optional>
+      Add event listener to document instead of editor. - **Default:** `false`
+    </APIItem>
+    <APIItem
+      name="insertTabbableEntries"
+      type="(event: KeyboardEvent) => TabbableEntry[]"
+      optional
+    >
+      Add additional tabbable entries outside editor. - **Default:** `() => []`
+    </APIItem>
+    <APIItem name="isTabbable" type="(tabbableEntry: TabbableEntry) => boolean" optional>
+      Determine if element should be tabbable. - **Default:** `(tabbableEntry) =>
+      editor.api.isVoid(tabbableEntry.slateNode)`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Types
@@ -198,15 +198,15 @@ Plugin for managing tab order between tabbable elements.
 Defines the properties of a tabbable entry.
 
 <API name="TabbableEntry">
-<APIAttributes>
-  <APIItem name="domNode" type="HTMLElement">
-    HTML element representing tabbable entry.
-  </APIItem>
-  <APIItem name="slateNode" type="TNode">
-    Corresponding Slate node.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    Path to Slate node in document.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="domNode" type="HTMLElement">
+      HTML element representing tabbable entry.
+    </APIItem>
+    <APIItem name="slateNode" type="TNode">
+      Corresponding Slate node.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      Path to Slate node in document.
+    </APIItem>
+  </APIAttributes>
 </API>

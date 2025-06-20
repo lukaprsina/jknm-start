@@ -35,8 +35,8 @@ The fastest way to add cursor overlay functionality is with the `CursorOverlayKi
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { CursorOverlayKit } from '@/components/editor/plugins/cursor-overlay-kit';
+import { createPlateEditor } from "platejs/react";
+import { CursorOverlayKit } from "@/components/editor/plugins/cursor-overlay-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -61,8 +61,8 @@ npm install @platejs/selection
 ### Add Plugin
 
 ```tsx
-import { CursorOverlayPlugin } from '@platejs/selection/react';
-import { createPlateEditor } from 'platejs/react';
+import { CursorOverlayPlugin } from "@platejs/selection/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -77,8 +77,8 @@ const editor = createPlateEditor({
 Configure the cursor overlay with a component to render overlays:
 
 ```tsx
-import { CursorOverlayPlugin } from '@platejs/selection/react';
-import { CursorOverlay } from '@/components/ui/cursor-overlay';
+import { CursorOverlayPlugin } from "@platejs/selection/react";
+import { CursorOverlay } from "@/components/ui/cursor-overlay";
 
 CursorOverlayPlugin.configure({
   render: {
@@ -96,7 +96,7 @@ The cursor overlay requires a container component to ensure correct positioning.
 For custom setups, ensure your editor is wrapped with a container that has the editor's unique ID:
 
 ```tsx
-import { PlateContainer } from 'platejs/react';
+import { PlateContainer } from "platejs/react";
 
 export function EditorContainer(props: React.HTMLAttributes<HTMLDivElement>) {
   return <PlateContainer {...props} />;
@@ -108,9 +108,7 @@ export function EditorContainer(props: React.HTMLAttributes<HTMLDivElement>) {
 To maintain the editor's selection state when focusing UI elements, add the `data-plate-focus="true"` attribute to those elements:
 
 ```tsx
-<ToolbarButton data-plate-focus="true">
-  {/* toolbar content */}
-</ToolbarButton>
+<ToolbarButton data-plate-focus="true">{/* toolbar content */}</ToolbarButton>
 ```
 
 This prevents the cursor overlay from disappearing when interacting with toolbar buttons or other UI elements.
@@ -124,12 +122,11 @@ This prevents the cursor overlay from disappearing when interacting with toolbar
 Plugin that manages cursor and selection overlays for visual feedback.
 
 <API name="CursorOverlayPlugin">
-<APIOptions>
-  <APIItem name="cursors" type="Record<string, CursorState<CursorData>>">
-    Object containing cursor states with their unique identifiers.
-    - **Default:** `{}`
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="cursors" type="Record<string, CursorState<CursorData>>">
+      Object containing cursor states with their unique identifiers. - **Default:** `{}`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## API
@@ -139,14 +136,14 @@ Plugin that manages cursor and selection overlays for visual feedback.
 Adds a cursor overlay with the specified key and state.
 
 <API name="addCursor">
-<APIParameters>
-  <APIItem name="key" type="string">
-    Unique identifier for the cursor (e.g., 'blur', 'drag', 'custom').
-  </APIItem>
-  <APIItem name="cursor" type="CursorState<CursorData>">
-    The cursor state including selection and optional styling data.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="key" type="string">
+      Unique identifier for the cursor (e.g., 'blur', 'drag', 'custom').
+    </APIItem>
+    <APIItem name="cursor" type="CursorState<CursorData>">
+      The cursor state including selection and optional styling data.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `api.cursorOverlay.removeCursor`
@@ -154,11 +151,11 @@ Adds a cursor overlay with the specified key and state.
 Removes a cursor overlay by its key.
 
 <API name="removeCursor">
-<APIParameters>
-  <APIItem name="key" type="string">
-    The key of the cursor to remove.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="key" type="string">
+      The key of the cursor to remove.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## Hooks

@@ -5,8 +5,8 @@ description: How to set up Plate UI in your project.
 
 This guide details how to install Plate UI, the component layer for Plate. Choose the method that suits your project:
 
-*   **CLI Installation (Recommended):** Quick setup using the shadcn CLI.
-*   **Manual Installation:** For more control over the setup process.
+- **CLI Installation (Recommended):** Quick setup using the shadcn CLI.
+- **Manual Installation:** For more control over the setup process.
 
 ## CLI Installation (Recommended)
 
@@ -17,19 +17,21 @@ This is the fastest way to integrate Plate UI's core dependencies and base style
 ### Install Plate UI
 
 <Callout type="info">
-  If you are not using Next.js, refer to the official [shadcn/ui installation guides](https://ui.shadcn.com/docs/installation) for your specific framework before proceeding.
+  If you are not using Next.js, refer to the official [shadcn/ui installation
+  guides](https://ui.shadcn.com/docs/installation) for your specific framework before
+  proceeding.
 </Callout>
 
 ```bash
 npx shadcn@latest add https://platejs.org/r/plate-ui
 ```
 
-### Basic Usage 
+### Basic Usage
 
 With Plate UI's core installed, proceed to the guide specific to your framework:
 
-*   **[Next.js Guide](./next)** - For server-side rendered applications (Next, Remix, etc.)
-*   **[React Guide](./react)** - For single-page applications (Vite, React Router, etc.)
+- **[Next.js Guide](./next)** - For server-side rendered applications (Next, Remix, etc.)
+- **[React Guide](./react)** - For single-page applications (Vite, React Router, etc.)
 
 </Steps>
 
@@ -46,7 +48,10 @@ npm install platejs
 ```
 
 <Callout type="note" title="Plugin Dependencies">
-  When manually installing Plate, you'll need to add the specific packages for each plugin you want to use. For example, if you want to use the `AIMenu` component, you would need `@platejs/ai` and its dependencies. Check each component's documentation for its required packages, or use the CLI to automatically install the required packages.
+  When manually installing Plate, you'll need to add the specific packages for each plugin
+  you want to use. For example, if you want to use the `AIMenu` component, you would need
+  `@platejs/ai` and its dependencies. Check each component's documentation for its
+  required packages, or use the CLI to automatically install the required packages.
 </Callout>
 
 ### Configure CSS Variables
@@ -85,7 +90,9 @@ export function MyEditor() {
   return (
     <Plate editor={editor}>
       <FixedToolbar>
-        <MarkToolbarButton nodeType="bold" tooltip="Bold">B</MarkToolbarButton>
+        <MarkToolbarButton nodeType="bold" tooltip="Bold">
+          B
+        </MarkToolbarButton>
         {/* ... other toolbar buttons ... */}
       </FixedToolbar>
       {/* ... Editor component ... */}
@@ -96,12 +103,12 @@ export function MyEditor() {
 
 Explore the available [UI Components](/docs/components) and [Plugin Components](/docs/plugin-components) to customize your editor nodes (like paragraphs, headings, etc.) and build a feature-rich editing experience.
 
-### Basic Usage 
+### Basic Usage
 
 With Plate UI's core installed, proceed to the guide specific to your framework:
 
-*   **[Next.js Guide](./next)** - For server-side rendered applications (Next, Remix, etc.)
-*   **[React Guide](./react)** - For single-page applications (Vite, React Router, etc.)
+- **[Next.js Guide](./next)** - For server-side rendered applications (Next, Remix, etc.)
+- **[React Guide](./react)** - For single-page applications (Vite, React Router, etc.)
 
 </Steps>
 
@@ -122,7 +129,9 @@ npx shadcn@latest add https://platejs.org/r/dnd-kit
 ```
 
 <Callout type="note">
-  When in doubt about what individual components you need, start with a feature kit. It's designed to provide a working feature out-of-the-box. You can always customize or remove parts later.
+  When in doubt about what individual components you need, start with a feature kit. It's
+  designed to provide a working feature out-of-the-box. You can always customize or remove
+  parts later.
 </Callout>
 
 ### Components

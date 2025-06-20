@@ -38,8 +38,8 @@ The fastest way to add Copilot functionality is with the `CopilotKit`, which inc
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { CopilotKit } from '@/components/editor/plugins/copilot-kit';
+import { createPlateEditor } from "platejs/react";
+import { CopilotKit } from "@/components/editor/plugins/copilot-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -83,9 +83,9 @@ npm install @platejs/ai @platejs/markdown
 ### Add Plugins
 
 ```tsx
-import { CopilotPlugin } from '@platejs/ai/react';
-import { MarkdownPlugin } from '@platejs/markdown';
-import { createPlateEditor } from 'platejs/react';
+import { CopilotPlugin } from "@platejs/ai/react";
+import { MarkdownPlugin } from "@platejs/markdown";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -107,9 +107,9 @@ const editor = createPlateEditor({
 ### Configure Plugins
 
 ```tsx
-import { CopilotPlugin } from '@platejs/ai/react';
-import { serializeMd, stripMarkdown } from '@platejs/markdown';
-import { GhostText } from '@/components/ui/ghost-text';
+import { CopilotPlugin } from "@platejs/ai/react";
+import { serializeMd, stripMarkdown } from "@platejs/markdown";
+import { GhostText } from "@/components/ui/ghost-text";
 
 const plugins = [
   // ...otherPlugins,
@@ -121,15 +121,15 @@ const plugins = [
   CopilotPlugin.configure(({ api }) => ({
     options: {
       completeOptions: {
-        api: '/api/ai/copilot',
+        api: "/api/ai/copilot",
         onError: () => {
           // Mock the API response. Remove when you implement the route /api/ai/copilot
           api.copilot.setBlockSuggestion({
-            text: stripMarkdown('This is a mock suggestion.'),
+            text: stripMarkdown("This is a mock suggestion."),
           });
         },
         onFinish: (_, completion) => {
-          if (completion === '0') return;
+          if (completion === "0") return;
 
           api.copilot.setBlockSuggestion({
             text: stripMarkdown(completion),
@@ -140,10 +140,10 @@ const plugins = [
       renderGhostText: GhostText,
     },
     shortcuts: {
-      accept: { keys: 'tab' },
-      acceptNextWord: { keys: 'mod+right' },
-      reject: { keys: 'escape' },
-      triggerSuggestion: { keys: 'ctrl+space' },
+      accept: { keys: "tab" },
+      acceptNextWord: { keys: "mod+right" },
+      reject: { keys: "escape" },
+      triggerSuggestion: { keys: "ctrl+space" },
     },
   })),
 ];
@@ -162,27 +162,19 @@ const plugins = [
 Create an API route handler at `app/api/ai/copilot/route.ts` to process AI requests. This endpoint will receive the prompt from the editor and call the AI model.
 
 ```tsx title="app/api/ai/copilot/route.ts"
-import type { NextRequest } from 'next/server';
+import type { NextRequest } from "next/server";
 
-import { createOpenAI } from '@ai-sdk/openai';
-import { generateText } from 'ai';
-import { NextResponse } from 'next/server';
+import { createOpenAI } from "@ai-sdk/openai";
+import { generateText } from "ai";
+import { NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
-  const {
-    apiKey: key,
-    model = 'gpt-4o-mini',
-    prompt,
-    system,
-  } = await req.json();
+  const { apiKey: key, model = "gpt-4o-mini", prompt, system } = await req.json();
 
   const apiKey = key || process.env.OPENAI_API_KEY;
 
   if (!apiKey) {
-    return NextResponse.json(
-      { error: 'Missing OpenAI API key.' },
-      { status: 401 }
-    );
+    return NextResponse.json({ error: "Missing OpenAI API key." }, { status: 401 });
   }
 
   const openai = createOpenAI({ apiKey });
@@ -199,14 +191,11 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(result);
   } catch (error) {
-    if (error instanceof Error && error.name === 'AbortError') {
+    if (error instanceof Error && error.name === "AbortError") {
       return NextResponse.json(null, { status: 408 });
     }
 
-    return NextResponse.json(
-      { error: 'Failed to process AI request' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Failed to process AI request" }, { status: 500 });
   }
 }
 ```
@@ -272,8 +261,6 @@ ${prompt}
 
 </Steps>
 
-
-
 ## Plate Plus
 
 <ComponentPreviewPro name="copilot-pro" />
@@ -285,24 +272,19 @@ ${prompt}
 Configure different AI models and providers in your API route:
 
 ```tsx title="app/api/ai/copilot/route.ts"
-import { createOpenAI } from '@ai-sdk/openai';
-import { createAnthropic } from '@ai-sdk/anthropic';
+import { createOpenAI } from "@ai-sdk/openai";
+import { createAnthropic } from "@ai-sdk/anthropic";
 
 export async function POST(req: NextRequest) {
-  const { 
-    model = 'gpt-4o-mini', 
-    provider = 'openai',
-    prompt,
-    system 
-  } = await req.json();
+  const { model = "gpt-4o-mini", provider = "openai", prompt, system } = await req.json();
 
   let aiProvider;
-  
+
   switch (provider) {
-    case 'anthropic':
+    case "anthropic":
       aiProvider = createAnthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
       break;
-    case 'openai':
+    case "openai":
     default:
       aiProvider = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
       break;
@@ -351,19 +333,19 @@ CopilotPlugin.configure(({ api }) => ({
       // Only trigger in paragraph blocks
       const block = editor.api.block();
       if (!block || block[0].type !== 'p') return false;
-      
+
       // Standard checks
-      return editor.selection && 
-             !editor.api.isExpanded() && 
+      return editor.selection &&
+             !editor.api.isExpanded() &&
              editor.api.isAtEnd();
     },
     autoTriggerQuery: ({ editor }) => {
       // Custom conditions for auto-triggering
       const block = editor.api.block();
       if (!block) return false;
-      
+
       const text = editor.api.string(block[0]);
-      
+
       // Trigger after question words
       return /\b(what|how|why|when|where)\s*$/i.test(text);
     },
@@ -382,7 +364,7 @@ export async function POST(req: NextRequest) {
 
   // Validate prompt length
   if (!prompt || prompt.length > 1000) {
-    return NextResponse.json({ error: 'Invalid prompt' }, { status: 400 });
+    return NextResponse.json({ error: "Invalid prompt" }, { status: 400 });
   }
 
   // Rate limiting (implement with your preferred solution)
@@ -390,7 +372,7 @@ export async function POST(req: NextRequest) {
 
   // Content filtering for sensitive content
   if (containsSensitiveContent(prompt)) {
-    return NextResponse.json({ error: 'Content filtered' }, { status: 400 });
+    return NextResponse.json({ error: "Content filtered" }, { status: 400 });
   }
 
   // Process AI request...
@@ -398,6 +380,7 @@ export async function POST(req: NextRequest) {
 ```
 
 **Security Guidelines:**
+
 - **Input Validation**: Limit prompt length and validate content
 - **Rate Limiting**: Prevent abuse with request limits
 - **Content Filtering**: Filter sensitive or inappropriate content
@@ -411,38 +394,49 @@ export async function POST(req: NextRequest) {
 Plugin for AI-powered text completion suggestions.
 
 <API name="CopilotPlugin">
-<APIOptions>
-  <APIItem name="autoTriggerQuery" type="(options: { editor: PlateEditor }) => boolean" optional>
-    Additional conditions to auto trigger copilot.
-    - **Default:** Checks:
-      - Block above is not empty
-      - Block above ends with a space
-      - No existing suggestion
-  </APIItem>
-  <APIItem name="completeOptions" type="Partial<CompleteOptions>">
-    AI completion configuration options. See [AI SDK useCompletion Parameters](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-completion#parameters).
-  </APIItem>
-  <APIItem name="debounceDelay" type="number" optional>
-    Delay for debouncing auto-triggered suggestions.
-    - **Default:** `0`
-  </APIItem>
-  <APIItem name="getNextWord" type="(options: { text: string }) => { firstWord: string; remainingText: string }" optional>
-    Function to extract the next word from suggestion text.
-  </APIItem>
-  <APIItem name="getPrompt" type="(options: { editor: PlateEditor }) => string" optional>
-    Function to generate the prompt for AI completion.
-    - **Default:** Uses markdown serialization of ancestor node
-  </APIItem>
-  <APIItem name="renderGhostText" type="(() => React.ReactNode) | null" optional>
-    Component to render ghost text suggestions.
-  </APIItem>
-  <APIItem name="triggerQuery" type="(options: { editor: PlateEditor }) => boolean" optional>
-    Conditions to trigger copilot.
-    - **Default:** Checks:
-      - Selection is not expanded
-      - Selection is at block end
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem
+      name="autoTriggerQuery"
+      type="(options: { editor: PlateEditor }) => boolean"
+      optional
+    >
+      Additional conditions to auto trigger copilot. - **Default:** Checks: - Block above
+      is not empty - Block above ends with a space - No existing suggestion
+    </APIItem>
+    <APIItem name="completeOptions" type="Partial<CompleteOptions>">
+      AI completion configuration options. See [AI SDK useCompletion
+      Parameters](https://sdk.vercel.ai/docs/reference/ai-sdk-ui/use-completion#parameters).
+    </APIItem>
+    <APIItem name="debounceDelay" type="number" optional>
+      Delay for debouncing auto-triggered suggestions. - **Default:** `0`
+    </APIItem>
+    <APIItem
+      name="getNextWord"
+      type="(options: { text: string }) => { firstWord: string; remainingText: string }"
+      optional
+    >
+      Function to extract the next word from suggestion text.
+    </APIItem>
+    <APIItem
+      name="getPrompt"
+      type="(options: { editor: PlateEditor }) => string"
+      optional
+    >
+      Function to generate the prompt for AI completion. - **Default:** Uses markdown
+      serialization of ancestor node
+    </APIItem>
+    <APIItem name="renderGhostText" type="(() => React.ReactNode) | null" optional>
+      Component to render ghost text suggestions.
+    </APIItem>
+    <APIItem
+      name="triggerQuery"
+      type="(options: { editor: PlateEditor }) => boolean"
+      optional
+    >
+      Conditions to trigger copilot. - **Default:** Checks: - Selection is not expanded -
+      Selection is at block end
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Transforms

@@ -35,8 +35,8 @@ The fastest way to add text alignment functionality is with the `AlignKit`, whic
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { AlignKit } from '@/components/editor/plugins/align-kit';
+import { createPlateEditor } from "platejs/react";
+import { AlignKit } from "@/components/editor/plugins/align-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -63,8 +63,8 @@ npm install @platejs/basic-styles
 Include `TextAlignPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { TextAlignPlugin } from '@platejs/basic-styles/react';
-import { createPlateEditor } from 'platejs/react';
+import { TextAlignPlugin } from "@platejs/basic-styles/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -79,9 +79,9 @@ const editor = createPlateEditor({
 You can configure the `TextAlignPlugin` to target specific elements and define alignment options.
 
 ```tsx
-import { TextAlignPlugin } from '@platejs/basic-styles/react';
-import { KEYS } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
+import { TextAlignPlugin } from "@platejs/basic-styles/react";
+import { KEYS } from "platejs";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -89,10 +89,10 @@ const editor = createPlateEditor({
     TextAlignPlugin.configure({
       inject: {
         nodeProps: {
-          nodeKey: 'align',
-          defaultNodeValue: 'start',
-          styleKey: 'textAlign',
-          validNodeValues: ['start', 'left', 'center', 'right', 'end', 'justify'],
+          nodeKey: "align",
+          defaultNodeValue: "start",
+          styleKey: "textAlign",
+          validNodeValues: ["start", "left", "center", "right", "end", "justify"],
         },
         targetPlugins: [...KEYS.heading, KEYS.p],
       },
@@ -120,28 +120,24 @@ You can add [`AlignToolbarButton`](/docs/components/align-toolbar-button) to you
 Plugin for aligning text within block elements. It injects an `align` prop into the elements specified by `inject.targetPlugins`.
 
 <API name="TextAlignPlugin">
-<APIOptions type="object">
-  <APIItem name="inject.nodeProps.nodeKey" type="string" optional>
-    The property name injected into target elements.
-    - **Default:** `'align'`
-  </APIItem>
-  <APIItem name="inject.nodeProps.defaultNodeValue" type="string" optional>
-    Default text alignment value.
-    - **Default:** `'start'`
-  </APIItem>
-  <APIItem name="inject.nodeProps.styleKey" type="string" optional>
-    CSS property name for styling.
-    - **Default:** `'textAlign'`
-  </APIItem>
-  <APIItem name="inject.nodeProps.validNodeValues" type="string[]" optional>
-    Array of valid alignment values.
-    - **Default:** `['start', 'left', 'center', 'right', 'end', 'justify']`
-  </APIItem>
-  <APIItem name="inject.targetPlugins" type="string[]" optional>
-    Array of plugin keys to target for alignment injection.
-    - **Default:** `['p']`
-  </APIItem>
-</APIOptions>
+  <APIOptions type="object">
+    <APIItem name="inject.nodeProps.nodeKey" type="string" optional>
+      The property name injected into target elements. - **Default:** `'align'`
+    </APIItem>
+    <APIItem name="inject.nodeProps.defaultNodeValue" type="string" optional>
+      Default text alignment value. - **Default:** `'start'`
+    </APIItem>
+    <APIItem name="inject.nodeProps.styleKey" type="string" optional>
+      CSS property name for styling. - **Default:** `'textAlign'`
+    </APIItem>
+    <APIItem name="inject.nodeProps.validNodeValues" type="string[]" optional>
+      Array of valid alignment values. - **Default:** `['start', 'left', 'center',
+      'right', 'end', 'justify']`
+    </APIItem>
+    <APIItem name="inject.targetPlugins" type="string[]" optional>
+      Array of plugin keys to target for alignment injection. - **Default:** `['p']`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Transforms
@@ -151,12 +147,12 @@ Plugin for aligning text within block elements. It injects an `align` prop into 
 Sets the alignment for the selected block nodes that are configured as targets for this plugin.
 
 <API name="tf.textAlign.setNodes">
-<APIParameters>
-<APIItem name="value" type="string">
-The alignment value (e.g., `'left'`, `'center'`, `'right'`, `'justify'`).
-</APIItem>
-<APIItem name="options" type="SetNodesOptions" optional>
-Options for the `setNodes` function.
-</APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The alignment value (e.g., `'left'`, `'center'`, `'right'`, `'justify'`).
+    </APIItem>
+    <APIItem name="options" type="SetNodesOptions" optional>
+      Options for the `setNodes` function.
+    </APIItem>
+  </APIParameters>
 </API>

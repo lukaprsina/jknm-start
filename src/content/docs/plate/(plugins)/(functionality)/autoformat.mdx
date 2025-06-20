@@ -40,8 +40,8 @@ The fastest way to add autoformatting is with the `AutoformatKit`, which include
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { AutoformatKit } from '@/components/editor/plugins/autoformat-kit';
+import { createPlateEditor } from "platejs/react";
+import { AutoformatKit } from "@/components/editor/plugins/autoformat-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -66,8 +66,8 @@ npm install @platejs/autoformat
 ### Add Plugin
 
 ```tsx
-import { AutoformatPlugin } from '@platejs/autoformat';
-import { createPlateEditor } from 'platejs/react';
+import { AutoformatPlugin } from "@platejs/autoformat";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -82,32 +82,32 @@ const editor = createPlateEditor({
 Configure autoformat with custom rules:
 
 ```tsx
-import { AutoformatPlugin } from '@platejs/autoformat';
+import { AutoformatPlugin } from "@platejs/autoformat";
 
 AutoformatPlugin.configure({
   options: {
     rules: [
       // Block rules
       {
-        match: '# ',
-        mode: 'block',
-        type: 'h1',
+        match: "# ",
+        mode: "block",
+        type: "h1",
       },
       {
-        match: '> ',
-        mode: 'block',
-        type: 'blockquote',
+        match: "> ",
+        mode: "block",
+        type: "blockquote",
       },
       // Mark rules
       {
-        match: '**',
-        mode: 'mark',
-        type: 'bold',
+        match: "**",
+        mode: "mark",
+        type: "bold",
       },
       {
-        match: '*',
-        mode: 'mark',
-        type: 'italic',
+        match: "*",
+        mode: "mark",
+        type: "italic",
       },
     ],
     enableUndoOnDelete: true,
@@ -120,14 +120,14 @@ AutoformatPlugin.configure({
 Import predefined rule sets for comprehensive autoformatting:
 
 ```tsx
-import { AutoformatPlugin } from '@platejs/autoformat';
+import { AutoformatPlugin } from "@platejs/autoformat";
 import {
   autoformatArrow,
   autoformatLegal,
   autoformatMath,
   autoformatPunctuation,
   autoformatSmartQuotes,
-} from '@platejs/autoformat';
+} from "@platejs/autoformat";
 
 AutoformatPlugin.configure({
   options: {
@@ -135,9 +135,9 @@ AutoformatPlugin.configure({
     rules: [
       // Custom block rules
       {
-        match: '# ',
-        mode: 'block',
-        type: 'h1',
+        match: "# ",
+        mode: "block",
+        type: "h1",
       },
       // Predefined rule sets
       ...autoformatSmartQuotes,
@@ -150,7 +150,7 @@ AutoformatPlugin.configure({
       // Disable autoformat in code blocks
       query: (editor) =>
         !editor.api.some({
-          match: { type: 'code_block' },
+          match: { type: "code_block" },
         }),
     })),
   },
@@ -166,8 +166,8 @@ AutoformatPlugin.configure({
 For more complex matching patterns, you can use regular expressions:
 
 ```tsx
-import { AutoformatPlugin } from '@platejs/autoformat';
-import { toggleList } from '@platejs/list';
+import { AutoformatPlugin } from "@platejs/autoformat";
+import { toggleList } from "@platejs/list";
 
 AutoformatPlugin.configure({
   options: {
@@ -175,13 +175,13 @@ AutoformatPlugin.configure({
       {
         match: [String.raw`^\d+\.$ `, String.raw`^\d+\)$ `],
         matchByRegex: true,
-        mode: 'block',
-        type: 'list',
+        mode: "block",
+        type: "list",
         format: (editor, { matchString }) => {
           const number = Number(matchString.match(/\d+/)?.[0]) || 1;
           toggleList(editor, {
             listRestartPolite: number,
-            listStyleType: 'ol',
+            listStyleType: "ol",
           });
         },
       },
@@ -202,16 +202,16 @@ AutoformatPlugin.configure({
 Plugin for automatic text formatting based on typing patterns.
 
 <API name="AutoformatPlugin">
-<APIOptions>
-  <APIItem name="rules" type="AutoformatRule[]" optional>
-    A list of triggering rules. Can be one of: `AutoformatBlockRule`, `AutoformatMarkRule`, `AutoformatTextRule`. Each extends `AutoformatCommonRule`.
-    - **Default:** `[]`
-  </APIItem>
-  <APIItem name="enableUndoOnDelete" type="boolean" optional>
-    Enable undo on delete to reverse autoformatting.
-    - **Default:** `false`
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="rules" type="AutoformatRule[]" optional>
+      A list of triggering rules. Can be one of: `AutoformatBlockRule`,
+      `AutoformatMarkRule`, `AutoformatTextRule`. Each extends `AutoformatCommonRule`. -
+      **Default:** `[]`
+    </APIItem>
+    <APIItem name="enableUndoOnDelete" type="boolean" optional>
+      Enable undo on delete to reverse autoformatting. - **Default:** `false`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Predefined Rules
@@ -237,7 +237,7 @@ You can import the following predefined rule sets:
 |                                | Converts `&reg;` to `®`.            |
 |                                | Converts `&copy;` to `©`.           |
 |                                | Converts `&sect;` to `§`.            |
-| `autoformatComparison`         | Converts `!>` to `≯`.               |
+| `autoformatComparison`         | Converts `!>` to `≯`.                |
 |                                | Converts `!<` to `≮`.                |
 |                                | Converts `>=` to `≥`.                |
 |                                | Converts `<=` to `≤`.                |
@@ -255,7 +255,7 @@ You can import the following predefined rule sets:
 | `autoformatDivision`           | Converts `//` to `÷`.                |
 | `autoformatOperation`          | Converts `+-` to `±`.                |
 |                                | Converts `%%` to `‰`.                |
-|                                | Converts `%%%` and `‰%` to `‱`.       |
+|                                | Converts `%%%` and `‰%` to `‱`.      |
 |                                | `autoformatDivision` rules.          |
 | `autoformatSubscriptNumbers`   | Converts `~0` to `₀`.                |
 |                                | Converts `~1` to `₁`.                |
@@ -292,11 +292,11 @@ An interface for the common structure of autoformat rules, regardless of their m
 >
   The rule applies when the trigger and the text just before the cursor matches.
 
-  - For `mode: 'block'`: lookup for the end match(es) before the cursor.
-  - For `mode: 'text'`: lookup for the end match(es) before the cursor. If `format` is an array, also lookup for the start match(es).
-  - For `mode: 'mark'`: lookup for the start and end matches.
-  - Note: `'_*'`, `['_*']` and `{ start: '_*', end: '*_' }` are equivalent.
-  - `MatchRange`:
+- For `mode: 'block'`: lookup for the end match(es) before the cursor.
+- For `mode: 'text'`: lookup for the end match(es) before the cursor. If `format` is an array, also lookup for the start match(es).
+- For `mode: 'mark'`: lookup for the start and end matches.
+- Note: `'_*'`, `['_*']` and `{ start: '_*', end: '*_' }` are equivalent.
+- `MatchRange`:
 
   <APISubList>
     <APISubListItem parent="match" name="start" type="string">
@@ -335,31 +335,29 @@ An interface for the common structure of autoformat rules, regardless of their m
 An interface for autoformat rules for block mode.
 
 <API name="AutoformatBlockRule">
-<APIAttributes>
-  <APIItem name="mode" type="'block'">
-    Block mode: set block type or custom format.
-  </APIItem>
-  <APIItem name="match" type="string | string[]">
-    Pattern to match for the autoformat rule.
-  </APIItem>
-  <APIItem name="type" type="string" optional>
-    For `mode: 'block'`: set block type. If `format` is defined, this field is ignored.
-  </APIItem>
-  <APIItem name="triggerAtBlockStart" type="boolean" optional>
-    Whether trigger should be at block start.
-    - **Default:** `true`
-  </APIItem>
-  <APIItem name="allowSameTypeAbove" type="boolean" optional>
-    Whether to allow autoformat with same block type above.
-    - **Default:** `false`
-  </APIItem>
-  <APIItem name="preFormat" type="(editor: PlateEditor) => void" optional>
-    Function called before `format`. Used to reset selected block.
-  </APIItem>
-  <APIItem name="format" type="(editor: PlateEditor) => void" optional>
-    Custom formatting function.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="mode" type="'block'">
+      Block mode: set block type or custom format.
+    </APIItem>
+    <APIItem name="match" type="string | string[]">
+      Pattern to match for the autoformat rule.
+    </APIItem>
+    <APIItem name="type" type="string" optional>
+      For `mode: 'block'`: set block type. If `format` is defined, this field is ignored.
+    </APIItem>
+    <APIItem name="triggerAtBlockStart" type="boolean" optional>
+      Whether trigger should be at block start. - **Default:** `true`
+    </APIItem>
+    <APIItem name="allowSameTypeAbove" type="boolean" optional>
+      Whether to allow autoformat with same block type above. - **Default:** `false`
+    </APIItem>
+    <APIItem name="preFormat" type="(editor: PlateEditor) => void" optional>
+      Function called before `format`. Used to reset selected block.
+    </APIItem>
+    <APIItem name="format" type="(editor: PlateEditor) => void" optional>
+      Custom formatting function.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `AutoformatMarkRule`
@@ -367,17 +365,17 @@ An interface for autoformat rules for block mode.
 An interface for autoformat rules for mark mode.
 
 <API name="AutoformatMarkRule">
-<APIAttributes>
-  <APIItem name="mode" type="'mark'">
-    Mark mode: insert mark(s) between matches.
-  </APIItem>
-  <APIItem name="type" type="string | string[]">
-    Mark(s) to add.
-  </APIItem>
-  <APIItem name="ignoreTrim" type="boolean" optional>
-    Whether to format when string can be trimmed.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="mode" type="'mark'">
+      Mark mode: insert mark(s) between matches.
+    </APIItem>
+    <APIItem name="type" type="string | string[]">
+      Mark(s) to add.
+    </APIItem>
+    <APIItem name="ignoreTrim" type="boolean" optional>
+      Whether to format when string can be trimmed.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `AutoformatTextRule`
@@ -385,15 +383,18 @@ An interface for autoformat rules for mark mode.
 An interface for autoformat rules for text mode.
 
 <API name="AutoformatTextRule">
-<APIParameters>
-  <APIItem name="mode" type="'text'">
-    Text mode: insert text.
-  </APIItem>
-  <APIItem name="match" type="string | string[]">
-    Pattern to match for the autoformat rule.
-  </APIItem>
-  <APIItem name="format" type="string | string[] | ((editor: PlateEditor, options: GetMatchPointsReturnType) => void)">
-    Text replacement or formatting function.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="mode" type="'text'">
+      Text mode: insert text.
+    </APIItem>
+    <APIItem name="match" type="string | string[]">
+      Pattern to match for the autoformat rule.
+    </APIItem>
+    <APIItem
+      name="format"
+      type="string | string[] | ((editor: PlateEditor, options: GetMatchPointsReturnType) => void)"
+    >
+      Text replacement or formatting function.
+    </APIItem>
+  </APIParameters>
 </API>

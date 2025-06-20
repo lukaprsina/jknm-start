@@ -23,8 +23,8 @@ title: Single Block
 ### Add Plugins
 
 ```tsx
-import { SingleLinePlugin, SingleBlockPlugin } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
+import { SingleLinePlugin, SingleBlockPlugin } from "platejs";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -45,6 +45,7 @@ const editor = createPlateEditor({
 Plugin that restricts editor content to a single line of text by removing all line breaks and merging multiple blocks.
 
 **Key behaviors:**
+
 - Prevents `insertBreak` and `insertSoftBreak` operations
 - Filters out line break characters
 - Merges multiple blocks into the first block without separators
@@ -54,6 +55,7 @@ Plugin that restricts editor content to a single line of text by removing all li
 Plugin that restricts editor content to a single block while preserving line breaks.
 
 **Key behaviors:**
+
 - Converts `insertBreak` to `insertSoftBreak`
 - Merges multiple blocks into the first block with `\n` separators
 - Preserves existing line break characters in text content

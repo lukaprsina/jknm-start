@@ -39,8 +39,8 @@ The fastest way to add list functionality is with the `ListKit`, which includes 
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { ListKit } from '@/components/editor/plugins/list-kit';
+import { createPlateEditor } from "platejs/react";
+import { ListKit } from "@/components/editor/plugins/list-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -99,9 +99,9 @@ npm install @platejs/list @platejs/indent
 Include both `IndentPlugin` and `ListPlugin` in your Plate plugins array when creating the editor. The List plugin depends on the Indent plugin.
 
 ```tsx
-import { IndentPlugin } from '@platejs/indent/react';
-import { ListPlugin } from '@platejs/list/react';
-import { createPlateEditor } from 'platejs/react';
+import { IndentPlugin } from "@platejs/indent/react";
+import { ListPlugin } from "@platejs/list/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -117,11 +117,11 @@ const editor = createPlateEditor({
 You can configure both plugins to target specific elements and customize list behavior.
 
 ```tsx
-import { IndentPlugin } from '@platejs/indent/react';
-import { ListPlugin } from '@platejs/list/react';
-import { KEYS } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
-import { BlockList } from '@/components/ui/block-list';
+import { IndentPlugin } from "@platejs/indent/react";
+import { ListPlugin } from "@platejs/list/react";
+import { KEYS } from "platejs";
+import { createPlateEditor } from "platejs/react";
+import { BlockList } from "@/components/ui/block-list";
 
 const editor = createPlateEditor({
   plugins: [
@@ -155,14 +155,18 @@ const editor = createPlateEditor({
 Plugin for creating and managing lists. It works with the [Indent plugin](/docs/indent) to provide flexible list functionality where any block can be transformed into a list item through indentation.
 
 <API name="ListPlugin">
-<APIOptions>
-  <APIItem name="getSiblingListOptions" type="GetSiblingListOptions<TElement>" optional>
-    Function to determine indent list options for sibling elements.
-  </APIItem>
-  <APIItem name="getListStyleType" type="(element: HTMLElement) => ListStyleType" optional>
-    Function mapping HTML elements to list style types.
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="getSiblingListOptions" type="GetSiblingListOptions<TElement>" optional>
+      Function to determine indent list options for sibling elements.
+    </APIItem>
+    <APIItem
+      name="getListStyleType"
+      type="(element: HTMLElement) => ListStyleType"
+      optional
+    >
+      Function mapping HTML elements to list style types.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## API
@@ -210,12 +214,11 @@ Gets the previous sibling entry with an indent list.
 Increases the indentation of the selected blocks.
 
 <API name="indentList">
-<APIOptions type="ListOptions">
-  <APIItem name="listStyleType" type="ListStyleType | string" optional>
-    List style type to use.
-    - **Default:** `ListStyleType.Disc`
-  </APIItem>
-</APIOptions>
+  <APIOptions type="ListOptions">
+    <APIItem name="listStyleType" type="ListStyleType | string" optional>
+      List style type to use. - **Default:** `ListStyleType.Disc`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `outdentList`
@@ -223,12 +226,11 @@ Increases the indentation of the selected blocks.
 Decreases the indentation of the selected blocks.
 
 <API name="outdentList">
-<APIOptions type="ListOptions">
-  <APIItem name="listStyleType" type="ListStyleType | string" optional>
-    List style type to use.
-    - **Default:** `ListStyleType.Disc`
-  </APIItem>
-</APIOptions>
+  <APIOptions type="ListOptions">
+    <APIItem name="listStyleType" type="ListStyleType | string" optional>
+      List style type to use. - **Default:** `ListStyleType.Disc`
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `someList`
@@ -236,11 +238,11 @@ Decreases the indentation of the selected blocks.
 Checks if some of the selected blocks have a specific list style type.
 
 <API name="someList">
-<APIParameters>
-  <APIItem name="type" type="string | string[]">
-    List style type to check.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="type" type="string | string[]">
+      List style type to check.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `toggleList`
@@ -253,9 +255,9 @@ Toggles the indent list.
     List style type to use.
   </APIItem>
 
-  <APIItem name="listRestart" type="number" optional>
-    Override the number of the list item.
-  </APIItem>
+<APIItem name="listRestart" type="number" optional>
+  Override the number of the list item.
+</APIItem>
 
   <APIItem name="listRestartPolite" type="number" optional>
     Override the number of the list item, only taking effect if the list item is the first in the list.
@@ -270,38 +272,38 @@ Toggles the indent list.
 Used to provide options for getting the sibling indent list in a block of text.
 
 <API name="GetSiblingListOptions">
-<APIOptions>
-  <APIItem name="getPreviousEntry" type="function">
-    This function is used to get the previous sibling entry from a given entry.
-  </APIItem>
-  <APIItem name="getNextEntry" type="function">
-    This function is used to get the next sibling entry from a given entry.
-  </APIItem>
-  <APIItem name="query" type="function">
-    This function is used to validate a sibling node during the lookup process.
-    If it returns false, the next sibling is checked.
-  </APIItem>
-  <APIItem name="eqIndent" type="boolean">
-    Indicates whether to break the lookup when the sibling node has an indent
-    level equal to the current node. If true, the lookup stops when a sibling
-    node with the same indent level is found.
-  </APIItem>
-  <APIItem name="breakQuery" type="(node: TNode) => boolean | undefined">
-    A function that takes a `TNode` and returns a boolean value or undefined.
-    This function is used to specify a condition under which the lookup process
-    should be stopped.
-  </APIItem>
-  <APIItem name="breakOnLowerIndent" type="boolean">
-    Indicates whether to break the lookup when a sibling node with a lower
-    indent level is found. If true, the lookup stops when a sibling node with a
-    lower indent level is found.
-  </APIItem>
-  <APIItem name="breakOnEqIndentNeqListStyleType" type="boolean">
-    Indicates whether to break the lookup when a sibling node with the same
-    indent level but a different list style type is found. If true, the lookup
-    stops when such a sibling node is found.
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="getPreviousEntry" type="function">
+      This function is used to get the previous sibling entry from a given entry.
+    </APIItem>
+    <APIItem name="getNextEntry" type="function">
+      This function is used to get the next sibling entry from a given entry.
+    </APIItem>
+    <APIItem name="query" type="function">
+      This function is used to validate a sibling node during the lookup process. If it
+      returns false, the next sibling is checked.
+    </APIItem>
+    <APIItem name="eqIndent" type="boolean">
+      Indicates whether to break the lookup when the sibling node has an indent level
+      equal to the current node. If true, the lookup stops when a sibling node with the
+      same indent level is found.
+    </APIItem>
+    <APIItem name="breakQuery" type="(node: TNode) => boolean | undefined">
+      A function that takes a `TNode` and returns a boolean value or undefined. This
+      function is used to specify a condition under which the lookup process should be
+      stopped.
+    </APIItem>
+    <APIItem name="breakOnLowerIndent" type="boolean">
+      Indicates whether to break the lookup when a sibling node with a lower indent level
+      is found. If true, the lookup stops when a sibling node with a lower indent level is
+      found.
+    </APIItem>
+    <APIItem name="breakOnEqIndentNeqListStyleType" type="boolean">
+      Indicates whether to break the lookup when a sibling node with the same indent level
+      but a different list style type is found. If true, the lookup stops when such a
+      sibling node is found.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Hooks

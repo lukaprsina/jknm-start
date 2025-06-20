@@ -32,8 +32,8 @@ The fastest way to add the superscript plugin is with the `BasicMarksKit`, which
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit';
+import { createPlateEditor } from "platejs/react";
+import { BasicMarksKit } from "@/components/editor/plugins/basic-marks-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -60,8 +60,8 @@ npm install @platejs/basic-nodes
 Include `SuperscriptPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { SuperscriptPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
+import { SuperscriptPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -76,14 +76,14 @@ const editor = createPlateEditor({
 You can configure the `SuperscriptPlugin` with custom keyboard shortcuts.
 
 ```tsx
-import { SuperscriptPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
+import { SuperscriptPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     SuperscriptPlugin.configure({
-      shortcuts: { toggle: { keys: 'mod+period' } },
+      shortcuts: { toggle: { keys: "mod+period" } },
     }),
   ],
 });
@@ -107,4 +107,4 @@ Plugin for superscript text formatting. Renders as `<sup>` HTML element by defau
 
 ### `tf.superscript.toggle`
 
-Toggles the superscript formatting for the selected text. 
+Toggles the superscript formatting for the selected text.

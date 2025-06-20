@@ -36,8 +36,8 @@ The fastest way to add the callout plugin is with the `CalloutKit`, which includ
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { CalloutKit } from '@/components/editor/plugins/callout-kit';
+import { createPlateEditor } from "platejs/react";
+import { CalloutKit } from "@/components/editor/plugins/callout-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -64,8 +64,8 @@ npm install @platejs/callout
 Include `CalloutPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { CalloutPlugin } from '@platejs/callout/react';
-import { createPlateEditor } from 'platejs/react';
+import { CalloutPlugin } from "@platejs/callout/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -80,9 +80,9 @@ const editor = createPlateEditor({
 You can configure the `CalloutPlugin` with a custom component to render callout elements.
 
 ```tsx
-import { CalloutPlugin } from '@platejs/callout/react';
-import { createPlateEditor } from 'platejs/react';
-import { CalloutElement } from '@/components/ui/callout-node';
+import { CalloutPlugin } from "@platejs/callout/react";
+import { createPlateEditor } from "platejs/react";
+import { CalloutElement } from "@/components/ui/callout-node";
 
 const editor = createPlateEditor({
   plugins: [
@@ -95,7 +95,6 @@ const editor = createPlateEditor({
 - `withComponent`: Assigns [`CalloutElement`](/docs/components/callout-node) to render callout elements.
 
 </Steps>
-
 
 ## Plate Plus
 
@@ -114,14 +113,14 @@ Callout element plugin.
 Insert a callout element into the editor.
 
 <API name="callout">
-<APIOptions type="object">
-  <APIItem name="variant" type="string" optional>
-    The variant of the callout to insert.
-  </APIItem>
-  <APIItem name="...InsertNodesOptions" type="InsertNodesOptions<V>">
-    Other options from `InsertNodesOptions`.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="object">
+    <APIItem name="variant" type="string" optional>
+      The variant of the callout to insert.
+    </APIItem>
+    <APIItem name="...InsertNodesOptions" type="InsertNodesOptions<V>">
+      Other options from `InsertNodesOptions`.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Hooks
@@ -181,12 +180,12 @@ interface TCalloutElement extends TElement {
 ```
 
 <API name="TCalloutElement">
-<APIAttributes>
-  <APIItem name="variant" type="string" optional>
-    The variant of the callout.
-  </APIItem>
-  <APIItem name="icon" type="string" optional>
-    The icon or emoji to display.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="variant" type="string" optional>
+      The variant of the callout.
+    </APIItem>
+    <APIItem name="icon" type="string" optional>
+      The icon or emoji to display.
+    </APIItem>
+  </APIAttributes>
 </API>

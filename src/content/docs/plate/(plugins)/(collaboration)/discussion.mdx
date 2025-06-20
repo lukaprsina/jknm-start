@@ -36,8 +36,8 @@ The fastest way to add discussion functionality is with the `DiscussionKit`, whi
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { DiscussionKit } from '@/components/editor/plugins/discussion-kit';
+import { createPlateEditor } from "platejs/react";
+import { DiscussionKit } from "@/components/editor/plugins/discussion-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -62,8 +62,8 @@ npm install @platejs/comment @platejs/suggestion
 ### Create Plugin
 
 ```tsx
-import { createPlatePlugin } from 'platejs/react';
-import { BlockDiscussion } from '@/components/ui/block-discussion';
+import { createPlatePlugin } from "platejs/react";
+import { BlockDiscussion } from "@/components/ui/block-discussion";
 
 export interface TDiscussion {
   id: string;
@@ -76,21 +76,21 @@ export interface TDiscussion {
 
 const usersData = {
   alice: {
-    id: 'alice',
-    avatarUrl: 'https://api.dicebear.com/9.x/glass/svg?seed=alice6',
-    name: 'Alice',
+    id: "alice",
+    avatarUrl: "https://api.dicebear.com/9.x/glass/svg?seed=alice6",
+    name: "Alice",
   },
   bob: {
-    id: 'bob', 
-    avatarUrl: 'https://api.dicebear.com/9.x/glass/svg?seed=bob4',
-    name: 'Bob',
+    id: "bob",
+    avatarUrl: "https://api.dicebear.com/9.x/glass/svg?seed=bob4",
+    name: "Bob",
   },
 };
 
 export const discussionPlugin = createPlatePlugin({
-  key: 'discussion',
+  key: "discussion",
   options: {
-    currentUserId: 'alice',
+    currentUserId: "alice",
     discussions: [],
     users: usersData,
   },
@@ -99,13 +99,13 @@ export const discussionPlugin = createPlatePlugin({
     render: { aboveNodes: BlockDiscussion },
   })
   .extendSelectors(({ getOption }) => ({
-    currentUser: () => getOption('users')[getOption('currentUserId')],
-    user: (id: string) => getOption('users')[id],
+    currentUser: () => getOption("users")[getOption("currentUserId")],
+    user: (id: string) => getOption("users")[id],
   }));
 ```
 
 - `options.currentUserId`: ID of the current active user
-- `options.discussions`: Array of discussion data structures  
+- `options.discussions`: Array of discussion data structures
 - `options.users`: Object mapping user IDs to user data
 - `render.aboveNodes`: Renders [`BlockDiscussion`](/docs/components/block-discussion) above nodes for discussion UI
 - `selectors.currentUser`: Gets the current user data
@@ -114,7 +114,7 @@ export const discussionPlugin = createPlatePlugin({
 ### Add Plugin
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -137,17 +137,17 @@ const editor = createPlateEditor({
 Pure UI plugin for managing collaboration state including users and discussion data.
 
 <API name="discussionPlugin">
-<APIOptions>
-  <APIItem name="currentUserId" type="string">
-    ID of the current active user in the collaboration session.
-  </APIItem>
-  <APIItem name="discussions" type="TDiscussion[]">
-    Array of discussion objects containing comments and metadata.
-  </APIItem>
-  <APIItem name="users" type="Record<string, UserData>">
-    Object mapping user IDs to user information including name and avatar.
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="currentUserId" type="string">
+      ID of the current active user in the collaboration session.
+    </APIItem>
+    <APIItem name="discussions" type="TDiscussion[]">
+      Array of discussion objects containing comments and metadata.
+    </APIItem>
+    <APIItem name="users" type="Record<string, UserData>">
+      Object mapping user IDs to user information including name and avatar.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Selectors
@@ -157,9 +157,9 @@ Pure UI plugin for managing collaboration state including users and discussion d
 Gets the current user data.
 
 <API name="currentUser">
-<APIReturns type="UserData">
-  The current user's data including id, name, and avatarUrl.
-</APIReturns>
+  <APIReturns type="UserData">
+    The current user's data including id, name, and avatarUrl.
+  </APIReturns>
 </API>
 
 ### `user`
@@ -167,14 +167,14 @@ Gets the current user data.
 Gets user data by ID.
 
 <API name="user">
-<APIParameters>
-  <APIItem name="id" type="string">
-    The user ID to look up.
-  </APIItem>
-</APIParameters>
-<APIReturns type="UserData | undefined">
-  The user data if found, undefined otherwise.
-</APIReturns>
+  <APIParameters>
+    <APIItem name="id" type="string">
+      The user ID to look up.
+    </APIItem>
+  </APIParameters>
+  <APIReturns type="UserData | undefined">
+    The user data if found, undefined otherwise.
+  </APIReturns>
 </API>
 
 ## Types
@@ -184,26 +184,26 @@ Gets user data by ID.
 Discussion data structure containing comments and metadata.
 
 <API name="TDiscussion">
-<APIAttributes>
-  <APIItem name="id" type="string">
-    Unique identifier for the discussion.
-  </APIItem>
-  <APIItem name="comments" type="TComment[]">
-    Array of comments in the discussion thread.
-  </APIItem>
-  <APIItem name="createdAt" type="Date">
-    When the discussion was created.
-  </APIItem>
-  <APIItem name="isResolved" type="boolean">
-    Whether the discussion has been resolved.
-  </APIItem>
-  <APIItem name="userId" type="string">
-    ID of the user who created the discussion.
-  </APIItem>
-  <APIItem name="documentContent" type="string" optional>
-    Content from the document related to this discussion.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="id" type="string">
+      Unique identifier for the discussion.
+    </APIItem>
+    <APIItem name="comments" type="TComment[]">
+      Array of comments in the discussion thread.
+    </APIItem>
+    <APIItem name="createdAt" type="Date">
+      When the discussion was created.
+    </APIItem>
+    <APIItem name="isResolved" type="boolean">
+      Whether the discussion has been resolved.
+    </APIItem>
+    <APIItem name="userId" type="string">
+      ID of the user who created the discussion.
+    </APIItem>
+    <APIItem name="documentContent" type="string" optional>
+      Content from the document related to this discussion.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `UserData`
@@ -211,18 +211,18 @@ Discussion data structure containing comments and metadata.
 User information structure for collaboration.
 
 <API name="UserData">
-<APIAttributes>
-  <APIItem name="id" type="string">
-    Unique identifier for the user.
-  </APIItem>
-  <APIItem name="name" type="string">
-    Display name of the user.
-  </APIItem>
-  <APIItem name="avatarUrl" type="string">
-    URL for the user's avatar image.
-  </APIItem>
-  <APIItem name="hue" type="number" optional>
-    Optional color hue for user identification.
-  </APIItem>
-</APIAttributes>
-</API> 
+  <APIAttributes>
+    <APIItem name="id" type="string">
+      Unique identifier for the user.
+    </APIItem>
+    <APIItem name="name" type="string">
+      Display name of the user.
+    </APIItem>
+    <APIItem name="avatarUrl" type="string">
+      URL for the user's avatar image.
+    </APIItem>
+    <APIItem name="hue" type="number" optional>
+      Optional color hue for user identification.
+    </APIItem>
+  </APIAttributes>
+</API>

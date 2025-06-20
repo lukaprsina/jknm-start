@@ -10,7 +10,7 @@ This guide covers the configuration options for the Plate editor, including basi
 To create a basic Plate editor, you can use the `createPlateEditor` function, or `usePlateEditor` in a React component:
 
 ```ts
-import { createPlateEditor } from 'platejs/react';
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [HeadingPlugin],
@@ -25,8 +25,8 @@ Set the initial content of the editor:
 const editor = createPlateEditor({
   value: [
     {
-      type: 'p',
-      children: [{ text: 'Hello, Plate!' }],
+      type: "p",
+      children: [{ text: "Hello, Plate!" }],
     },
   ],
 });
@@ -37,7 +37,7 @@ You can also initialize the editor with an HTML string and the associated plugin
 ```ts
 const editor = createPlateEditor({
   plugins: [BoldPlugin, ItalicPlugin],
-  value: '<p>This is <b>bold</b> and <i>italic</i> text!</p>',
+  value: "<p>This is <b>bold</b> and <i>italic</i> text!</p>",
 });
 ```
 
@@ -52,13 +52,13 @@ function AsyncEditor() {
   const editor = usePlateEditor({
     value: async () => {
       // Simulate fetching data from an API
-      const response = await fetch('/api/document');
+      const response = await fetch("/api/document");
       const data = await response.json();
       return data.content;
     },
-    autoSelect: 'end',
+    autoSelect: "end",
     onReady: ({ editor, value }) => {
-      console.info('Editor ready with loaded value:', value);
+      console.info("Editor ready with loaded value:", value);
     },
   });
 
@@ -102,7 +102,7 @@ Set a custom id for the editor:
 
 ```ts
 const editor = createPlateEditor({
-  id: 'my-custom-editor-id',
+  id: "my-custom-editor-id",
 });
 ```
 
@@ -126,7 +126,7 @@ const editor = usePlateEditor({
     idCreator: () => uuidv4(),
 
     // Exclude inline elements from getting IDs (default: true)
-    filterInline: true, 
+    filterInline: true,
 
     // Exclude text nodes from getting IDs (default: true)
     filterText: true,
@@ -137,16 +137,16 @@ const editor = usePlateEditor({
 
     // Normalize all nodes in initial value (default: false - only checks first/last)
     // Set to true to ensure all initial nodes get IDs if missing.
-    normalizeInitialValue: false, 
-    
+    normalizeInitialValue: false,
+
     // Prevent overriding IDs when inserting nodes with an existing id (default: false)
     disableInsertOverrides: false,
 
     // Only allow specific node types to receive IDs (default: all)
-    allow: ['p', 'h1'], 
+    allow: ["p", "h1"],
 
     // Exclude specific node types from receiving IDs (default: [])
-    exclude: ['code_block'],
+    exclude: ["code_block"],
 
     // Custom filter function to determine if a node should get an ID
     filter: ([node, path]) => {
@@ -158,7 +158,9 @@ const editor = usePlateEditor({
 ```
 
 <Callout type="note">
-  The `NodeIdPlugin` (which handles this) is part of the core plugins and is automatically included. You only need to specify the `nodeId` option if you want to customize its default behavior.
+  The `NodeIdPlugin` (which handles this) is part of the core plugins and is automatically
+  included. You only need to specify the `nodeId` option if you want to customize its
+  default behavior.
 </Callout>
 
 #### Disabling Node IDs
@@ -175,7 +177,7 @@ const editor = usePlateEditor({
 By disabling this, certain plugins that rely on node IDs will not function properly. The following plugins require block IDs to work:
 
 - **[Block Selection](/docs/block-selection)** - Needs IDs to track which blocks are selected
-- **[Block Menu](/docs/block-menu)** - Requires IDs to show context menus for specific blocks  
+- **[Block Menu](/docs/block-menu)** - Requires IDs to show context menus for specific blocks
 - **[Drag & Drop](/docs/dnd)** - Uses IDs to identify blocks during drag operations
 - **[Table](/docs/table)** - Relies on IDs for cell selection
 - **[Table of Contents](/docs/toc)** - Needs heading IDs for navigation and scrolling
@@ -199,7 +201,7 @@ Configure the editor to automatically select a range:
 
 ```ts
 const editor = createPlateEditor({
-  autoSelect: 'end', // or 'start', or true
+  autoSelect: "end", // or 'start', or true
 });
 ```
 
@@ -259,7 +261,7 @@ You can override core plugins or previously defined plugins by adding a plugin w
 
 ```ts
 const CustomParagraphPlugin = createPlatePlugin({
-  key: 'p',
+  key: "p",
   // Custom implementation
 });
 
@@ -277,7 +279,7 @@ const editor = createPlateEditor({
   plugins: [HeadingPlugin],
   rootPlugin: (plugin) =>
     plugin.configurePlugin(LengthPlugin, {
-    options: {
+      options: {
         maxLength: 100,
       },
     }),
@@ -296,7 +298,7 @@ const editor = createPlateEditor<Value, typeof TablePlugin | typeof LinkPlugin>(
 });
 
 // Usage
-editor.tf.insert.tableRow()
+editor.tf.insert.tableRow();
 ```
 
 ### Value Type
@@ -304,18 +306,18 @@ editor.tf.insert.tableRow()
 For more complex editors, you can define your types in a separate file (e.g., `plate-types.ts`):
 
 ```ts
-import type { TElement, TText } from 'platejs';
-import type { TPlateEditor } from 'platejs/react';
+import type { TElement, TText } from "platejs";
+import type { TPlateEditor } from "platejs/react";
 
 // Define custom element types
 interface ParagraphElement extends TElement {
-  align?: 'left' | 'center' | 'right' | 'justify';
+  align?: "left" | "center" | "right" | "justify";
   children: RichText[];
   type: typeof ParagraphPlugin.key;
 }
 
 interface ImageElement extends TElement {
-  children: [{ text: '' }]
+  children: [{ text: "" }];
   type: typeof ImagePlugin.key;
   url: string;
 }
@@ -337,20 +339,23 @@ export type MyEditor = TPlateEditor<MyValue, typeof TablePlugin | typeof LinkPlu
 export const useMyEditorRef = () => useEditorRef<MyEditor>();
 
 // Usage
-const value: MyValue = [{
-  type: 'p',
-  children: [{ text: 'Hello, Plate!' }],
-}]
+const value: MyValue = [
+  {
+    type: "p",
+    children: [{ text: "Hello, Plate!" }],
+  },
+];
 
 const editorInferred = createPlateEditor({
   plugins: [TablePlugin, LinkPlugin],
   value,
 });
 
-// or 
-const editorExplicit = createPlateEditor<MyValue, typeof TablePlugin | typeof LinkPlugin>({
-  plugins: [TablePlugin, LinkPlugin],
-  value,
-});
+// or
+const editorExplicit = createPlateEditor<MyValue, typeof TablePlugin | typeof LinkPlugin>(
+  {
+    plugins: [TablePlugin, LinkPlugin],
+    value,
+  },
+);
 ```
-

@@ -18,7 +18,7 @@ Add the JSX pragma at the top of your test file:
 ```typescript
 /** @jsx jsx */
 
-import { jsx } from '@platejs/test-utils';
+import { jsx } from "@platejs/test-utils";
 
 jsx; // so ESLint doesn't complain
 ```
@@ -288,4 +288,3 @@ describe('when undo is enabled', () => {
 ## Mocking vs. Real Transforms
 
 While mocking can be useful for isolating specific behaviors, Plate tests often assess actual editor children and selection after transforms. This approach ensures that plugins work correctly with the entire editor state.
-

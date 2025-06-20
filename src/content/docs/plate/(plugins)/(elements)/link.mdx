@@ -39,8 +39,8 @@ The fastest way to add link functionality is with the `LinkKit`, which includes 
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { LinkKit } from '@/components/editor/plugins/link-kit';
+import { createPlateEditor } from "platejs/react";
+import { LinkKit } from "@/components/editor/plugins/link-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -67,8 +67,8 @@ npm install @platejs/link
 Include `LinkPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { LinkPlugin } from '@platejs/link/react';
-import { createPlateEditor } from 'platejs/react';
+import { LinkPlugin } from "@platejs/link/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -83,10 +83,10 @@ const editor = createPlateEditor({
 Configure the plugin with floating toolbar and custom components.
 
 ```tsx
-import { LinkPlugin } from '@platejs/link/react';
-import { createPlateEditor } from 'platejs/react';
-import { LinkElement } from '@/components/ui/link-node';
-import { LinkFloatingToolbar } from '@/components/ui/link-toolbar';
+import { LinkPlugin } from "@platejs/link/react";
+import { createPlateEditor } from "platejs/react";
+import { LinkElement } from "@/components/ui/link-node";
+import { LinkFloatingToolbar } from "@/components/ui/link-toolbar";
 
 const editor = createPlateEditor({
   plugins: [
@@ -185,19 +185,19 @@ On keyboard shortcut or toolbar mousedown, this function is called to get the li
 Inserts a link node into the editor.
 
 <API name="insert.link">
-<APIParameters>
-  <APIItem name="options" type="object">
-    Options for inserting the link.
-  </APIItem>
-</APIParameters>
-<APIOptions type="InsertLinkOptions">
-  <APIItem name="createLinkNodeOptions" type="CreateLinkNodeOptions">
-    Options for creating the link node.
-  </APIItem>
-  <APIItem name="insertOptions" type="InsertNodesOptions" optional>
-    Additional options for inserting nodes.
-  </APIItem>
- </APIOptions>
+  <APIParameters>
+    <APIItem name="options" type="object">
+      Options for inserting the link.
+    </APIItem>
+  </APIParameters>
+  <APIOptions type="InsertLinkOptions">
+    <APIItem name="createLinkNodeOptions" type="CreateLinkNodeOptions">
+      Options for creating the link node.
+    </APIItem>
+    <APIItem name="insertOptions" type="InsertNodesOptions" optional>
+      Additional options for inserting nodes.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## API
@@ -215,14 +215,14 @@ Resets the floating link state without changing the openEditorId.
 Shows the floating link for the specified mode and editor ID.
 
 <API name="floatingLink.show">
-<APIParameters>
-<APIItem name="mode" type="FloatingLinkMode">
-The mode to set for the floating link ('edit' or 'insert').
-</APIItem>
-<APIItem name="editorId" type="string">
-The ID of the editor where the floating link should be shown.
-</APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="mode" type="FloatingLinkMode">
+      The mode to set for the floating link ('edit' or 'insert').
+    </APIItem>
+    <APIItem name="editorId" type="string">
+      The ID of the editor where the floating link should be shown.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `api.link.getAttributes`
@@ -246,7 +246,7 @@ The HTML attributes for the link element.
 Inserts a link if the URL is valid, closes the floating link, and focuses the editor.
 
 <APIReturns type="boolean">
-Returns `true` if the link was inserted successfully.
+  Returns `true` if the link was inserted successfully.
 </APIReturns>
 
 ### `insertLink`
@@ -254,14 +254,14 @@ Returns `true` if the link was inserted successfully.
 Inserts a link node into the editor.
 
 <API name="insertLink">
-<APIParameters>
-  <APIItem name="createLinkNodeOptions" type="CreateLinkNodeOptions">
-    Options for creating link node.
-  </APIItem>
-  <APIItem name="options" type="InsertNodesOptions" optional>
-    Additional options for node insertion.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="createLinkNodeOptions" type="CreateLinkNodeOptions">
+      Options for creating link node.
+    </APIItem>
+    <APIItem name="options" type="InsertNodesOptions" optional>
+      Additional options for node insertion.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `submitFloatingLink`
@@ -274,9 +274,7 @@ Inserts a link if the URL is valid, closes the floating link, and focuses the ed
 - Focus editor.
 
 <API name="submitFloatingLink">
-<APIReturns type="boolean">
-Returns `true` if the link was inserted.
-</APIReturns>
+  <APIReturns type="boolean">Returns `true` if the link was inserted.</APIReturns>
 </API>
 
 ### `triggerFloatingLink`
@@ -284,11 +282,11 @@ Returns `true` if the link was inserted.
 Triggers the floating link.
 
 <API name="triggerFloatingLink">
-<APIOptions type="object">
-<APIItem name="focused" type="boolean" optional>
-  Whether the floating link should be focused.
-</APIItem>
-</APIOptions>
+  <APIOptions type="object">
+    <APIItem name="focused" type="boolean" optional>
+      Whether the floating link should be focused.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `triggerFloatingLinkEdit`
@@ -296,14 +294,13 @@ Triggers the floating link.
 Triggers the floating link edit.
 
 <API name="triggerFloatingLinkEdit">
-<APIReturns type="boolean">
-Returns `true` if the link was edited.
-</APIReturns>
+  <APIReturns type="boolean">Returns `true` if the link was edited.</APIReturns>
 </API>
 
 ### `triggerFloatingLinkInsert`
 
 Trigger floating link. Do not trigger when:
+
 - Selection is across blocks
 - Selection has more than one leaf node
 - Lowest selection is not text
@@ -326,11 +323,11 @@ Trigger floating link. Do not trigger when:
 Unwraps a link node.
 
 <API name="unwrapLink">
-<APIOptions type="UnwrapLinkOptions">
-  <APIItem name="split" type="boolean" optional>
-    If `true`, split the nodes if the selection is inside the link.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="UnwrapLinkOptions">
+    <APIItem name="split" type="boolean" optional>
+      If `true`, split the nodes if the selection is inside the link.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `upsertLink`
@@ -371,8 +368,7 @@ Insert or update a link node. The behavior depends on the current selection and 
     The options for inserting nodes.
   </APIItem>
   <APIItem name="skipValidation" type="boolean" optional>
-    If `true`, skips URL validation.
-    - **Default:** `false`
+    If `true`, skips URL validation. - **Default:** `false`
   </APIItem>
 </APIOptions>
 
@@ -386,11 +382,11 @@ Insert or update a link node. The behavior depends on the current selection and 
 If the text is different from the link above text, replaces the link children with a new text node. The new text node has the same marks as the first text node in the link.
 
 <API name="upsertLinkText">
-<APIOptions type="UpsertLinkTextOptions">
-      <APIItem name="text" type="string" optional>
-        The new text to replace the link children with.
-      </APIItem>
-</APIOptions>
+  <APIOptions type="UpsertLinkTextOptions">
+    <APIItem name="text" type="string" optional>
+      The new text to replace the link children with.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `validateUrl`
@@ -414,14 +410,14 @@ Validates a URL based on the plugin options.
 Wrap a link node with split.
 
 <API name="wrapLink">
-<APIOptions type="WrapLinkOptions">
-  <APIItem name="url" type="string">
-    The URL of the link.
-  </APIItem>
-  <APIItem name="target" type="string" optional>
-    The target attribute of the link.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="WrapLinkOptions">
+    <APIItem name="url" type="string">
+      The URL of the link.
+    </APIItem>
+    <APIItem name="target" type="string" optional>
+      The target attribute of the link.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `CreateLinkNodeOptions`
@@ -429,24 +425,22 @@ Wrap a link node with split.
 Options for creating a new link node.
 
 <API name="CreateLinkNodeOptions">
-<APIOptions type="object">
-  <APIItem name="url" type="string">
-    The URL of the link node that is being created.
-  </APIItem>
-  <APIItem name="text" type="string" optional>
-    The text that is displayed for the link node. If not provided, the URL is used as the display text.
-  </APIItem>
-  <APIItem name="target" type="string" optional>
-    Specifies where to open the URL:
-    - `_blank`: new tab
-    - `_self`: same frame
-    - `_parent`: parent frame
-    - `_top`: full window
-  </APIItem>
-  <APIItem name="children" type="TText[]" optional>
-    An array of text nodes that represent the link content.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="object">
+    <APIItem name="url" type="string">
+      The URL of the link node that is being created.
+    </APIItem>
+    <APIItem name="text" type="string" optional>
+      The text that is displayed for the link node. If not provided, the URL is used as
+      the display text.
+    </APIItem>
+    <APIItem name="target" type="string" optional>
+      Specifies where to open the URL: - `_blank`: new tab - `_self`: same frame -
+      `_parent`: parent frame - `_top`: full window
+    </APIItem>
+    <APIItem name="children" type="TText[]" optional>
+      An array of text nodes that represent the link content.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## API Components
@@ -456,17 +450,17 @@ Options for creating a new link node.
 The input component for controlling whether a link opens in a new tab.
 
 <API name="FloatingLinkNewTabInput">
-<APIState>
-  <APIItem name="checked" type="boolean">
-    Whether the link should open in a new tab.
-  </APIItem>
-  <APIItem name="setChecked" type="React.Dispatch<React.SetStateAction<boolean>>">
-    Function to update the checked state.
-  </APIItem>
-  <APIItem name="ref" type="RefObject<HTMLInputElement>">
-    Reference to the input element.
-  </APIItem>
-</APIState>
+  <APIState>
+    <APIItem name="checked" type="boolean">
+      Whether the link should open in a new tab.
+    </APIItem>
+    <APIItem name="setChecked" type="React.Dispatch<React.SetStateAction<boolean>>">
+      Function to update the checked state.
+    </APIItem>
+    <APIItem name="ref" type="RefObject<HTMLInputElement>">
+      Reference to the input element.
+    </APIItem>
+  </APIState>
 </API>
 
 ### `FloatingLinkUrlInput`
@@ -474,11 +468,11 @@ The input component for controlling whether a link opens in a new tab.
 The input component for entering and editing link URLs.
 
 <API name="FloatingLinkUrlInput">
-<APIState>
-  <APIItem name="ref" type="RefObject<HTMLInputElement>">
-    Reference to the input element.
-  </APIItem>
-</APIState>
+  <APIState>
+    <APIItem name="ref" type="RefObject<HTMLInputElement>">
+      Reference to the input element.
+    </APIItem>
+  </APIState>
 </API>
 
 ### `LinkOpenButton`
@@ -486,11 +480,11 @@ The input component for entering and editing link URLs.
 The button component for opening the link URL.
 
 <API name="LinkOpenButton">
-<APIState>
-  <APIItem name="element" type="TLinkElement">
-    The link element containing the URL to open.
-  </APIItem>
-</APIState>
+  <APIState>
+    <APIItem name="element" type="TLinkElement">
+      The link element containing the URL to open.
+    </APIItem>
+  </APIState>
 </API>
 
 ### `useFloatingLinkEdit`

@@ -9,13 +9,15 @@ The `DebugPlugin` is automatically included when you create a Plate editor. You 
 
 ```ts
 const editor = createPlateEditor({
-  plugins: [/* your plugins */],
+  plugins: [
+    /* your plugins */
+  ],
 });
 
-editor.api.debug.log('This is a log message');
-editor.api.debug.info('This is an info message');
-editor.api.debug.warn('This is a warning');
-editor.api.debug.error('This is an error');
+editor.api.debug.log("This is a log message");
+editor.api.debug.info("This is an info message");
+editor.api.debug.warn("This is a warning");
+editor.api.debug.error("This is an error");
 ```
 
 ### Log Levels
@@ -34,7 +36,7 @@ const editor = createPlateEditor({
   plugins: [
     DebugPlugin.configure({
       options: {
-        logLevel: 'warn', // Only show warnings and errors
+        logLevel: "warn", // Only show warnings and errors
       },
     }),
   ],
@@ -57,8 +59,8 @@ const editor = createPlateEditor({
   plugins: [
     DebugPlugin.configure({
       options: {
-        isProduction: process.env.NODE_ENV === 'production',
-        logLevel: 'info',
+        isProduction: process.env.NODE_ENV === "production",
+        logLevel: "info",
         logger: {
           error: (message, type, details) => {
             // Custom error logging
@@ -79,7 +81,9 @@ By default, the `DebugPlugin` throws errors when `error` is called. You can catc
 
 ```ts
 try {
-  editor.api.debug.error('An error occurred', 'CUSTOM_ERROR', { details: 'Additional information' });
+  editor.api.debug.error("An error occurred", "CUSTOM_ERROR", {
+    details: "Additional information",
+  });
 } catch (error) {
   if (error instanceof PlateError) {
     console.debug(error.type); // 'CUSTOM_ERROR'
@@ -108,11 +112,11 @@ You can use the `extendEditor` option to override editor methods and add logging
 
 ```ts
 const LoggingPlugin = createPlatePlugin({
-  key: 'logging',
+  key: "logging",
 }).overrideEditor(({ editor, tf: { apply } }) => ({
   transforms: {
     apply(operation) {
-      console.debug('Operation:', operation);
+      console.debug("Operation:", operation);
       apply(operation);
     },
   },
@@ -174,7 +178,6 @@ If you're facing a complex issue:
 Zustand and thus zustand-x works with the Redux DevTools browser extension. It can be very useful to help track state changes in zustand stores.
 
 Follow the [zustand documentation](https://zustand.docs.pmnd.rs/middlewares/devtools) to get going with Redux DevTools and zustand.
-
 
 ## Debug Error Types
 

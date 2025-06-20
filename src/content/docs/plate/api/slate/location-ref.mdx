@@ -12,20 +12,19 @@ Location references are objects that keep specific locations (paths, points, or 
 Path reference objects keep a specific path in a document synced over time. Created using `editor.api.pathRef`.
 
 <API name="PathRef">
-<APIAttributes>
-  <APIItem name="current" type="Path | null">
-    The current path value, updated as operations are applied.
-  </APIItem>
-  <APIItem name="affinity" type="'forward' | 'backward' | null">
-    The direction to prefer when transforming the path:
-    - `'forward'`: Prefer the position after inserted content
-    - `'backward'`: Prefer the position before inserted content
-    - `null`: No preference
-  </APIItem>
-  <APIItem name="unref()" type="() => Path | null">
-    Call this when you no longer need to sync this path. Returns the final path value.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="current" type="Path | null">
+      The current path value, updated as operations are applied.
+    </APIItem>
+    <APIItem name="affinity" type="'forward' | 'backward' | null">
+      The direction to prefer when transforming the path: - `'forward'`: Prefer the
+      position after inserted content - `'backward'`: Prefer the position before inserted
+      content - `null`: No preference
+    </APIItem>
+    <APIItem name="unref()" type="() => Path | null">
+      Call this when you no longer need to sync this path. Returns the final path value.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `PointRef`
@@ -33,20 +32,19 @@ Path reference objects keep a specific path in a document synced over time. Crea
 Point reference objects keep a specific point in a document synced over time. Created using `editor.api.pointRef`.
 
 <API name="PointRef">
-<APIAttributes>
-  <APIItem name="current" type="Point | null">
-    The current point value, updated as operations are applied.
-  </APIItem>
-  <APIItem name="affinity" type="'forward' | 'backward' | null">
-    The direction to prefer when transforming the point:
-    - `'forward'`: Prefer the position after inserted content
-    - `'backward'`: Prefer the position before inserted content
-    - `null`: No preference
-  </APIItem>
-  <APIItem name="unref()" type="() => Point | null">
-    Call this when you no longer need to sync this point. Returns the final point value.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="current" type="Point | null">
+      The current point value, updated as operations are applied.
+    </APIItem>
+    <APIItem name="affinity" type="'forward' | 'backward' | null">
+      The direction to prefer when transforming the point: - `'forward'`: Prefer the
+      position after inserted content - `'backward'`: Prefer the position before inserted
+      content - `null`: No preference
+    </APIItem>
+    <APIItem name="unref()" type="() => Point | null">
+      Call this when you no longer need to sync this point. Returns the final point value.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `RangeRef`
@@ -54,36 +52,34 @@ Point reference objects keep a specific point in a document synced over time. Cr
 Range reference objects keep a specific range in a document synced over time. Created using `editor.api.rangeRef`.
 
 <API name="RangeRef">
-<APIAttributes>
-  <APIItem name="current" type="TRange | null">
-    The current range value, updated as operations are applied.
-  </APIItem>
-  <APIItem name="affinity" type="'forward' | 'backward' | 'inward' | 'outward' | null">
-    The direction to prefer when transforming the range:
-    - `'forward'`: Both points prefer after inserted content
-    - `'backward'`: Both points prefer before inserted content
-    - `'inward'`: Range tends to stay same size when content is inserted at edges
-    - `'outward'`: Range tends to grow when content is inserted at edges
-    - `null`: No preference
-  </APIItem>
-  <APIItem name="unref()" type="() => TRange | null">
-    Call this when you no longer need to sync this range. Returns the final range value.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="current" type="TRange | null">
+      The current range value, updated as operations are applied.
+    </APIItem>
+    <APIItem name="affinity" type="'forward' | 'backward' | 'inward' | 'outward' | null">
+      The direction to prefer when transforming the range: - `'forward'`: Both points
+      prefer after inserted content - `'backward'`: Both points prefer before inserted
+      content - `'inward'`: Range tends to stay same size when content is inserted at
+      edges - `'outward'`: Range tends to grow when content is inserted at edges - `null`:
+      No preference
+    </APIItem>
+    <APIItem name="unref()" type="() => TRange | null">
+      Call this when you no longer need to sync this range. Returns the final range value.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 Example usage of a RangeRef:
 
 ```typescript
 const selectionRef = editor.api.rangeRef(editor.selection, {
-  affinity: 'inward',
-})
+  affinity: "inward",
+});
 // Operations that might change the selection
-Transforms.unwrapNodes(editor)
+Transforms.unwrapNodes(editor);
 // Restore the selection using the ref
-Transforms.select(editor, selectionRef.unref())
+Transforms.select(editor, selectionRef.unref());
 ```
-
 
 ## `PathRefApi`
 
@@ -92,14 +88,14 @@ Transforms.select(editor, selectionRef.unref())
 Transform a path reference by an operation.
 
 <API name="transform">
-<APIParameters>
-  <APIItem name="ref" type="PathRef">
-    The path reference to transform.
-  </APIItem>
-  <APIItem name="op" type="Operation">
-    The operation to apply. The editor calls this automatically as needed.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="ref" type="PathRef">
+      The path reference to transform.
+    </APIItem>
+    <APIItem name="op" type="Operation">
+      The operation to apply. The editor calls this automatically as needed.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## `PointRefApi`
@@ -109,14 +105,14 @@ Transform a path reference by an operation.
 Transform a point reference by an operation.
 
 <API name="transform">
-<APIParameters>
-  <APIItem name="ref" type="PointRef">
-    The point reference to transform.
-  </APIItem>
-  <APIItem name="op" type="Operation">
-    The operation to apply. The editor calls this automatically as needed.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="ref" type="PointRef">
+      The point reference to transform.
+    </APIItem>
+    <APIItem name="op" type="Operation">
+      The operation to apply. The editor calls this automatically as needed.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## `RangeRefApi`
@@ -126,12 +122,12 @@ Transform a point reference by an operation.
 Transform a range reference by an operation.
 
 <API name="transform">
-<APIParameters>
-  <APIItem name="ref" type="RangeRef">
-    The range reference to transform.
-  </APIItem>
-  <APIItem name="op" type="Operation">
-    The operation to apply. The editor calls this automatically as needed.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="ref" type="RangeRef">
+      The range reference to transform.
+    </APIItem>
+    <APIItem name="op" type="Operation">
+      The operation to apply. The editor calls this automatically as needed.
+    </APIItem>
+  </APIParameters>
 </API>

@@ -7,9 +7,9 @@ A Point represents a specific location in a Plate document. It consists of a pat
 
 ```typescript
 type Point = {
-  path: Path
-  offset: number
-}
+  path: Path;
+  offset: number;
+};
 ```
 
 - [Path](/docs/api/slate/path)
@@ -32,7 +32,8 @@ Get a point from a location.
 
 <APIOptions type="object">
   <APIItem name="focus" type="boolean" optional>
-    If true and the location is a range, returns the focus point instead of the anchor point.
+    If true and the location is a range, returns the focus point instead of the anchor
+    point.
   </APIItem>
 </APIOptions>
 
@@ -168,26 +169,26 @@ Check if a value implements the `Point` interface.
 A point represents a specific location in a Plate document.
 
 <API name="Point">
-<APIAttributes>
-  <APIItem name="offset" type="number">
-    The index of the character in the text node.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path to the text node.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="offset" type="number">
+      The index of the character in the text node.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path to the text node.
+    </APIItem>
+  </APIAttributes>
 </API>
 ### `PointEntry`
 
 A point entry is returned when iterating over `Point` objects that belong to a range.
 
 <API name="PointEntry">
-<APIAttributes>
-  <APIItem name="[0]" type="Point">
-    The point location.
-  </APIItem>
-  <APIItem name="[1]" type="'anchor' | 'focus'">
-    Indicates whether this point is the anchor or focus of a range.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="[0]" type="Point">
+      The point location.
+    </APIItem>
+    <APIItem name="[1]" type="'anchor' | 'focus'">
+      Indicates whether this point is the anchor or focus of a range.
+    </APIItem>
+  </APIAttributes>
 </API>

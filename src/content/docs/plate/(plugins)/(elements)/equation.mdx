@@ -40,8 +40,8 @@ The fastest way to add equation functionality is with the `MathKit`, which inclu
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { MathKit } from '@/components/editor/plugins/math-kit';
+import { createPlateEditor } from "platejs/react";
+import { MathKit } from "@/components/editor/plugins/math-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -68,8 +68,8 @@ npm install @platejs/math
 Include the equation plugins in your Plate plugins array when creating the editor.
 
 ```tsx
-import { EquationPlugin, InlineEquationPlugin } from '@platejs/math/react';
-import { createPlateEditor } from 'platejs/react';
+import { EquationPlugin, InlineEquationPlugin } from "@platejs/math/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -85,9 +85,9 @@ const editor = createPlateEditor({
 Configure the plugins with custom components to render equation elements.
 
 ```tsx
-import { EquationPlugin, InlineEquationPlugin } from '@platejs/math/react';
-import { createPlateEditor } from 'platejs/react';
-import { EquationElement, InlineEquationElement } from '@/components/ui/equation-node';
+import { EquationPlugin, InlineEquationPlugin } from "@platejs/math/react";
+import { createPlateEditor } from "platejs/react";
+import { EquationElement, InlineEquationElement } from "@/components/ui/equation-node";
 
 const editor = createPlateEditor({
   plugins: [
@@ -125,9 +125,9 @@ Plugin for inline equation elements.
 ### `tf.insert.equation`
 
 <API name="insert.equation">
-<APIOptions type="InsertNodesOptions">
+  <APIOptions type="InsertNodesOptions">
     Options for the insert nodes transform.
-</APIOptions>
+  </APIOptions>
 </API>
 
 ### `tf.insert.inlineEquation`
@@ -135,14 +135,14 @@ Plugin for inline equation elements.
 Inserts an inline equation.
 
 <API name="insert.inlineEquation">
-<APIParameters>
-  <APIItem name="texExpression" type="string" optional>
-    The LaTeX expression to insert. Empty equation if not provided.
-  </APIItem>
-  <APIItem name="options" type="InsertNodesOptions" optional>
-    Options for the insert nodes transform.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="texExpression" type="string" optional>
+      The LaTeX expression to insert. Empty equation if not provided.
+    </APIItem>
+    <APIItem name="options" type="InsertNodesOptions" optional>
+      Options for the insert nodes transform.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## Types

@@ -35,8 +35,8 @@ The fastest way to add heading plugins is with the `BasicBlocksKit`, which inclu
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BasicBlocksKit } from '@/components/editor/plugins/basic-blocks-kit';
+import { createPlateEditor } from "platejs/react";
+import { BasicBlocksKit } from "@/components/editor/plugins/basic-blocks-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -63,8 +63,8 @@ npm install @platejs/basic-nodes
 Add individual heading plugins when you need more control or want to include specific heading levels.
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { H1Plugin, H2Plugin, H3Plugin } from '@platejs/basic-nodes/react';
+import { createPlateEditor } from "platejs/react";
+import { H1Plugin, H2Plugin, H3Plugin } from "@platejs/basic-nodes/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -82,24 +82,24 @@ const editor = createPlateEditor({
 Configure individual heading plugins with custom components or shortcuts.
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { H1Plugin, H2Plugin, H3Plugin } from '@platejs/basic-nodes/react';
-import { H1Element, H2Element, H3Element } from '@/components/ui/heading-node';
+import { createPlateEditor } from "platejs/react";
+import { H1Plugin, H2Plugin, H3Plugin } from "@platejs/basic-nodes/react";
+import { H1Element, H2Element, H3Element } from "@/components/ui/heading-node";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     H1Plugin.configure({
       node: { component: H1Element },
-      shortcuts: { toggle: { keys: 'mod+alt+1' } },
+      shortcuts: { toggle: { keys: "mod+alt+1" } },
     }),
     H2Plugin.configure({
       node: { component: H2Element },
-      shortcuts: { toggle: { keys: 'mod+alt+2' } },
+      shortcuts: { toggle: { keys: "mod+alt+2" } },
     }),
     H3Plugin.configure({
       node: { component: H3Element },
-      shortcuts: { toggle: { keys: 'mod+alt+3' } },
+      shortcuts: { toggle: { keys: "mod+alt+3" } },
     }),
     // Configure H4Plugin, H5Plugin, H6Plugin similarly
   ],

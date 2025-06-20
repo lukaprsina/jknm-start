@@ -6,7 +6,7 @@ description: API reference for locations in Plate.
 A Location is either a Path, Point or Range. Methods will often accept a Location instead of requiring only a Path, Point or Range.
 
 ```typescript
-type TLocation = Path | Point | TRange
+type TLocation = Path | Point | TRange;
 ```
 
 - [Path](/docs/api/slate/path)
@@ -73,28 +73,28 @@ Check if a value implements the `Span` interface.
 `Location` is a type alias for `TLocation`.
 
 <API name="TLocation">
-<APIAttributes>
-  <APIItem name="Path" type="Path">
-    An array of numbers representing a node's position.
-  </APIItem>
-  <APIItem name="Point" type="Point">
-    An object with `path` and `offset`.
-  </APIItem>
-  <APIItem name="TRange" type="TRange">
-    An object with `anchor` and `focus`.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="Path" type="Path">
+      An array of numbers representing a node's position.
+    </APIItem>
+    <APIItem name="Point" type="Point">
+      An object with `path` and `offset`.
+    </APIItem>
+    <APIItem name="TRange" type="TRange">
+      An object with `anchor` and `focus`.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `Span`
 
 <API name="Span">
-<APIAttributes>
-  <APIItem name="[0]" type="Path">
-    The start path.
-  </APIItem>
-  <APIItem name="[1]" type="Path">
-    The end path.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="[0]" type="Path">
+      The start path.
+    </APIItem>
+    <APIItem name="[1]" type="Path">
+      The end path.
+    </APIItem>
+  </APIAttributes>
 </API>

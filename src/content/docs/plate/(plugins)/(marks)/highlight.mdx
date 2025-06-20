@@ -34,8 +34,8 @@ The fastest way to add the highlight plugin is with the `BasicMarksKit`, which i
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BasicMarksKit } from '@/components/editor/plugins/basic-marks-kit';
+import { createPlateEditor } from "platejs/react";
+import { BasicMarksKit } from "@/components/editor/plugins/basic-marks-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -62,8 +62,8 @@ npm install @platejs/basic-nodes
 Include `HighlightPlugin` in your Plate plugins array when creating the editor.
 
 ```tsx
-import { HighlightPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
+import { HighlightPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -78,16 +78,16 @@ const editor = createPlateEditor({
 You can configure the `HighlightPlugin` with a custom component and keyboard shortcuts.
 
 ```tsx
-import { HighlightPlugin } from '@platejs/basic-nodes/react';
-import { createPlateEditor } from 'platejs/react';
-import { HighlightLeaf } from '@/components/ui/highlight-node';
+import { HighlightPlugin } from "@platejs/basic-nodes/react";
+import { createPlateEditor } from "platejs/react";
+import { HighlightLeaf } from "@/components/ui/highlight-node";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     HighlightPlugin.configure({
       node: { component: HighlightLeaf },
-      shortcuts: { toggle: { keys: 'mod+shift+h' } },
+      shortcuts: { toggle: { keys: "mod+shift+h" } },
     }),
   ],
 });
@@ -112,4 +112,4 @@ Plugin for highlight text formatting. Renders as `<mark>` HTML element by defaul
 
 ### `tf.highlight.toggle`
 
-Toggles the highlight formatting for the selected text. 
+Toggles the highlight formatting for the selected text.

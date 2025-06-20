@@ -36,8 +36,8 @@ The fastest way to add the block menu is with the `BlockMenuKit`, which includes
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { BlockMenuKit } from '@/components/editor/plugins/block-menu-kit';
+import { createPlateEditor } from "platejs/react";
+import { BlockMenuKit } from "@/components/editor/plugins/block-menu-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -64,8 +64,8 @@ npm install @platejs/selection
 The block menu requires both `BlockSelectionPlugin` and `BlockMenuPlugin` to function properly.
 
 ```tsx
-import { BlockSelectionPlugin, BlockMenuPlugin } from '@platejs/selection/react';
-import { createPlateEditor } from 'platejs/react';
+import { BlockSelectionPlugin, BlockMenuPlugin } from "@platejs/selection/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -85,9 +85,9 @@ const editor = createPlateEditor({
 Configure the block menu with a context menu component:
 
 ```tsx
-import { BlockSelectionPlugin, BlockMenuPlugin } from '@platejs/selection/react';
-import { createPlateEditor } from 'platejs/react';
-import { BlockContextMenu } from '@/components/ui/block-context-menu';
+import { BlockSelectionPlugin, BlockMenuPlugin } from "@platejs/selection/react";
+import { createPlateEditor } from "platejs/react";
+import { BlockContextMenu } from "@/components/ui/block-context-menu";
 
 const editor = createPlateEditor({
   plugins: [
@@ -142,14 +142,14 @@ Hides the block menu.
 Shows the block menu for a specific block.
 
 <API name="show">
-<APIParameters>
-  <APIItem name="id" type="'context' | string">
-    The ID of the block to show the menu for, or 'context' for the context menu.
-  </APIItem>
-  <APIItem name="position" type="{ x: number; y: number }" optional>
-    The position to show the menu at. If not provided, only the openId is updated.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="id" type="'context' | string">
+      The ID of the block to show the menu for, or 'context' for the context menu.
+    </APIItem>
+    <APIItem name="position" type="{ x: number; y: number }" optional>
+      The position to show the menu at. If not provided, only the openId is updated.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `api.blockMenu.showContextMenu`
@@ -157,12 +157,12 @@ Shows the block menu for a specific block.
 Shows the context menu for a specific block and automatically selects that block.
 
 <API name="showContextMenu">
-<APIParameters>
-  <APIItem name="blockId" type="string">
-    The ID of the block to show the context menu for.
-  </APIItem>
-  <APIItem name="position" type="{ x: number; y: number }">
-    The position to show the context menu at.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="blockId" type="string">
+      The ID of the block to show the context menu for.
+    </APIItem>
+    <APIItem name="position" type="{ x: number; y: number }">
+      The position to show the context menu at.
+    </APIItem>
+  </APIParameters>
 </API>

@@ -3,7 +3,10 @@ title: Major Releases
 ---
 
 <Callout type="info">
-  This page covers **major breaking changes** for Plate up to v48. For the latest migration guide, see [Latest Migration](/docs/migration). For patch and minor changes, refer to the individual package `CHANGELOG.md` files or visit the [GitHub Releases](https://github.com/udecode/plate/releases) page.
+  This page covers **major breaking changes** for Plate up to v48. For the latest
+  migration guide, see [Latest Migration](/docs/migration). For patch and minor changes,
+  refer to the individual package `CHANGELOG.md` files or visit the [GitHub
+  Releases](https://github.com/udecode/plate/releases) page.
 </Callout>
 
 # 48.0.0
@@ -86,8 +89,8 @@ title: Major Releases
         /* ... */
       },
       hocuspocusProviderOptions: {
-        url: 'wss://hocuspocus.example.com',
-        name: 'document-1',
+        url: "wss://hocuspocus.example.com",
+        name: "document-1",
         // ... other Hocuspocus options
       },
     },
@@ -104,10 +107,10 @@ title: Major Releases
       },
       providers: [
         {
-          type: 'hocuspocus',
+          type: "hocuspocus",
           options: {
-            url: 'wss://hocuspocus.example.com',
-            name: 'document-1',
+            url: "wss://hocuspocus.example.com",
+            name: "document-1",
             // ... other Hocuspocus options
           },
         },
@@ -126,16 +129,16 @@ title: Major Releases
       },
       providers: [
         {
-          type: 'hocuspocus',
+          type: "hocuspocus",
           options: {
-            url: 'wss://hocuspocus.example.com',
-            name: 'document-1',
+            url: "wss://hocuspocus.example.com",
+            name: "document-1",
           },
         },
         {
-          type: 'webrtc',
+          type: "webrtc",
           options: {
-            roomName: 'document-1',
+            roomName: "document-1",
             // signaling: ['wss://signaling.example.com'], // Optional
           },
         },
@@ -215,13 +218,13 @@ title: Major Releases
           mark: true,
           deserialize: (mdastNode) => ({
             bold: true,
-            text: node.value || '',
+            text: node.value || "",
           }),
         },
         // For elementRules
         [EquationPlugin.key]: {
           deserialize: (mdastNode, options) => ({
-            children: [{ text: '' }],
+            children: [{ text: "" }],
             texExpression: node.value,
             type: EquationPlugin.key,
           }),
@@ -266,15 +269,15 @@ title: Major Releases
               .getApi(SuggestionPlugin)
               .suggestion.suggestionData(node);
 
-            return suggestionData?.type === 'insert'
-              ? { type: 'text', value: '' }
-              : { type: 'text', value: node.text };
+            return suggestionData?.type === "insert"
+              ? { type: "text", value: "" }
+              : { type: "text", value: node.text };
           },
         },
         // For elementRules
         [EquationPlugin.key]: {
           serialize: (slateNode) => ({
-            type: 'math',
+            type: "math",
             value: node.texExpression,
           }),
         },
@@ -295,7 +298,7 @@ title: Major Releases
   - `CodeBlockPlugin`: remove `prism` option. Use `lowlight` option instead:
 
   ```tsx
-  import { all, createLowlight } from 'lowlight';
+  import { all, createLowlight } from "lowlight";
 
   const lowlight = createLowlight(all);
 
@@ -516,9 +519,7 @@ No breaking changes. Upgraded all dependencies to the latest version.
     });
 
     editor.isInline = (element) => {
-      return inlineTypes.includes(element.type as any)
-        ? true
-        : isInline(element);
+      return inlineTypes.includes(element.type as any) ? true : isInline(element);
     };
 
     editor.isVoid = (element) => {
@@ -529,7 +530,7 @@ No breaking changes. Upgraded all dependencies to the latest version.
   };
 
   export const InlineVoidPlugin = createSlatePlugin({
-    key: 'inlineVoid',
+    key: "inlineVoid",
     extendEditor: withInlineVoid,
   });
 
@@ -553,21 +554,17 @@ No breaking changes. Upgraded all dependencies to the latest version.
     return {
       api: {
         isInline(element) {
-          return inlineTypes.includes(element.type as any)
-            ? true
-            : isInline(element);
+          return inlineTypes.includes(element.type as any) ? true : isInline(element);
         },
         isVoid(element) {
-          return voidTypes.includes(element.type as any)
-            ? true
-            : isVoid(element);
+          return voidTypes.includes(element.type as any) ? true : isVoid(element);
         },
       },
     };
   };
 
   export const InlineVoidPlugin = createSlatePlugin({
-    key: 'inlineVoid',
+    key: "inlineVoid",
   }).overrideEditor(withInlineVoid);
   ```
 
@@ -631,72 +628,72 @@ No breaking changes. Upgraded all dependencies to the latest version.
   - Either replace all `@udecode/plate` imports with the individual package imports, or export the following in a new file (e.g. `src/plate.ts`):
 
   ```ts
-  export * from '@udecode/plate-alignment';
-  export * from '@udecode/plate-autoformat';
-  export * from '@udecode/plate-basic-elements';
-  export * from '@udecode/plate-basic-marks';
-  export * from '@udecode/plate-block-quote';
-  export * from '@udecode/plate-break';
-  export * from '@udecode/plate-code-block';
-  export * from '@udecode/plate-combobox';
-  export * from '@udecode/plate-comments';
-  export * from '@udecode/plate-diff';
-  export * from '@udecode/plate-find-replace';
-  export * from '@udecode/plate-font';
-  export * from '@udecode/plate-heading';
-  export * from '@udecode/plate-highlight';
-  export * from '@udecode/plate-horizontal-rule';
-  export * from '@udecode/plate-indent';
-  export * from '@udecode/plate-indent-list';
-  export * from '@udecode/plate-kbd';
-  export * from '@udecode/plate-layout';
-  export * from '@udecode/plate-line-height';
-  export * from '@udecode/plate-link';
-  export * from '@udecode/plate-list';
-  export * from '@udecode/plate-media';
-  export * from '@udecode/plate-mention';
-  export * from '@udecode/plate-node-id';
-  export * from '@udecode/plate-normalizers';
-  export * from '@udecode/plate-reset-node';
-  export * from '@udecode/plate-select';
-  export * from '@udecode/plate-csv';
-  export * from '@udecode/plate-docx';
-  export * from '@udecode/plate-markdown';
-  export * from '@udecode/plate-slash-command';
-  export * from '@udecode/plate-suggestion';
-  export * from '@udecode/plate-tabbable';
-  export * from '@udecode/plate-table';
-  export * from '@udecode/plate-toggle';
-  export * from '@udecode/plate-trailing-block';
-  export * from '@udecode/plate-alignment/react';
-  export * from '@udecode/plate-autoformat/react';
-  export * from '@udecode/plate-basic-elements/react';
-  export * from '@udecode/plate-basic-marks/react';
-  export * from '@udecode/plate-block-quote/react';
-  export * from '@udecode/plate-break/react';
-  export * from '@udecode/plate-code-block/react';
-  export * from '@udecode/plate-combobox/react';
-  export * from '@udecode/plate-comments/react';
-  export * from '@udecode/plate-floating';
-  export * from '@udecode/plate-font/react';
-  export * from '@udecode/plate-heading/react';
-  export * from '@udecode/plate-highlight/react';
-  export * from '@udecode/plate-layout/react';
-  export * from '@udecode/plate-slash-command/react';
-  export * from '@udecode/plate-indent/react';
-  export * from '@udecode/plate-indent-list/react';
-  export * from '@udecode/plate-kbd/react';
-  export * from '@udecode/plate-line-height/react';
-  export * from '@udecode/plate-link/react';
-  export * from '@udecode/plate-list/react';
-  export * from '@udecode/plate-media/react';
-  export * from '@udecode/plate-reset-node/react';
-  export * from '@udecode/plate-selection';
-  export * from '@udecode/plate-suggestion/react';
-  export * from '@udecode/plate-tabbable/react';
-  export * from '@udecode/plate-table/react';
-  export * from '@udecode/plate-toggle/react';
-  export * from '@udecode/plate-resizable';
+  export * from "@udecode/plate-alignment";
+  export * from "@udecode/plate-autoformat";
+  export * from "@udecode/plate-basic-elements";
+  export * from "@udecode/plate-basic-marks";
+  export * from "@udecode/plate-block-quote";
+  export * from "@udecode/plate-break";
+  export * from "@udecode/plate-code-block";
+  export * from "@udecode/plate-combobox";
+  export * from "@udecode/plate-comments";
+  export * from "@udecode/plate-diff";
+  export * from "@udecode/plate-find-replace";
+  export * from "@udecode/plate-font";
+  export * from "@udecode/plate-heading";
+  export * from "@udecode/plate-highlight";
+  export * from "@udecode/plate-horizontal-rule";
+  export * from "@udecode/plate-indent";
+  export * from "@udecode/plate-indent-list";
+  export * from "@udecode/plate-kbd";
+  export * from "@udecode/plate-layout";
+  export * from "@udecode/plate-line-height";
+  export * from "@udecode/plate-link";
+  export * from "@udecode/plate-list";
+  export * from "@udecode/plate-media";
+  export * from "@udecode/plate-mention";
+  export * from "@udecode/plate-node-id";
+  export * from "@udecode/plate-normalizers";
+  export * from "@udecode/plate-reset-node";
+  export * from "@udecode/plate-select";
+  export * from "@udecode/plate-csv";
+  export * from "@udecode/plate-docx";
+  export * from "@udecode/plate-markdown";
+  export * from "@udecode/plate-slash-command";
+  export * from "@udecode/plate-suggestion";
+  export * from "@udecode/plate-tabbable";
+  export * from "@udecode/plate-table";
+  export * from "@udecode/plate-toggle";
+  export * from "@udecode/plate-trailing-block";
+  export * from "@udecode/plate-alignment/react";
+  export * from "@udecode/plate-autoformat/react";
+  export * from "@udecode/plate-basic-elements/react";
+  export * from "@udecode/plate-basic-marks/react";
+  export * from "@udecode/plate-block-quote/react";
+  export * from "@udecode/plate-break/react";
+  export * from "@udecode/plate-code-block/react";
+  export * from "@udecode/plate-combobox/react";
+  export * from "@udecode/plate-comments/react";
+  export * from "@udecode/plate-floating";
+  export * from "@udecode/plate-font/react";
+  export * from "@udecode/plate-heading/react";
+  export * from "@udecode/plate-highlight/react";
+  export * from "@udecode/plate-layout/react";
+  export * from "@udecode/plate-slash-command/react";
+  export * from "@udecode/plate-indent/react";
+  export * from "@udecode/plate-indent-list/react";
+  export * from "@udecode/plate-kbd/react";
+  export * from "@udecode/plate-line-height/react";
+  export * from "@udecode/plate-link/react";
+  export * from "@udecode/plate-list/react";
+  export * from "@udecode/plate-media/react";
+  export * from "@udecode/plate-reset-node/react";
+  export * from "@udecode/plate-selection";
+  export * from "@udecode/plate-suggestion/react";
+  export * from "@udecode/plate-tabbable/react";
+  export * from "@udecode/plate-table/react";
+  export * from "@udecode/plate-toggle/react";
+  export * from "@udecode/plate-resizable";
   ```
 
   - Replace all `'@udecode/plate'` and `'@udecode/plate/react'` with `'@/plate'` in your codebase.
@@ -1186,7 +1183,7 @@ No breaking changes. Upgraded all dependencies to the latest version.
 
   ```ts
   const plugin = createSlatePlugin({
-    key: 'test',
+    key: "test",
     options: { nested: { a: 1 } },
   }).extend({
     options: { nested: { b: 1 } },
@@ -1199,7 +1196,7 @@ No breaking changes. Upgraded all dependencies to the latest version.
 
   ```ts
   const plugin = createSlatePlugin({
-    key: 'test',
+    key: "test",
     options: { nested: { a: 1 } },
   }).extend(({ getOptions }) => ({
     options: {
@@ -1352,7 +1349,7 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
 
   ```typescript
   const MyPluginFactory = createPluginFactory({
-    key: 'myPlugin',
+    key: "myPlugin",
     isElement: true,
     component: MyComponent,
   });
@@ -1363,7 +1360,7 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
 
   ```typescript
   const plugin = createSlatePlugin({
-    key: 'myPlugin',
+    key: "myPlugin",
     node: {
       isElement: true,
       component: MyComponent,
@@ -1385,7 +1382,7 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
       onKeyDown: onKeyDownToggleElement,
     },
     options: {
-      hotkey: ['mod+opt+0', 'mod+shift+0'],
+      hotkey: ["mod+opt+0", "mod+shift+0"],
     },
   });
   ```
@@ -1477,11 +1474,11 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
     key: KEY_ALIGN,
     inject: {
       props: {
-        defaultNodeValue: 'start',
+        defaultNodeValue: "start",
         nodeKey: KEY_ALIGN,
-        styleKey: 'textAlign',
-        validNodeValues: ['start', 'left', 'center', 'right', 'end', 'justify'],
-        validTypes: ['p'],
+        styleKey: "textAlign",
+        validNodeValues: ["start", "left", "center", "right", "end", "justify"],
+        validTypes: ["p"],
       },
     },
     then: (_, plugin) =>
@@ -1503,10 +1500,10 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
   export const AlignPlugin = createSlatePlugin({
     inject: {
       nodeProps: {
-        defaultNodeValue: 'start',
-        nodeKey: 'align',
-        styleKey: 'textAlign',
-        validNodeValues: ['start', 'left', 'center', 'right', 'end', 'justify'],
+        defaultNodeValue: "start",
+        nodeKey: "align",
+        styleKey: "textAlign",
+        validNodeValues: ["start", "left", "center", "right", "end", "justify"],
       },
       targetPluginToInject: ({ editor, plugin }) => ({
         parsers: {
@@ -1523,7 +1520,7 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
       }),
       targetPlugins: [ParagraphPlugin.key],
     },
-    key: 'align',
+    key: "align",
   });
   ```
 
@@ -1545,7 +1542,7 @@ We recommend to upgrade to `@udecode/plate-core@38.1.0` in one-go.
   ```typescript
   type LinkConfig = PluginConfig<
     // key
-    'p',
+    "p",
     // options
     { defaultLinkAttributes?: any },
     // api
@@ -2144,11 +2141,11 @@ No breaking changes
 
   ```ts
   // Import Prism with your supported languages
-  import Prism from 'prismjs';
+  import Prism from "prismjs";
 
-  import 'prismjs/components/prism-antlr4.js';
-  import 'prismjs/components/prism-bash.js';
-  import 'prismjs/components/prism-c.js';
+  import "prismjs/components/prism-antlr4.js";
+  import "prismjs/components/prism-bash.js";
+  import "prismjs/components/prism-c.js";
   // ...
 
   const plugins = createPlugins([
@@ -2330,7 +2327,7 @@ None (CI release issue)
   - Caption is now a separate plugin. Install `@udecode/plate-caption` and add it to your plugins:
 
   ```ts
-  import { ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED } from '@udecode/plate-media';
+  import { ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED } from "@udecode/plate-media";
 
   createCaptionPlugin({
     options: { pluginKeys: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED] },
@@ -2531,10 +2528,10 @@ Migration:
 
   ```ts
   // before
-  import { createDndPlugin } from '@udecode/plate-ui-dnd';
+  import { createDndPlugin } from "@udecode/plate-ui-dnd";
 
   // after
-  import { createDndPlugin } from '@udecode/plate-dnd';
+  import { createDndPlugin } from "@udecode/plate-dnd";
   ```
 
   Only `withPlateDraggable`, `withPlateDraggables` and `PlateDraggable` are left in `@udecode/plate-ui-dnd`.
@@ -2596,9 +2593,9 @@ Migration:
   - due to esm issues, dnd plugin is not part of plate package anymore. To use it, install `@udecode/plate-ui-dnd`
   ```ts
   // before
-  import { createDndPlugin } from '@udecode/plate';
+  import { createDndPlugin } from "@udecode/plate";
   // after
-  import { createDndPlugin } from '@udecode/plate-ui-dnd';
+  import { createDndPlugin } from "@udecode/plate-ui-dnd";
   ```
   - upgrade peerDeps:
   ```json
@@ -2929,7 +2926,7 @@ Those Slate functions should be replaced by the new typed ones:
   // before
   export type WithOverride<T = {}, P = {}> = (
     editor: PlateEditor<T>,
-    plugin: WithPlatePlugin<T, P>
+    plugin: WithPlatePlugin<T, P>,
   ) => PlateEditor<T>;
 
   // after - where E is the Editor type (input), and EE is the Extended Editor type (output)
@@ -3099,7 +3096,7 @@ getEmptyTableNode(editor, { rowCount: 2, colCount: 2 });
   // option 1: use the plugin factory
   let plugins = [
     createParagraphPlugin({
-      type: 'paragraph',
+      type: "paragraph",
     }),
   ];
 
@@ -3107,7 +3104,7 @@ getEmptyTableNode(editor, { rowCount: 2, colCount: 2 });
   plugins = createPlugins(plugins, {
     overrideByKey: {
       [ELEMENT_PARAGRAPH]: {
-        type: 'paragraph',
+        type: "paragraph",
       },
     },
   });
@@ -3129,16 +3126,14 @@ getEmptyTableNode(editor, { rowCount: 2, colCount: 2 });
   // After
   export type X<T = {}, P = {}> = (
     editor: PlateEditor<T>,
-    plugin: WithPlatePlugin<T, P>
+    plugin: WithPlatePlugin<T, P>,
   ) => Y;
   ```
 
   - `serialize` no longer has `element` and `leaf` properties:
 
   ```ts
-  type SerializeHtml = RenderFunction<
-    PlateRenderElementProps | PlateRenderLeafProps
-  >;
+  type SerializeHtml = RenderFunction<PlateRenderElementProps | PlateRenderLeafProps>;
   ```
 
   Renamed:

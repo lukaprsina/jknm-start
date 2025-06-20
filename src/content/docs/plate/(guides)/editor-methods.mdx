@@ -18,13 +18,13 @@ Use one of these hooks:
 - `useEditorState`: Re-render on every change.
 
 ```ts
-import { useEditorRef, useEditorSelector, useEditorState } from 'platejs/react';
+import { useEditorRef, useEditorSelector, useEditorState } from "platejs/react";
 
 const MyComponent = () => {
   const editor = useEditorRef();
   const hasSelection = useEditorSelector((editor) => !!editor.selection, []);
   const editorState = useEditorState();
-  
+
   // ...
 };
 ```
@@ -73,16 +73,19 @@ const Toolbar = () => {
 ```
 
 `PlateController` manages active editors:
+
 - The first mounted editor is active by default (override with `primary={false}` on `Plate`).
 - Focus changes the active editor.
 - An editor remains active until another is focused or it unmounts.
 
 Hooks like `useEditorRef` and `useEditorSelector` work with the active editor inside `PlateController`. If no editor is active, they return a fallback editor, which:
+
 - Provides default values for queries.
 - Cannot be mutated.
 - Throws errors on state-changing operations.
 
 Fallback editor scenarios:
+
 - No mounted `Plate` components.
 - All `Plate` components are non-primary.
 - During `PlateContent` mounting.
@@ -93,11 +96,11 @@ You can check if any editor is mounted using `useEditorMounted`:
 const Toolbar = () => {
   const editor = useEditorState();
   const isMounted = useEditorMounted();
-  
+
   if (!isMounted) {
     return <div>Editor not ready</div>;
   }
-  
+
   return <div>{/* Toolbar content */}</div>;
 };
 ```
@@ -158,7 +161,7 @@ const paragraphType = editor.getType(KEYS.p);
 Get a specific option value for a plugin:
 
 ```ts
-const search = editor.getOption(FindReplacePlugin, 'search');
+const search = editor.getOption(FindReplacePlugin, "search");
 ```
 
 To subscribe to options changes, use `usePluginOption` or `usePluginOptions` hooks.
@@ -176,7 +179,7 @@ const linkOptions = editor.getOptions(LinkPlugin);
 Set a specific option value for a plugin:
 
 ```ts
-editor.setOption(FindReplacePlugin, 'search', 'hello');
+editor.setOption(FindReplacePlugin, "search", "hello");
 ```
 
 ### setOptions
@@ -185,7 +188,7 @@ Set multiple options for a plugin:
 
 ```ts
 editor.setOptions(FindReplacePlugin, {
-  search: 'hello',
+  search: "hello",
   caseSensitive: true,
 });
 ```
@@ -194,7 +197,7 @@ You can also use a function to update options using Immer:
 
 ```ts
 editor.setOptions(FindReplacePlugin, (draft) => {
-  draft.search = 'hello';
+  draft.search = "hello";
   draft.caseSensitive = true;
 });
 ```

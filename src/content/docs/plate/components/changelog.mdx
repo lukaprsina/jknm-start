@@ -132,9 +132,9 @@ Plugins:
 ### May 11-12 #22.5
 
 - [Templates migration to Plate 48](https://github.com/udecode/plate/pull/4298/files)
-- Migration to shadcn v4: 
+- Migration to shadcn v4:
   - Plate had a forked version of shadcn/ui primitives that could conflict with your existing components. Our components now **fully depend** on the original shadcn/ui primitives, easing the integration of Plate into your existing shadcn/ui set of components.
-  - All components updated to [Tailwind v4](https://ui.shadcn.com/docs/tailwind-v4). 
+  - All components updated to [Tailwind v4](https://ui.shadcn.com/docs/tailwind-v4).
   - See the updated [installation guide](/docs/components/installation).
 - Migration to React 19. If you're using React 18, you may need to use `React.forwardRef` in a few places.
 - Migration to [shadcn CLI](https://ui.shadcn.com/docs/cli):
@@ -160,9 +160,10 @@ Plugins:
 - `ai/command`: forked smoothStream from `ai` package now uses 30ms delay by default (only code blocks and tables use 100ms delay).
 
 v48 migration:
+
 - `PlateElement`, `PlateLeaf` and `PlateText` HTML attributes are moved from top-level props to `attributes` prop.
 - Remove `nodeProps` prop from `PlateElement`, `PlateLeaf`, `PlateText`. Use `attributes` prop instead.
-- Migrated components: 
+- Migrated components:
   - `block-discussion`
   - `comment-leaf`
   - `date-element`
@@ -183,11 +184,11 @@ v48 migration:
   - `tag-element`
 
 ### May 2 #22.1
+
 - `use-chat`: add `_abortFakeStream`.
 - `ai-menu`: Fix menu items are displayed incorrectly.
 - `ai-loading-bar`: Move esc keydown handler to `ai-menu`.
 - `ai/command`: add chunking delay to 100ms (Temporary workaround with performance issue).
-
 
 ## April 2025 #21
 
@@ -202,6 +203,7 @@ v48 migration:
 - `api/ai/command`: fix chunking issue.
 
 Add `discussion-plugin`:
+
 - add `discussionPlugin` to `editor-plugins`, remove `configure` from `suggestionPlugin`
 - refactor `block-suggestion`, `comment` to use `discussionPlugin`
 - fix `comment-create-form` to create discussion when none exists
@@ -232,6 +234,7 @@ Add `discussion-plugin`:
 - `tooltip`: add missing `button` registry dependency.
 
 ### March 10 #20.3
+
 - `block-context-menu`: Prevent opening context menu in read-only mode
 
 ### March 2 #20.2
@@ -252,7 +255,7 @@ Plate 46 - new code block
 - `autoformat-plugin`: prevent autoformat on code blocks
 
 ```tsx
-import { all, createLowlight } from 'lowlight';
+import { all, createLowlight } from "lowlight";
 
 const lowlight = createLowlight(all);
 
@@ -285,6 +288,7 @@ Plate 45 - new comments & suggestions UI
 - NEW `suggestion-leaf`
 - NEW `suggestion-line-break`
 - Remove `plate-element`, import `PlateElement` from `@udecode/plate/react` instead. Add in `block-selection-plugins`:
+
 ```tsx
 render: {
   belowRootNodes: (props) => {
@@ -306,10 +310,10 @@ render: {
 - `image-element`, `media-embed-element`, `media-video-element`, `mode-dropdown-menu`
   - use `const width = useResizableValue('width')`
 - `image-preview`: remove `useScaleInputState`, `useImagePreviewState`
-- `floating-toolbar`: 
+- `floating-toolbar`:
   - replace `useEventEditorSelectors` with `useEventEditorValue`
-- `media-popover`: 
-  - replace `floatingMediaActions` with `FloatingMediaStore.set`, 
+- `media-popover`:
+  - replace `floatingMediaActions` with `FloatingMediaStore.set`,
   - replace `useFloatingMediaSelectors` with `useFloatingMediaValue`
 
 ## January 2025 #18
@@ -325,7 +329,7 @@ render: {
 - `table-element`, `table-row-element`: support row dnd and selection
 - `plate-element`: add `blockSelectionClassName` prop
 - `editor`: z-50 for selection area
-- `draggable`: 
+- `draggable`:
   - Replace `editor.api.blockSelection.replaceSelectedIds` with `editor.api.blockSelection.clear`
   - Use `TooltipButton` for drag handle
   - Block select on drag handle click
@@ -335,8 +339,7 @@ render: {
 - Replace `editor.api.blockSelection.addSelectedRow` with `editor.api.blockSelection.set`:
   - `ai-menu`
   - `equation-popover`
-- `align-dropdown-menu`: deprecate 
-
+- `align-dropdown-menu`: deprecate
 
 ### January 18 #18.6
 
@@ -351,11 +354,13 @@ render: {
 - `import-toolbar-button` and `export-toolbar-button`: add `markdown` support
 
 ### January 14 #18.3
+
 - `fixed-toolbar-buttons`: add `import-toolbar-button`
 - `indent-fire-marker.tsx` Add `data-plate-prevent-deserialization` to prevent deserialization of the fire marker. Change the `span` tag to `li`.
 - `indent-todo-marker.tsx` change the `span` tag to `li`.
 - `image-element-static.tsx` and `hr-element-static.tsx`: Fix `nodeProps` not being passed to `SlateElement`.
 - `ai-chat-editor`:
+
 ```tsx
 const aiEditor = usePlateEditor({ plugins });
 useAIChatEditor(aiEditor, content);
@@ -377,15 +382,14 @@ BlockSelectionPlugin.configure(({ editor }) => ({
     enableContextMenu: true,
     isSelectable: (element, path) => {
       return (
-        !['code_line', 'column', 'td'].includes(element.type) &&
-        !editor.api.block({ above: true, at: path, match: { type: 'tr' } })
+        !["code_line", "column", "td"].includes(element.type) &&
+        !editor.api.block({ above: true, at: path, match: { type: "tr" } })
       );
     },
   },
-}))
+}));
 ```
 
- 
 ### January 8 #18.1
 
 - v42 migration
@@ -393,7 +397,7 @@ BlockSelectionPlugin.configure(({ editor }) => ({
   - Move icons to `table-icons`
   - Remove `colgroup`, col width is now set in `table-cell-element`
 - `table-row-element`: remove `hideBorder` prop
-- `table-cell-element`, `table-cell-element-static`: 
+- `table-cell-element`, `table-cell-element-static`:
   - column hover/resizing state is now using Tailwind instead of JS
   - **Major performance improvement**: all table cells were re-rendering on a single cell change. This is now fixed.
   - React.memo
@@ -413,6 +417,7 @@ BlockSelectionPlugin.configure(({ editor }) => ({
 - `export-toolbar-button`: add `katex` support
 - `plate-element`: remove `relative` className
 - All components using the `PlateElement` have had redundant `relative` class names removed.
+
 ### December 27 #17.7
 
 - `fixed-toolbar-buttons`: add `font-size-toolbar-button`
@@ -426,7 +431,6 @@ BlockSelectionPlugin.configure(({ editor }) => ({
 - `table-element`: fix selection
 - before: `isSelectingCell && '[&_*::selection]:bg-none'`
 - after: `isSelectingCell && '[&_*::selection]:!bg-transparent'`
-
 
 ### December 21 #17.4
 
@@ -467,16 +471,18 @@ fontFamily: {
   ],
 ```
 
-
 ### December 20 #17.3
 
-- `insertColumnGroup`, `toggleColumnGroup`: use `columns` option instead of `layout` 
+- `insertColumnGroup`, `toggleColumnGroup`: use `columns` option instead of `layout`
 - Remove `with-draggables`. Add [`DraggableAboveNodes`](https://github.com/udecode/plate/pull/3878/files#diff-493c12ebed9c3ef9fd8c3a723909b18ad439a448c0132d2d93e5341ee0888ad2) to `draggable`. Add to `DndPlugin` config:
+
 ```tsx
 DndPlugin.configure({ render: { aboveNodes: DraggableAboveNodes } }),
 ```
+
 - `column-element`, `image-element`, `media-video-element`: Remove `useDraggableState`. Use `const { isDragging, previewRef, handleRef } = useDraggable`
 - `column-group-element`: Remove `useColumnState`. Use instead:
+
 ```tsx
 const columnGroupElement = useElement<TColumnGroupElement>(ColumnPlugin.key);
 
@@ -487,6 +493,7 @@ const onColumnChange = (widths: string[]) => {
   });
 };
 ```
+
 - `export-toolbar-button`: add `exportToHtml`
 
 ### December 19 #17.2
@@ -504,11 +511,13 @@ Plate 41
 ### December 16 #17.1
 
 - `column-element`:
+
   - Add drag and drop support for columns
   - Add drag handle with tooltip
   - Fix column spacing and padding
 
 - `column-group-element`:
+
   - Remove gap between columns
   - Remove margin top
 
@@ -521,6 +530,7 @@ Plate 41
 ### November 26 #16.9
 
 https://github.com/udecode/plate/pull/3809/files
+
 - Add `select-editor`, `tag-element`, `label`, `form`
 - Replace `cmdk` dependency with `@udecode/cmdk`. It's a controllable version of `cmdk`.
 - `command`: add variants
@@ -528,6 +538,7 @@ https://github.com/udecode/plate/pull/3809/files
 - `popover`: add `animate` variant
 
 https://github.com/udecode/plate/pull/3807/files
+
 - `toc-element`: remove `<nav>` tag using `<div>` instead to fix html2canvas issue
 - `editor`: remove `role="button"` to fix html2canvas issue
 
@@ -550,7 +561,8 @@ Shadcn sync:
 
 ### November 8 #16.5
 
-- Add this to your tailwind config: 
+- Add this to your tailwind config:
+
 ```ts
 // plugins
 require("tailwind-scrollbar-hide")
@@ -572,18 +584,19 @@ screens: {
   },
 },
 ```
-- `editor`: 
+
+- `editor`:
   - `EditorContainer`: remove `ref`, use `useEditorContainerRef` instead
   - add `caret-primary selection:bg-brand/25`
   - add `id={editor.uid}` to `EditorContainer` so you can remove `scroll_container` or any id you may have defined.
-- `draggable`: 
+- `draggable`:
   - fix a **critical** mobile ux issue: focusing the editor required two taps because of the group hover styles. Fixed with `main-hover:group-hover:opacity-100`.
   - for xs media, show only if selected
 - `table-element`: fix width
 - `table-row-element`, `table-cell-element`: support row selection
 - Add `draggable` prop to `date-element`, `mention-element`
 - Add `data-plate-focus` attribute to `link-toolbar-button`, `link-floating-toolbar`, `ai-menu` input
-- `cursor-overlay`: 
+- `cursor-overlay`:
   - support collapsed selection
   - remove `DragOverCursorPlugin`, `SelectionOverlayPlugin`. Use `@udecode/plate-selection` instead.
 - `ghost-text`: hide for xs media, add `pointer-events-none`
@@ -596,12 +609,14 @@ screens: {
 - `ai-toolbar-button`: add `onMouseDown`
 - `ai-menu-items`: add undefined check
 - `block-selection-plugins`: add
+
 ```ts
 inject: {
   excludeBelowPlugins: ['tr'],
   excludePlugins: ['table', 'code_line', 'column_group', 'column'],
 },
 ```
+
 - Add `floating-toolbar-plugin`, `fixed-toolbar-plugin`
 - misc: `hr-element`, `plate-element`, `transforms`
 
@@ -618,7 +633,7 @@ inject: {
 ### November 5 #16.2
 
 - Fixed color-picker clear button's styles
-- Replace toggle-element button with css transitions 
+- Replace toggle-element button with css transitions
 
 ### November 1 #16.1
 
@@ -631,7 +646,7 @@ inject: {
 - Added `lib/transforms.ts`. Contains useful transforms for common operations.
 - Removed `Icons` file dependency. All icons are now imported from `lucide-react`.
 - Fixed and modified some styles in emoji and color picker.
-- Group styling: 
+- Group styling:
   - `dropdown-menu`
   - `context-menu`
   - `inline-combobox`
@@ -724,7 +739,6 @@ Use `--brand` color for the following components:
 - `block-selection`
 - `draggable`
 
-
 ## September 2024 #14
 
 ### September 29 #14.3
@@ -740,7 +754,6 @@ Use `--brand` color for the following components:
 - fix `floating-toolbar`: show toolbar when readOnly
 
 ## August 2024 #13
-
 
 ### August 27 #13.3
 
@@ -852,7 +865,7 @@ Use `--brand` color for the following components:
 export const TableElement = withRef<typeof PlateElement>(
   ({ className, children, ...props }, ref) => {
     // ...
-  }
+  },
 );
 
 // After
@@ -860,7 +873,7 @@ export const TableElement = withHOC(
   TableProvider,
   withRef<typeof PlateElement>(({ className, children, ...props }, ref) => {
     // ...
-  })
+  }),
 );
 ```
 
@@ -878,6 +891,7 @@ export const TableElement = withHOC(
 - import `withProps` from `@udecode/cn` instead of `@udecode/plate
 
   `
+
 - all components using `forwardRef` are now using `withRef`. `withProps`, `withCn` and `withVariants` are also used to reduce boilerplate.
 - add `withCn` to ESLint `settings.tailwindcss.callees` and `classAttributes` in your IDE settings
 
@@ -890,8 +904,8 @@ const Avatar = React.forwardRef<
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full',
-      className
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      className,
     )}
     {...props}
   />
@@ -903,7 +917,7 @@ export { Avatar };
 // after
 export const Avatar = withCn(
   AvatarPrimitive.Root,
-  'relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full'
+  "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
 );
 ```
 

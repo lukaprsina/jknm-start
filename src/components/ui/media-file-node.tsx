@@ -1,16 +1,14 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import type { TFileElement } from "platejs";
+import type { PlateElementProps } from "platejs/react";
 
-import type { TFileElement } from 'platejs';
-import type { PlateElementProps } from 'platejs/react';
+import { useMediaState } from "@platejs/media/react";
+import { ResizableProvider } from "@platejs/resizable";
+import { FileUp } from "lucide-react";
+import { PlateElement, useReadOnly, withHOC } from "platejs/react";
 
-import { useMediaState } from '@platejs/media/react';
-import { ResizableProvider } from '@platejs/resizable';
-import { FileUp } from 'lucide-react';
-import { PlateElement, useReadOnly, withHOC } from 'platejs/react';
-
-import { Caption, CaptionTextarea } from './caption';
+import { Caption, CaptionTextarea } from "./caption";
 
 export const FileElement = withHOC(
   ResizableProvider,
@@ -21,7 +19,7 @@ export const FileElement = withHOC(
     return (
       <PlateElement className="my-px rounded-sm" {...props}>
         <a
-          className="group relative m-0 flex cursor-pointer items-center rounded px-0.5 py-[3px] hover:bg-muted"
+          className="group hover:bg-muted relative m-0 flex cursor-pointer items-center rounded px-0.5 py-[3px]"
           contentEditable={false}
           download={name}
           href={unsafeUrl}
@@ -45,5 +43,5 @@ export const FileElement = withHOC(
         {props.children}
       </PlateElement>
     );
-  }
+  },
 );

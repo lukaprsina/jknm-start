@@ -13,7 +13,7 @@ The Plugin Context is available as the first parameter in all plugin methods:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   handlers: {
     onKeyDown: (ctx) => {
       // ctx is the Plugin Context
@@ -29,7 +29,7 @@ This function is particularly useful when you need to access the context of anot
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   handlers: {
     onKeyDown: ({ editor }) => {
       const linkCtx = getEditorPlugin(LinkPlugin);
@@ -45,7 +45,7 @@ In React components, you can use the `useEditorPlugin` hook to access the Plugin
 ```ts
 const MyComponent = () => {
   const { editor, plugin, type } = useEditorPlugin(MyPlugin);
-  
+
   return <div>{type}</div>;
 };
 ```
@@ -58,10 +58,10 @@ The current `PlateEditor` instance:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   handlers: {
     onChange: ({ editor }) => {
-      console.info('Editor value:', editor.children);
+      console.info("Editor value:", editor.children);
     },
   },
 });
@@ -73,10 +73,10 @@ The current plugin configuration:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   handlers: {
     onKeyDown: ({ plugin }) => {
-      console.info('Plugin key:', plugin.key);
+      console.info("Plugin key:", plugin.key);
     },
   },
 });
@@ -88,12 +88,12 @@ A function to get a specific option value for the plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
-  options: { myOption: 'default' },
+  key: "myPlugin",
+  options: { myOption: "default" },
   handlers: {
     onClick: ({ getOption }) => {
-      const myOption = getOption('myOption');
-      console.info('My option value:', myOption);
+      const myOption = getOption("myOption");
+      console.info("My option value:", myOption);
     },
   },
 });
@@ -105,12 +105,12 @@ A function to get all options for the plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
-  options: { option1: 'value1', option2: 'value2' },
+  key: "myPlugin",
+  options: { option1: "value1", option2: "value2" },
   handlers: {
     onClick: ({ getOptions }) => {
       const options = getOptions();
-      console.info('All options:', options);
+      console.info("All options:", options);
     },
   },
 });
@@ -122,11 +122,11 @@ A function to set a specific option value for the plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   options: { count: 0 },
   handlers: {
     onClick: ({ setOption }) => {
-      setOption('count', 1);
+      setOption("count", 1);
     },
   },
 });
@@ -138,13 +138,13 @@ A function to set multiple options for the plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
-  options: { option1: 'value1', option2: 'value2' },
+  key: "myPlugin",
+  options: { option1: "value1", option2: "value2" },
   handlers: {
     onClick: ({ setOptions }) => {
       setOptions({
-        option1: 'newValue1',
-        option2: 'newValue2',
+        option1: "newValue1",
+        option2: "newValue2",
       });
     },
   },
@@ -157,11 +157,11 @@ The node type associated with the plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
-  node: { type: 'myNodeType' },
+  key: "myPlugin",
+  node: { type: "myNodeType" },
   handlers: {
     onKeyDown: ({ type }) => {
-      console.info('Node type:', type);
+      console.info("Node type:", type);
     },
   },
 });

@@ -16,7 +16,7 @@ The most basic plugin configuration requires only a `key`:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'minimal',
+  key: "minimal",
 });
 ```
 
@@ -29,7 +29,7 @@ The `.configure` method allows you to configure an existing plugin:
 ```ts
 const ConfiguredPlugin = MyPlugin.configure({
   options: {
-    myOption: 'new value',
+    myOption: "new value",
   },
 });
 ```
@@ -38,17 +38,16 @@ const ConfiguredPlugin = MyPlugin.configure({
 
 Node plugins are used to define new types of nodes in your editor using the `node` property. These can be elements (either block or inline) or leaf nodes (for text-level formatting).
 
-
 ### Elements
 
 To create a new type of element, use the `node.isElement` option:
 
 ```ts
 const ParagraphPlugin = createPlatePlugin({
-  key: 'p',
+  key: "p",
   node: {
     isElement: true,
-    type: 'p',
+    type: "p",
   },
 });
 ```
@@ -57,10 +56,10 @@ You can associate a component with your element. See [Plugin Components](/docs/p
 
 ```ts
 const ParagraphPlugin = createPlatePlugin({
-  key: 'p',
+  key: "p",
   node: {
     isElement: true,
-    type: 'p',
+    type: "p",
     component: ParagraphElement,
   },
 });
@@ -72,25 +71,25 @@ For inline elements, void elements, or leaf nodes, use the appropriate node opti
 
 ```ts
 const LinkPlugin = createPlatePlugin({
-  key: 'link',
+  key: "link",
   node: {
     isElement: true,
     isInline: true,
-    type: 'a',
+    type: "a",
   },
 });
 
 const ImagePlugin = createPlatePlugin({
-  key: 'image',
+  key: "image",
   node: {
     isElement: true,
     isVoid: true,
-    type: 'img',
+    type: "img",
   },
 });
 
 const BoldPlugin = createPlatePlugin({
-  key: 'bold',
+  key: "bold",
   node: {
     isLeaf: true,
   },
@@ -108,11 +107,11 @@ The `rules` property allows you to configure common editing behaviors like break
 For example, you can define what happens when a user presses `Enter` in an empty heading, or `Backspace` at the start of a blockquote.
 
 ```ts
-import { H1Plugin } from '@platejs/heading/react';
+import { H1Plugin } from "@platejs/heading/react";
 
 H1Plugin.configure({
   rules: {
-    break: { empty: 'reset' },
+    break: { empty: "reset" },
   },
 });
 ```
@@ -127,9 +126,9 @@ The `onChange` handler, which is called when the editor value changes, is an exc
 
 ```ts showLineNumbers
 const ExamplePlugin = createPlatePlugin({
-  key: 'example',
+  key: "example",
   handlers: {
-    onChange: ({ editor, value })  => {
+    onChange: ({ editor, value }) => {
       console.info(editor, value);
     },
     onKeyDown: ({ editor, event }) => {
@@ -144,16 +143,16 @@ const ExamplePlugin = createPlatePlugin({
 You may want to inject a class name or CSS property into any node having a certain property. For example, the following plugin sets the `textAlign` CSS property on paragraphs with an `align` property.
 
 ```ts showLineNumbers
-import { KEYS } from 'platejs';
+import { KEYS } from "platejs";
 
 const TextAlignPlugin = createPlatePlugin({
-  key: 'align',
+  key: "align",
   inject: {
     nodeProps: {
-      defaultNodeValue: 'start',
-      nodeKey: 'align',
-      styleKey: 'textAlign',
-      validNodeValues: ['start', 'left', 'center', 'right', 'end', 'justify'],
+      defaultNodeValue: "start",
+      nodeKey: "align",
+      styleKey: "textAlign",
+      validNodeValues: ["start", "left", "center", "right", "end", "justify"],
     },
     targetPlugins: [KEYS.p],
     // This is injected into all `targetPlugins`. In this example, ParagraphPlugin will be able to deserialize `textAlign` style.
@@ -163,7 +162,7 @@ const TextAlignPlugin = createPlatePlugin({
           deserializer: {
             parse: ({ element, node }) => {
               if (element.style.textAlign) {
-                node[editor.getType('align')] = element.style.textAlign;
+                node[editor.getType("align")] = element.style.textAlign;
               }
             },
           },
@@ -190,29 +189,29 @@ The `overrideEditor` method provides a way to override existing editor methods w
 
 ```ts
 const CustomPlugin = createPlatePlugin({
-  key: 'custom',
+  key: "custom",
 }).overrideEditor(({ editor, tf: { deleteForward }, api: { isInline } }) => ({
   // Override transforms
   transforms: {
     deleteForward(options) {
       // Custom logic before deletion
-      console.info('Deleting forward...');
-      
+      console.info("Deleting forward...");
+
       // Call original transform
       deleteForward(options);
-      
+
       // Custom logic after deletion
-      console.info('Deleted forward');
+      console.info("Deleted forward");
     },
   },
   // Override API methods
   api: {
     isInline(element) {
       // Custom inline element check
-      if (element.type === 'custom-inline') {
+      if (element.type === "custom-inline") {
         return true;
       }
-      
+
       // Fall back to original behavior
       return isInline(element);
     },
@@ -228,13 +227,10 @@ const CustomPlugin = createPlatePlugin({
 Example with typed options:
 
 ```ts
-type CustomConfig = PluginConfig<
-  'custom',
-  { allowDelete: boolean }
->;
+type CustomConfig = PluginConfig<"custom", { allowDelete: boolean }>;
 
 const CustomPlugin = createTPlatePlugin<CustomConfig>({
-  key: 'custom',
+  key: "custom",
   options: { allowDelete: true },
 }).overrideEditor(({ editor, tf: { deleteForward }, getOptions }) => ({
   transforms: {
@@ -243,7 +239,7 @@ const CustomPlugin = createTPlatePlugin<CustomConfig>({
       if (!getOptions().allowDelete) {
         return;
       }
-      
+
       deleteForward(options);
     },
   },
@@ -256,18 +252,20 @@ You can extend the editor for complex functionality. To do this, you can use the
 
 ```ts showLineNumbers {20}
 const CustomNormalizerPlugin = createPlatePlugin({
-  key: 'customNormalizer',
+  key: "customNormalizer",
   extendEditor: ({ editor }) => {
     editor.customState = true;
-    
+
     return editor;
   },
 });
 ```
 
 <Callout type="info" title="Difference between extendEditor and overrideEditor">
-- Use `extendEditor` when integrating legacy Slate plugins like `withYjs` that need direct editor mutation. There is only one `extendEditor` per plugin.
-- Prefer using `overrideEditor` for modifying editor behavior as it has single purpose responsibility and better type safety. It can be called multiple times to layer different overrides.
+  - Use `extendEditor` when integrating legacy Slate plugins like `withYjs` that need
+  direct editor mutation. There is only one `extendEditor` per plugin. - Prefer using
+  `overrideEditor` for modifying editor behavior as it has single purpose responsibility
+  and better type safety. It can be called multiple times to layer different overrides.
 </Callout>
 
 ## Advanced Plugin Configuration
@@ -278,14 +276,14 @@ Each plugin has its own store, which can be used to manage plugin-specific state
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   options: {
     count: 0,
   },
 }).extend(({ editor, plugin, setOption }) => ({
   handlers: {
     onClick: () => {
-      setOption('count', 1);
+      setOption("count", 1);
     },
   },
 }));
@@ -295,26 +293,25 @@ You can access and update the store using the following methods:
 
 ```ts
 // Get the current value
-const count = editor.getOption(MyPlugin, 'count');
+const count = editor.getOption(MyPlugin, "count");
 
 // Set a new value
-editor.setOption(MyPlugin, 'count', 5);
+editor.setOption(MyPlugin, "count", 5);
 
 // Update the value based on the previous state
-editor.setOption(MyPlugin, 'count', (prev) => prev + 1);
+editor.setOption(MyPlugin, "count", (prev) => prev + 1);
 ```
 
 In React components, you can use the `usePluginOption` or `usePluginOptions` hook to subscribe to store changes:
 
 ```tsx
 const MyComponent = () => {
-  const count = usePluginOption(MyPlugin, 'count');
+  const count = usePluginOption(MyPlugin, "count");
   return <div>Count: {count}</div>;
 };
 ```
 
 See more in [Plugin Context](/docs/plugin-context) and [Editor Methods](/docs/editor-methods) guides.
-
 
 ### Dependencies
 
@@ -322,8 +319,8 @@ You can specify plugin dependencies using the `dependencies` property. This ensu
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
-  dependencies: ['paragraphPlugin', 'listPlugin'],
+  key: "myPlugin",
+  dependencies: ["paragraphPlugin", "listPlugin"],
 });
 ```
 
@@ -333,7 +330,7 @@ The `enabled` property allows you to conditionally enable or disable a plugin:
 
 ```ts
 const MyPlugin = createPlatePlugin({
-  key: 'myPlugin',
+  key: "myPlugin",
   enabled: true, // or false to disable
 });
 ```
@@ -344,11 +341,8 @@ Plate supports nested plugins, allowing you to create plugin hierarchies. Use th
 
 ```ts
 const ParentPlugin = createPlatePlugin({
-  key: 'parent',
-  plugins: [
-    createPlatePlugin({ key: 'child1' }),
-    createPlatePlugin({ key: 'child2' }),
-  ],
+  key: "parent",
+  plugins: [createPlatePlugin({ key: "child1" }), createPlatePlugin({ key: "child2" })],
 });
 ```
 
@@ -358,12 +352,12 @@ The `priority` property determines the order in which plugins are registered and
 
 ```ts
 const HighPriorityPlugin = createPlatePlugin({
-  key: 'highPriority',
+  key: "highPriority",
   priority: 100,
 });
 
 const LowPriorityPlugin = createPlatePlugin({
-  key: 'lowPriority',
+  key: "lowPriority",
   priority: 50,
 });
 ```
@@ -405,7 +399,7 @@ The `createTPlatePlugin` function allows you to create a typed plugin:
 ```ts
 type CodeBlockConfig = PluginConfig<
   // key
-  'code_block',
+  "code_block",
   // options
   { syntax: boolean; syntaxPopularFirst: boolean },
   // api
@@ -419,25 +413,27 @@ type CodeBlockConfig = PluginConfig<
   {
     insert: {
       codeBlock: (options: { language: string }) => void;
-    }
+    };
   }
 >;
 
 const CodeBlockPlugin = createTPlatePlugin<CodeBlockConfig>({
-  key: 'code_block',
+  key: "code_block",
   options: { syntax: true, syntaxPopularFirst: false },
-}).extendEditorApi<CodeBlockConfig['api']>(() => ({
-  plugin: {
-    getSyntaxState: () => true,
-  },
-  toggleSyntax: () => {},
-})).extendEditorTransforms<CodeBlockConfig['transforms']>(() => ({
-  insert: {
-    codeBlock: ({ editor, getOptions }) => {
-      editor.tf.insertBlock({ type: 'code_block', language: getOptions().language });
+})
+  .extendEditorApi<CodeBlockConfig["api"]>(() => ({
+    plugin: {
+      getSyntaxState: () => true,
     },
-  },
-}));
+    toggleSyntax: () => {},
+  }))
+  .extendEditorTransforms<CodeBlockConfig["transforms"]>(() => ({
+    insert: {
+      codeBlock: ({ editor, getOptions }) => {
+        editor.tf.insertBlock({ type: "code_block", language: getOptions().language });
+      },
+    },
+  }));
 ```
 
 ### Using Typed Plugins
@@ -458,11 +454,11 @@ options.hotkey;
 // Type-safe API
 editor.api.toggleSyntax();
 editor.api.plugin.getSyntaxState();
-editor.api.plugin2.setLanguage('python');
+editor.api.plugin2.setLanguage("python");
 editor.api.plugin.getLanguage();
 
 // Type-safe Transforms
-editor.tf.insert.codeBlock({ language: 'typescript' });
+editor.tf.insert.codeBlock({ language: "typescript" });
 ```
 
 ## See also

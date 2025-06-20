@@ -44,8 +44,8 @@ The fastest way to add font styling functionality is with the `FontKit`, which i
 Add the kit to your plugins:
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { FontKit } from '@/components/editor/plugins/font-kit';
+import { createPlateEditor } from "platejs/react";
+import { FontKit } from "@/components/editor/plugins/font-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -77,8 +77,8 @@ import {
   FontColorPlugin,
   FontFamilyPlugin,
   FontSizePlugin,
-} from '@platejs/basic-styles/react';
-import { createPlateEditor } from 'platejs/react';
+} from "@platejs/basic-styles/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -101,9 +101,9 @@ import {
   FontBackgroundColorPlugin,
   FontSizePlugin,
   FontFamilyPlugin,
-} from '@platejs/basic-styles/react';
-import { KEYS } from 'platejs';
-import { createPlateEditor } from 'platejs/react';
+} from "@platejs/basic-styles/react";
+import { KEYS } from "platejs";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -111,7 +111,7 @@ const editor = createPlateEditor({
     FontColorPlugin.configure({
       inject: {
         nodeProps: {
-          defaultNodeValue: 'black',
+          defaultNodeValue: "black",
         },
         targetPlugins: [KEYS.p],
       },
@@ -173,11 +173,11 @@ Plugin for font weight formatting. Applies `font-weight` style to selected text.
 Set the font background color mark on the selected text.
 
 <API name="tf.backgroundColor.addMark">
-<APIParameters>
-  <APIItem name="value" type="string">
-    The background color value to set (e.g., `'#ff0000'`, `'red'`).
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The background color value to set (e.g., `'#ff0000'`, `'red'`).
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `tf.color.addMark`
@@ -185,11 +185,11 @@ Set the font background color mark on the selected text.
 Set the font color mark on the selected text.
 
 <API name="tf.color.addMark">
-<APIParameters>
-  <APIItem name="value" type="string">
-    The color value to set (e.g., `'#0000ff'`, `'blue'`).
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The color value to set (e.g., `'#0000ff'`, `'blue'`).
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `tf.fontFamily.addMark`
@@ -197,11 +197,11 @@ Set the font color mark on the selected text.
 Set the font family mark on the selected text.
 
 <API name="tf.fontFamily.addMark">
-<APIParameters>
-  <APIItem name="value" type="string">
-    The font family value to set (e.g., `'Arial'`, `'Times New Roman'`).
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The font family value to set (e.g., `'Arial'`, `'Times New Roman'`).
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `tf.fontSize.addMark`
@@ -209,11 +209,11 @@ Set the font family mark on the selected text.
 Set the font size mark on the selected text.
 
 <API name="tf.fontSize.addMark">
-<APIParameters>
-  <APIItem name="value" type="string">
-    The font size value to set (e.g., `'16px'`, `'1.2em'`).
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The font size value to set (e.g., `'16px'`, `'1.2em'`).
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `tf.fontWeight.addMark`
@@ -221,11 +221,11 @@ Set the font size mark on the selected text.
 Set the font weight mark on the selected text.
 
 <API name="tf.fontWeight.addMark">
-<APIParameters>
-  <APIItem name="value" type="string">
-    The font weight value to set (e.g., `'bold'`, `'400'`, `'600'`).
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="value" type="string">
+      The font weight value to set (e.g., `'bold'`, `'400'`, `'600'`).
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## API
@@ -245,4 +245,3 @@ Convert a font size value to a unitless value.
   The font size value without units.
 </APIReturns>
 </API>
-

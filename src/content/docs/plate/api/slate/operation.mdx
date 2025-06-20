@@ -154,159 +154,158 @@ export type TextOperation = InsertTextOperation | RemoveTextOperation;
 ### `InsertNodeOperation`
 
 <API name="InsertNodeOperation">
-<APIAttributes>
-  <APIItem name="node" type="N">
-    The node to insert.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path to insert at.
-  </APIItem>
-  <APIItem name="type" type="'insert_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="node" type="N">
+      The node to insert.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path to insert at.
+    </APIItem>
+    <APIItem name="type" type="'insert_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `MergeNodeOperation`
 
 <API name="MergeNodeOperation">
-<APIAttributes>
-  <APIItem name="path" type="Path">
-    The path of the node to merge.
-  </APIItem>
-  <APIItem name="position" type="number">
-    The position to merge at.
-  </APIItem>
-  <APIItem name="properties" type="Partial<NodeProps<N>>">
-    The properties of the merged node.
-  </APIItem>
-  <APIItem name="type" type="'merge_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="path" type="Path">
+      The path of the node to merge.
+    </APIItem>
+    <APIItem name="position" type="number">
+      The position to merge at.
+    </APIItem>
+    <APIItem name="properties" type="Partial<NodeProps<N>>">
+      The properties of the merged node.
+    </APIItem>
+    <APIItem name="type" type="'merge_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `MoveNodeOperation`
 
 <API name="MoveNodeOperation">
-<APIAttributes>
-  <APIItem name="newPath" type="Path">
-    The new path to move to.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path of the node to move.
-  </APIItem>
-  <APIItem name="type" type="'move_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="newPath" type="Path">
+      The new path to move to.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path of the node to move.
+    </APIItem>
+    <APIItem name="type" type="'move_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `RemoveNodeOperation`
 
 <API name="RemoveNodeOperation">
-<APIAttributes>
-  <APIItem name="node" type="N">
-    The node to remove.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path of the node.
-  </APIItem>
-  <APIItem name="type" type="'remove_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="node" type="N">
+      The node to remove.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path of the node.
+    </APIItem>
+    <APIItem name="type" type="'remove_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `SetNodeOperation`
 
 <API name="SetNodeOperation">
-<APIAttributes>
-  <APIItem name="newProperties" type="Partial<NodeProps<N1>>">
-    The new properties to set.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path of the node.
-  </APIItem>
-  <APIItem name="properties" type="Partial<NodeProps<N2>>">
-    The old properties.
-  </APIItem>
-  <APIItem name="type" type="'set_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="newProperties" type="Partial<NodeProps<N1>>">
+      The new properties to set.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path of the node.
+    </APIItem>
+    <APIItem name="properties" type="Partial<NodeProps<N2>>">
+      The old properties.
+    </APIItem>
+    <APIItem name="type" type="'set_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `SplitNodeOperation`
 
 <API name="SplitNodeOperation">
-<APIAttributes>
-  <APIItem name="path" type="Path">
-    The path of the node to split.
-  </APIItem>
-  <APIItem name="position" type="number">
-    The position to split at.
-  </APIItem>
-  <APIItem name="properties" type="Partial<NodeProps<N>>">
-    The properties of the new split node.
-  </APIItem>
-  <APIItem name="type" type="'split_node'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="path" type="Path">
+      The path of the node to split.
+    </APIItem>
+    <APIItem name="position" type="number">
+      The position to split at.
+    </APIItem>
+    <APIItem name="properties" type="Partial<NodeProps<N>>">
+      The properties of the new split node.
+    </APIItem>
+    <APIItem name="type" type="'split_node'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `SetSelectionOperation`
 
 <API name="SetSelectionOperation">
-<APIAttributes>
-  <APIItem name="newProperties" type="Partial<TRange> | TRange | null">
-    The new selection properties.
-  </APIItem>
-  <APIItem name="properties" type="Partial<TRange> | TRange | null">
-    The old selection properties.
-  </APIItem>
-  <APIItem name="type" type="'set_selection'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="newProperties" type="Partial<TRange> | TRange | null">
+      The new selection properties.
+    </APIItem>
+    <APIItem name="properties" type="Partial<TRange> | TRange | null">
+      The old selection properties.
+    </APIItem>
+    <APIItem name="type" type="'set_selection'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `InsertTextOperation`
 
 <API name="InsertTextOperation">
-<APIAttributes>
-  <APIItem name="offset" type="number">
-    The offset to insert at.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path of the text node.
-  </APIItem>
-  <APIItem name="text" type="string">
-    The text to insert.
-  </APIItem>
-  <APIItem name="type" type="'insert_text'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="offset" type="number">
+      The offset to insert at.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path of the text node.
+    </APIItem>
+    <APIItem name="text" type="string">
+      The text to insert.
+    </APIItem>
+    <APIItem name="type" type="'insert_text'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `RemoveTextOperation`
 
 <API name="RemoveTextOperation">
-<APIAttributes>
-  <APIItem name="offset" type="number">
-    The offset to remove from.
-  </APIItem>
-  <APIItem name="path" type="Path">
-    The path of the text node.
-  </APIItem>
-  <APIItem name="text" type="string">
-    The text being removed.
-  </APIItem>
-  <APIItem name="type" type="'remove_text'">
-    The operation type.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="offset" type="number">
+      The offset to remove from.
+    </APIItem>
+    <APIItem name="path" type="Path">
+      The path of the text node.
+    </APIItem>
+    <APIItem name="text" type="string">
+      The text being removed.
+    </APIItem>
+    <APIItem name="type" type="'remove_text'">
+      The operation type.
+    </APIItem>
+  </APIAttributes>
 </API>
-

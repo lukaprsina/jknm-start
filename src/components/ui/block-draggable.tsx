@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import * as React from 'react';
+import * as React from "react";
 
-import { useDraggable, useDropLine } from '@platejs/dnd';
-import { BlockSelectionPlugin } from '@platejs/selection/react';
-import { GripVertical } from 'lucide-react';
-import { getPluginByType, isType, KEYS } from 'platejs';
+import { useDraggable, useDropLine } from "@platejs/dnd";
+import { BlockSelectionPlugin } from "@platejs/selection/react";
+import { GripVertical } from "lucide-react";
+import { getPluginByType, isType, KEYS } from "platejs";
 import {
   type PlateElementProps,
   type RenderNodeWrapper,
@@ -14,16 +14,12 @@ import {
   useElement,
   usePath,
   usePluginOption,
-} from 'platejs/react';
-import { useSelected } from 'platejs/react';
+  useSelected,
+} from "platejs/react";
 
-import { Button } from '~/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '~/components/ui/tooltip';
-import { cn } from '~/lib/utils';
+import { Button } from "~/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "~/components/ui/tooltip";
+import { cn } from "~/lib/utils";
 
 const UNDRAGGABLE_KEYS = [KEYS.column, KEYS.tr, KEYS.td];
 
@@ -89,34 +85,29 @@ function Draggable(props: PlateElementProps) {
   return (
     <div
       className={cn(
-        'relative',
-        isDragging && 'opacity-50',
+        "relative",
+        isDragging && "opacity-50",
         getPluginByType(editor, element.type)?.node.isContainer
-          ? 'group/container'
-          : 'group'
+          ? "group/container"
+          : "group",
       )}
     >
       {!isInTable && (
         <Gutter>
           <div
             className={cn(
-              'slate-blockToolbarWrapper',
-              'flex h-[1.5em]',
-              isType(editor, element, [
-                KEYS.h1,
-                KEYS.h2,
-                KEYS.h3,
-                KEYS.h4,
-                KEYS.h5,
-              ]) && 'h-[1.3em]',
-              isInColumn && 'h-4'
+              "slate-blockToolbarWrapper",
+              "flex h-[1.5em]",
+              isType(editor, element, [KEYS.h1, KEYS.h2, KEYS.h3, KEYS.h4, KEYS.h5]) &&
+                "h-[1.3em]",
+              isInColumn && "h-4",
             )}
           >
             <div
               className={cn(
-                'slate-blockToolbar',
-                'pointer-events-auto mr-1 flex items-center',
-                isInColumn && 'mr-1.5'
+                "slate-blockToolbar",
+                "pointer-events-auto mr-1 flex items-center",
+                isInColumn && "mr-1.5",
               )}
             >
               <Button
@@ -140,17 +131,13 @@ function Draggable(props: PlateElementProps) {
   );
 }
 
-function Gutter({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
+function Gutter({ children, className, ...props }: React.ComponentProps<"div">) {
   const editor = useEditorRef();
   const element = useElement();
   const path = usePath();
   const isSelectionAreaVisible = usePluginOption(
     BlockSelectionPlugin,
-    'isSelectionAreaVisible'
+    "isSelectionAreaVisible",
   );
   const selected = useSelected();
 
@@ -162,31 +149,31 @@ function Gutter({
     <div
       {...props}
       className={cn(
-        'slate-gutterLeft',
-        'absolute top-0 z-50 flex h-full -translate-x-full cursor-text hover:opacity-100 sm:opacity-0',
+        "slate-gutterLeft",
+        "absolute top-0 z-50 flex h-full -translate-x-full cursor-text hover:opacity-100 sm:opacity-0",
         getPluginByType(editor, element.type)?.node.isContainer
-          ? 'group-hover/container:opacity-100'
-          : 'group-hover:opacity-100',
-        isSelectionAreaVisible && 'hidden',
-        !selected && 'opacity-0',
-        isNodeType(KEYS.h1) && 'pb-1 text-[1.875em]',
-        isNodeType(KEYS.h2) && 'pb-1 text-[1.5em]',
-        isNodeType(KEYS.h3) && 'pt-[2px] pb-1 text-[1.25em]',
-        isNodeType([KEYS.h4, KEYS.h5]) && 'pt-1 pb-0 text-[1.1em]',
-        isNodeType(KEYS.h6) && 'pb-0',
-        isNodeType(KEYS.p) && 'pt-1 pb-0',
-        isNodeType(KEYS.blockquote) && 'pb-0',
-        isNodeType(KEYS.codeBlock) && 'pt-6 pb-0',
+          ? "group-hover/container:opacity-100"
+          : "group-hover:opacity-100",
+        isSelectionAreaVisible && "hidden",
+        !selected && "opacity-0",
+        isNodeType(KEYS.h1) && "pb-1 text-[1.875em]",
+        isNodeType(KEYS.h2) && "pb-1 text-[1.5em]",
+        isNodeType(KEYS.h3) && "pt-[2px] pb-1 text-[1.25em]",
+        isNodeType([KEYS.h4, KEYS.h5]) && "pt-1 pb-0 text-[1.1em]",
+        isNodeType(KEYS.h6) && "pb-0",
+        isNodeType(KEYS.p) && "pt-1 pb-0",
+        isNodeType(KEYS.blockquote) && "pb-0",
+        isNodeType(KEYS.codeBlock) && "pt-6 pb-0",
         isNodeType([
           KEYS.img,
           KEYS.mediaEmbed,
           KEYS.excalidraw,
           KEYS.toggle,
           KEYS.column,
-        ]) && 'py-0',
-        isNodeType([KEYS.placeholder, KEYS.table]) && 'pt-3 pb-0',
-        isInColumn && 'mt-2 h-4 pt-0',
-        className
+        ]) && "py-0",
+        isNodeType([KEYS.placeholder, KEYS.table]) && "pt-3 pb-0",
+        isInColumn && "mt-2 h-4 pt-0",
+        className,
       )}
       contentEditable={false}
     >
@@ -205,9 +192,7 @@ const DragHandle = React.memo(function DragHandle() {
         <div
           className="flex size-full items-center justify-center"
           onClick={() => {
-            editor
-              .getApi(BlockSelectionPlugin)
-              .blockSelection.set(element.id as string);
+            editor.getApi(BlockSelectionPlugin).blockSelection.set(element.id as string);
           }}
           role="button"
         >
@@ -222,7 +207,7 @@ const DragHandle = React.memo(function DragHandle() {
 const DropLine = React.memo(function DropLine({
   className,
   ...props
-}: React.ComponentProps<'div'>) {
+}: React.ComponentProps<"div">) {
   const { dropLine } = useDropLine();
 
   if (!dropLine) return null;
@@ -231,12 +216,12 @@ const DropLine = React.memo(function DropLine({
     <div
       {...props}
       className={cn(
-        'slate-dropLine',
-        'absolute inset-x-0 h-0.5 opacity-100 transition-opacity',
-        'bg-brand/50',
-        dropLine === 'top' && '-top-px',
-        dropLine === 'bottom' && '-bottom-px',
-        className
+        "slate-dropLine",
+        "absolute inset-x-0 h-0.5 opacity-100 transition-opacity",
+        "bg-brand/50",
+        dropLine === "top" && "-top-px",
+        dropLine === "bottom" && "-bottom-px",
+        className,
       )}
     />
   );

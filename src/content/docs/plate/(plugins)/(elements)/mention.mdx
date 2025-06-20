@@ -38,8 +38,8 @@ The fastest way to add mentions is with the `MentionKit`, which includes pre-con
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { MentionKit } from '@/components/editor/plugins/mention-kit';
+import { createPlateEditor } from "platejs/react";
+import { MentionKit } from "@/components/editor/plugins/mention-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -64,8 +64,8 @@ npm install @platejs/mention
 ### Add Plugins
 
 ```tsx
-import { MentionPlugin, MentionInputPlugin } from '@platejs/mention/react';
-import { createPlateEditor } from 'platejs/react';
+import { MentionPlugin, MentionInputPlugin } from "@platejs/mention/react";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -79,16 +79,16 @@ const editor = createPlateEditor({
 ### Configure Plugins
 
 ```tsx
-import { MentionPlugin, MentionInputPlugin } from '@platejs/mention/react';
-import { createPlateEditor } from 'platejs/react';
-import { MentionElement, MentionInputElement } from '@/components/ui/mention-node';
+import { MentionPlugin, MentionInputPlugin } from "@platejs/mention/react";
+import { createPlateEditor } from "platejs/react";
+import { MentionElement, MentionInputElement } from "@/components/ui/mention-node";
 
 const editor = createPlateEditor({
   plugins: [
     // ...otherPlugins,
     MentionPlugin.configure({
       options: {
-        trigger: '@',
+        trigger: "@",
         triggerPreviousCharPattern: /^$|^[\s"']$/,
         insertSpaceAfterMention: false,
       },
@@ -116,23 +116,20 @@ const editor = createPlateEditor({
 Plugin for mention functionality. Extends [TriggerComboboxPluginOptions](/docs/combobox#triggercomboboxpluginoptions).
 
 <API name="MentionPlugin">
-<APIOptions>
-  <APIItem name="insertSpaceAfterMention" type="boolean" optional>
-    Whether to insert a space after the mention.
-    - **Default:** `false`
-  </APIItem>
-  <APIItem name="trigger" type="string" optional>
-    Character that triggers the mention combobox.
-    - **Default:** `'@'`
-  </APIItem>
-  <APIItem name="triggerPreviousCharPattern" type="RegExp" optional>
-    Pattern to match the character before trigger.
-    - **Default:** `/^\s?$/`
-  </APIItem>
-  <APIItem name="createComboboxInput" type="(trigger: string) => TElement" optional>
-    Function to create the input element when trigger is activated.
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="insertSpaceAfterMention" type="boolean" optional>
+      Whether to insert a space after the mention. - **Default:** `false`
+    </APIItem>
+    <APIItem name="trigger" type="string" optional>
+      Character that triggers the mention combobox. - **Default:** `'@'`
+    </APIItem>
+    <APIItem name="triggerPreviousCharPattern" type="RegExp" optional>
+      Pattern to match the character before trigger. - **Default:** `/^\s?$/`
+    </APIItem>
+    <APIItem name="createComboboxInput" type="(trigger: string) => TElement" optional>
+      Function to create the input element when trigger is activated.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### MentionInputPlugin
@@ -146,21 +143,21 @@ Plugin for mention input functionality.
 Inserts a mention element at the current selection.
 
 <API name="api.insert.mention">
-<APIParameters>
-  <APIItem name="options" type="object">
-    <APISubList>
-      <APISubListItem parent="options" name="search" type="string">
-        The search text that triggered the mention.
-      </APISubListItem>
-      <APISubListItem parent="options" name="value" type="any">
-        The value to store in the mention element.
-      </APISubListItem>
-      <APISubListItem parent="options" name="key" type="any" optional>
-        Optional key for the mention element.
-      </APISubListItem>
-    </APISubList>
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="options" type="object">
+      <APISubList>
+        <APISubListItem parent="options" name="search" type="string">
+          The search text that triggered the mention.
+        </APISubListItem>
+        <APISubListItem parent="options" name="value" type="any">
+          The value to store in the mention element.
+        </APISubListItem>
+        <APISubListItem parent="options" name="key" type="any" optional>
+          Optional key for the mention element.
+        </APISubListItem>
+      </APISubList>
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### getMentionOnSelectItem

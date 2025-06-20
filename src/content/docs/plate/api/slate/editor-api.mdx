@@ -12,48 +12,52 @@ The Editor API provides a set of helper functions for querying and manipulating 
 A location reference in the editor. Can be either a Location or a Node.
 
 ```ts
-type At = TLocation | TNode
+type At = TLocation | TNode;
 ```
 
 When a Node is passed, its path will be found using [`editor.api.findPath()`](/docs/api/slate/editor-api#findpath). This allows you to reference a location by either:
+
 - A [Location](/docs/api/slate/location) ([Path](/docs/api/slate/path), [Point](/docs/api/slate/point), or [Range](/docs/api/slate/range))
 - A [Node](/docs/api/slate/node)
 
 Example:
+
 ```ts
 // Using a location
-editor.api.nodes({ at: [0, 0] }) // Path location
-editor.api.nodes({ at: { path: [0], offset: 0 } }) // Point location 
-editor.api.nodes({ at: { anchor: point1, focus: point2 } }) // Range location
+editor.api.nodes({ at: [0, 0] }); // Path location
+editor.api.nodes({ at: { path: [0], offset: 0 } }); // Point location
+editor.api.nodes({ at: { anchor: point1, focus: point2 } }); // Range location
 
 // Using a node reference
-const node = editor.children[0]
-editor.api.nodes({ at: node }) // Will find node's path internally
+const node = editor.children[0];
+editor.api.nodes({ at: node }); // Will find node's path internally
 ```
 
 ### Match
 
 A predicate for matching nodes. The predicate can be either:
+
 - A function that takes a `node` and its `path` and returns a `boolean`
 - An object where each key-value pair must match the node's properties
   - Values can be single values or arrays of values to match against
 
 Example:
+
 ```ts
 // Function predicate
 editor.api.nodes({
-  match: (node) => node.type === 'p'
-})
+  match: (node) => node.type === "p",
+});
 
 // Object predicate
 editor.api.nodes({
-  match: { type: 'p' }
-})
+  match: { type: "p" },
+});
 
 // Object predicate with multiple possible values
 editor.api.nodes({
-  match: { type: ['p', 'h1'] }
-})
+  match: { type: ["p", "h1"] },
+});
 ```
 
 ### `QueryMode`
@@ -73,16 +77,17 @@ Mode for querying nodes in a hierarchy.
     // - blockquote (matches)
     //   - paragraph (matches)
     //     - text
-    
+
     // mode: 'all' returns both blockquote and paragraph
     editor.api.nodes({ match: { type: ['blockquote', 'paragraph'] }, mode: 'all' })
-    
+
     // mode: 'highest' returns only blockquote
     editor.api.nodes({ match: { type: ['blockquote', 'paragraph'] }, mode: 'highest' })
-    
+
     // mode: 'lowest' returns only paragraph
     editor.api.nodes({ match: { type: ['blockquote', 'paragraph'] }, mode: 'lowest' })
     ```
+
   </APIItem>
 </APIOptions>
 </API>
@@ -92,32 +97,29 @@ Mode for querying nodes in a hierarchy.
 Common options for querying nodes in the editor.
 
 <API name="QueryOptions">
-<APIOptions type="QueryOptions<V>">
-  <APIItem name="at" type="At" optional>
-    Where to start querying from. Defaults to current editor selection.
-  </APIItem>
-  <APIItem name="block" type="boolean" optional>
-    Match block nodes. When true, only matches block elements.
-  </APIItem>
-  <APIItem name="empty" type="boolean" optional>
-    Match empty/non-empty nodes.
-    - When true, matches only empty nodes
-    - When false, matches only non-empty nodes
-  </APIItem>
-  <APIItem name="id" type="boolean | string" optional>
-    Match the node by id.
-    - When true, matches all nodes with an id
-    - When string, matches nodes with that specific id
-  </APIItem>
-  <APIItem name="match" type="Predicate<NodeIn<V>>" optional>
-    Custom function or object to match nodes.
-    - Function: `(node, path) => boolean`
-    - Object: Key-value pairs that should match the node
-  </APIItem>
-  <APIItem name="text" type="boolean" optional>
-    Match text nodes. When true, matches only text nodes.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="QueryOptions<V>">
+    <APIItem name="at" type="At" optional>
+      Where to start querying from. Defaults to current editor selection.
+    </APIItem>
+    <APIItem name="block" type="boolean" optional>
+      Match block nodes. When true, only matches block elements.
+    </APIItem>
+    <APIItem name="empty" type="boolean" optional>
+      Match empty/non-empty nodes. - When true, matches only empty nodes - When false,
+      matches only non-empty nodes
+    </APIItem>
+    <APIItem name="id" type="boolean | string" optional>
+      Match the node by id. - When true, matches all nodes with an id - When string,
+      matches nodes with that specific id
+    </APIItem>
+    <APIItem name="match" type="Predicate<NodeIn<V>>" optional>
+      Custom function or object to match nodes. - Function: `(node, path) => boolean` -
+      Object: Key-value pairs that should match the node
+    </APIItem>
+    <APIItem name="text" type="boolean" optional>
+      Match text nodes. When true, matches only text nodes.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## `editor.api`
@@ -150,11 +152,11 @@ Get the block at a location or find the first block that matches options.
 Blocks are typically top-level nodes, so this is a common way to retrieve the ancestor block.
 
 ```ts
-editor.api.block() // Get block above selection
-editor.api.block({ above: true }) // Get block above selection
-editor.api.block({ at: [0, 0] }) // Get block at [0, 0]
-editor.api.block({ at: [0, 0], above: true }) // Get block at [0]
-editor.api.block({ highest: true }) // Get highest block at selection
+editor.api.block(); // Get block above selection
+editor.api.block({ above: true }); // Get block above selection
+editor.api.block({ at: [0, 0] }); // Get block at [0, 0]
+editor.api.block({ at: [0, 0], above: true }); // Get block at [0]
+editor.api.block({ highest: true }); // Get highest block at selection
 ```
 
 <API name="block">
@@ -399,16 +401,16 @@ Check if a location (point/range) is at a specific position.
 
 ```ts
 // For ranges:
-editor.api.isAt({ text: true }) // Check if range is in a single text node
-editor.api.isAt({ block: true }) // Check if range is in a single block
-editor.api.isAt({ blocks: true }) // Check if range is across multiple blocks
-editor.api.isAt({ start: true }) // Check if range starts at block start
-editor.api.isAt({ end: true }) // Check if range ends at block end
+editor.api.isAt({ text: true }); // Check if range is in a single text node
+editor.api.isAt({ block: true }); // Check if range is in a single block
+editor.api.isAt({ blocks: true }); // Check if range is across multiple blocks
+editor.api.isAt({ start: true }); // Check if range starts at block start
+editor.api.isAt({ end: true }); // Check if range ends at block end
 
 // For points:
-editor.api.isAt({ word: true }) // Check relative to word boundaries
-editor.api.isAt({ start: true }) // Check if at start
-editor.api.isAt({ end: true }) // Check if at end
+editor.api.isAt({ word: true }); // Check relative to word boundaries
+editor.api.isAt({ start: true }); // Check if at start
+editor.api.isAt({ end: true }); // Check if at end
 ```
 
 <API name="isAt">
@@ -446,9 +448,9 @@ editor.api.isAt({ end: true }) // Check if at end
 Check if the selection is collapsed (start and end points are the same).
 
 <API name="isCollapsed">
-<APIReturns type="boolean">
-  True if the selection is collapsed, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the selection is collapsed, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isEdge`
@@ -470,15 +472,14 @@ Check if a point is an edge of a location.
 </APIReturns>
 </API>
 
-
 ### `isEditorEnd`
 
 Check if selection is at editor end.
 
 <API name="isEditorEnd">
-<APIReturns type="boolean">
-  True if the selection is at the editor end, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the selection is at the editor end, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isEmpty`
@@ -486,10 +487,10 @@ Check if selection is at editor end.
 Check if an element is empty, accounting for void nodes.
 
 ```ts
-editor.api.isEmpty() // Check if editor is empty
-editor.api.isEmpty(at) // Check if nodes at location are empty
-editor.api.isEmpty(at, { after: true }) // Check if text after location is empty
-editor.api.isEmpty(at, { block: true }) // Check if block above location is empty
+editor.api.isEmpty(); // Check if editor is empty
+editor.api.isEmpty(at); // Check if nodes at location are empty
+editor.api.isEmpty(at, { after: true }); // Check if text after location is empty
+editor.api.isEmpty(at, { block: true }); // Check if block above location is empty
 ```
 
 <API name="isEmpty">
@@ -538,9 +539,9 @@ Check if a point is the end point of a location.
 Check if the selection is expanded (start and end points are different).
 
 <API name="isExpanded">
-<APIReturns type="boolean">
-  True if the selection is expanded, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the selection is expanded, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isNormalizing`
@@ -548,9 +549,9 @@ Check if the selection is expanded (start and end points are different).
 Check if the editor is currently normalizing after each operation.
 
 <API name="isNormalizing">
-<APIReturns type="boolean">
-  True if the editor is currently normalizing, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the editor is currently normalizing, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isStart`
@@ -690,9 +691,9 @@ Returns the selection mark value by key.
 Get the marks that would be added to text at the current selection.
 
 <API name="marks">
-<APIReturns type="MarksIn<V> | null">
-  The marks at the current selection, or null if there are no marks.
-</APIReturns>
+  <APIReturns type="MarksIn<V> | null">
+    The marks at the current selection, or null if there are no marks.
+  </APIReturns>
 </API>
 
 ### `next`
@@ -723,7 +724,6 @@ Get the matching node in the branch of the document after a location.
   A tuple containing the next matching node and its path, or undefined if not found.
 </APIReturns>
 </API>
-
 
 ### `node`
 
@@ -1260,9 +1260,7 @@ Create a mutable ref for a `Path`.
 Get the set of currently tracked path refs of the editor.
 
 <API name="pathRefs">
-<APIReturns type="Set<PathRef>">
-  The set of tracked path refs.
-</APIReturns>
+  <APIReturns type="Set<PathRef>">The set of tracked path refs.</APIReturns>
 </API>
 
 ### `pointRef`
@@ -1297,9 +1295,7 @@ Create a mutable ref for a `Point`.
 Get the set of currently tracked point refs of the editor.
 
 <API name="pointRefs">
-<APIReturns type="Set<PointRef>">
-  The set of tracked point refs.
-</APIReturns>
+  <APIReturns type="Set<PointRef>">The set of tracked point refs.</APIReturns>
 </API>
 
 ### `rangeRef`
@@ -1336,9 +1332,7 @@ Create a mutable ref for a `Range`.
 Get the set of currently tracked range refs of the editor.
 
 <API name="rangeRefs">
-<APIReturns type="Set<RangeRef>">
-  The set of tracked range refs.
-</APIReturns>
+  <APIReturns type="Set<RangeRef>">The set of tracked range refs.</APIReturns>
 </API>
 
 ## DOM
@@ -1348,9 +1342,9 @@ Get the set of currently tracked range refs of the editor.
 Find the document or shadow root from the editor.
 
 <API name="findDocumentOrShadowRoot">
-<APIReturns type="Document | ShadowRoot">
-  The document or shadow root containing the editor.
-</APIReturns>
+  <APIReturns type="Document | ShadowRoot">
+    The document or shadow root containing the editor.
+  </APIReturns>
 </API>
 
 ### `findEventRange`
@@ -1390,9 +1384,7 @@ Find a key for a Plate node. Returns an instance of `Key` which looks like `{ id
 Get the window object from the editor.
 
 <API name="getWindow">
-<APIReturns type="Window">
-  The window object associated with the editor.
-</APIReturns>
+  <APIReturns type="Window">The window object associated with the editor.</APIReturns>
 </API>
 
 ### `hasDOMNode`
@@ -1488,9 +1480,9 @@ Check if a DOM target exists.
 Check if the user is currently composing inside the editor.
 
 <API name="isComposing">
-<APIReturns type="boolean">
-  True if the user is currently composing text, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the user is currently composing text, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isFocused`
@@ -1498,9 +1490,7 @@ Check if the user is currently composing inside the editor.
 Check if the editor is focused.
 
 <API name="isFocused">
-<APIReturns type="boolean">
-  True if the editor has focus, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">True if the editor has focus, false otherwise.</APIReturns>
 </API>
 
 ### `isReadOnly`
@@ -1508,9 +1498,9 @@ Check if the editor is focused.
 Check if the editor is in read-only mode.
 
 <API name="isReadOnly">
-<APIReturns type="boolean">
-  True if the editor is read-only, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the editor is read-only, false otherwise.
+  </APIReturns>
 </API>
 
 ### `toDOMNode`
@@ -1616,11 +1606,11 @@ Find a Plate range from a DOM range.
 Called when there is a change in the editor.
 
 <API name="onChange">
-<APIOptions type="object">
-  <APIItem name="operation" type="Operation" optional>
-    The operation that triggered the change.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="object">
+    <APIItem name="operation" type="Operation" optional>
+      The operation that triggered the change.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## Core
@@ -1662,11 +1652,11 @@ Override this method to prevent normalizing a specific node. Defaults to returni
 Manually control the editor's normalizing state.
 
 <API name="setNormalizing">
-<APIOptions type="boolean">
-  <APIItem name="isNormalizing" type="boolean">
-    Whether the editor should normalize after each operation.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="boolean">
+    <APIItem name="isNormalizing" type="boolean">
+      Whether the editor should normalize after each operation.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `shouldNormalize`
@@ -1701,9 +1691,9 @@ Controls whether the editor should normalize after an operation. Override this m
 Get the merge flag's current value.
 
 <API name="isMerging">
-<APIReturns type="boolean">
-  True if the editor is currently merging operations, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the editor is currently merging operations, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isSaving`
@@ -1711,9 +1701,9 @@ Get the merge flag's current value.
 Get the saving flag's current value.
 
 <API name="isSaving">
-<APIReturns type="boolean">
-  True if the editor is currently saving, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the editor is currently saving, false otherwise.
+  </APIReturns>
 </API>
 
 ### `isSplittingOnce`
@@ -1721,9 +1711,9 @@ Get the saving flag's current value.
 Get the splitting flag's current value.
 
 <API name="isSplittingOnce">
-<APIReturns type="boolean">
-  True if the editor is currently performing a single split operation, false otherwise.
-</APIReturns>
+  <APIReturns type="boolean">
+    True if the editor is currently performing a single split operation, false otherwise.
+  </APIReturns>
 </API>
 
 ## Utils
@@ -1752,7 +1742,5 @@ Default block factory for creating new block elements.
 Default value factory for creating new editor values.
 
 <API name="create.value">
-<APIReturns type="Value">
-  A new editor value.
-</APIReturns>
+  <APIReturns type="Value">A new editor value.</APIReturns>
 </API>

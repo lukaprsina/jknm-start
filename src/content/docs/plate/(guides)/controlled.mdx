@@ -14,9 +14,9 @@ Implementing a fully controlled editor value in Plate is complex due to several 
 Given these challenges, it's generally recommended to use Plate as an uncontrolled input. However, if you need to make external changes to the editor's content, you can use `editor.tf.setValue(value)` function.
 
 <Callout type="warning" title="Performance Consideration">
-  Using `editor.tf.setValue` will re-render all nodes on each call, so it
-  should be used carefully and sparingly. It may impact performance if used
-  frequently or with large documents.
+  Using `editor.tf.setValue` will re-render all nodes on each call, so it should be used
+  carefully and sparingly. It may impact performance if used frequently or with large
+  documents.
 </Callout>
 
 Alternatively, you can use `editor.tf.reset()` to reset the editor state, which will reset the selection and history.
@@ -30,11 +30,11 @@ function AsyncControlledEditor() {
   const editor = usePlateEditor({
     value: async () => {
       // Simulate fetching data from an API
-      const response = await fetch('/api/document');
+      const response = await fetch("/api/document");
       const data = await response.json();
       return data.content;
     },
-    autoSelect: 'end',
+    autoSelect: "end",
   });
 
   return (
@@ -58,19 +58,19 @@ function AsyncControlledEditor() {
 
   React.useEffect(() => {
     const loadData = async () => {
-      const response = await fetch('/api/document');
+      const response = await fetch("/api/document");
       const data = await response.json();
       setData(data);
-      
+
       editor.tf.init({
         value: data.content,
-        autoSelect: 'end',
+        autoSelect: "end",
         onReady: ({ editor, value }) => {
-          console.info('Editor ready with value:', value);
+          console.info("Editor ready with value:", value);
         },
       });
     };
-    
+
     loadData();
   }, [editor]);
 
@@ -87,4 +87,3 @@ function AsyncControlledEditor() {
 ```
 
 <ComponentPreview name="controlled-demo" padding="md" />
-

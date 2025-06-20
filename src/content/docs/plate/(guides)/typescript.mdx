@@ -11,7 +11,6 @@ Plate provides ESM packages, which require certain TypeScript (and bundler) conf
 2. **Alternate (Node resolution):** Keep `"moduleResolution": "node"` and map paths to `dist/react` (and potentially alias them in your bundler config).
 3. **Up-to-date Packages:** Use `depset` to upgrade Plate dependencies.
 
-
 ## Recommended: `"moduleResolution": "bundler"`
 
 The simplest approach for modern bundlers (Vite, Next.js 14, etc.) is to enable the new TypeScript "bundler" resolution mode. Example:
@@ -24,7 +23,7 @@ The simplest approach for modern bundlers (Vite, Next.js 14, etc.) is to enable 
     "module": "esnext",
     "moduleResolution": "bundler",
     // ...
-  }
+  },
 }
 ```
 
@@ -67,16 +66,11 @@ This aligns TypeScript's resolution logic more closely with modern bundlers and 
 
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./*"]
-    }
+      "@/*": ["./*"],
+    },
   },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ],
-  "exclude": ["node_modules"]
+  "include": ["next-env.d.ts", ".next/types/**/*.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
 }
 ```
 
@@ -87,8 +81,8 @@ This aligns TypeScript's resolution logic more closely with modern bundlers and 
 // package.json
 {
   "devDependencies": {
-    "typescript": "^5.0.0"
-  }
+    "typescript": "^5.0.0",
+  },
 }
 ```
 
@@ -109,63 +103,46 @@ If upgrading your entire project to TS 5.0 or changing the resolution mode is no
   "compilerOptions": {
     "moduleResolution": "node",
     "paths": {
-      "platejs/react": [
-        "./node_modules/platejs/dist/react/index.d.ts"
-      ],
-      "@platejs/core/react": [
-        "./node_modules/@platejs/core/dist/react/index.d.ts"
-      ],
-      "@platejs/list/react": [
-        "./node_modules/@platejs/list/dist/react/index.d.ts"
-      ]
+      "platejs/react": ["./node_modules/platejs/dist/react/index.d.ts"],
+      "@platejs/core/react": ["./node_modules/@platejs/core/dist/react/index.d.ts"],
+      "@platejs/list/react": ["./node_modules/@platejs/list/dist/react/index.d.ts"],
       // ...repeat for all @platejs/*/react packages
-    }
-  }
+    },
+  },
 }
 ```
 
 ### Example `vite.config.ts`
 
 ```ts
-import { defineConfig } from 'vite';
-import path from 'path';
+import { defineConfig } from "vite";
+import path from "path";
 
 export default defineConfig({
   resolve: {
     alias: {
-      'platejs/react': path.resolve(
+      "platejs/react": path.resolve(__dirname, "node_modules/platejs/dist/react"),
+      "@platejs/core/react": path.resolve(
         __dirname,
-        'node_modules/platejs/dist/react'
+        "node_modules/@platejs/core/dist/react",
       ),
-      '@platejs/core/react': path.resolve(
+      "@platejs/list/react": path.resolve(
         __dirname,
-        'node_modules/@platejs/core/dist/react'
-      ),
-      '@platejs/list/react': path.resolve(
-        __dirname,
-        'node_modules/@platejs/list/dist/react'
+        "node_modules/@platejs/list/dist/react",
       ),
 
       // Non-/react base aliases:
-      'platejs': path.resolve(
-        __dirname,
-        'node_modules/platejs'
-      ),
-      '@platejs/core': path.resolve(
-        __dirname,
-        'node_modules/@platejs/core'
-      ),
-      '@platejs/list': path.resolve(
-        __dirname,
-        'node_modules/@platejs/list'
-      )
-    }
-  }
+      platejs: path.resolve(__dirname, "node_modules/platejs"),
+      "@platejs/core": path.resolve(__dirname, "node_modules/@platejs/core"),
+      "@platejs/list": path.resolve(__dirname, "node_modules/@platejs/list"),
+    },
+  },
 });
 ```
 
 **Note:**
-- You must do this for every `@platejs/*/react` import you use.  
+
+- You must do this for every `@platejs/*/react` import you use.
 - For testing/Jest, replicate these aliases via `moduleNameMapper` or similar.
 
 ## Ensure Matching Plate Versions
@@ -192,21 +169,22 @@ This helps prevent version conflicts by ensuring all related Plate packages are 
 
 If your codebase has older TS usage or relies on `node` resolution, try the path alias approach or fully migrate to a TS 5+ / ESM environment.
 
-> "I'm seeing `TS2305` about missing exports. Is that a resolution error or a real missing export?"  
+> "I'm seeing `TS2305` about missing exports. Is that a resolution error or a real missing export?"
 
 It can be either:
-- If the entire package is "not found," it's likely a resolution issue.  
+
+- If the entire package is "not found," it's likely a resolution issue.
 - If it's specifically "no exported member," double-check that you spelled the import correctly (no typos) and that your installed version actually has that export.
 
-> "Which minimum TS version do I need for `moduleResolution: bundler`?"  
+> "Which minimum TS version do I need for `moduleResolution: bundler`?"
 
 TypeScript 5.0 or higher.
 
-> "We switched to bundler resolution, but some older libraries in our project break."  
+> "We switched to bundler resolution, but some older libraries in our project break."
 
 If your older libraries aren't ESM-friendly, you might stick to `node` resolution and do manual path aliases. Some large codebases gradually upgrade or create separate build pipelines for legacy code.
 
-> "We see the error in Jest but not in Vite."  
+> "We see the error in Jest but not in Vite."
 
 You'll need to replicate your alias/resolution changes for Jest. For example:
 
@@ -215,9 +193,9 @@ You'll need to replicate your alias/resolution changes for Jest. For example:
 module.exports = {
   // ...
   moduleNameMapper: {
-    '^platejs/react$': '<rootDir>/node_modules/platejs/dist/react',
-    '^@platejs/core/react$': '<rootDir>/node_modules/@platejs/core/dist/react',
+    "^platejs/react$": "<rootDir>/node_modules/platejs/dist/react",
+    "^@platejs/core/react$": "<rootDir>/node_modules/@platejs/core/dist/react",
     // ...
-  }
+  },
 };
 ```

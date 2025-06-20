@@ -7,9 +7,9 @@ description: API reference for elements in Slate.
 
 ```typescript
 interface TElement {
-  children: Descendant[]
-  type: string
-  [key: string]: unknown
+  children: Descendant[];
+  type: string;
+  [key: string]: unknown;
 }
 ```
 
@@ -151,14 +151,15 @@ Check if an element matches a set of properties.
 `Element` is a type alias for `TElement`.
 
 <API name="TElement">
-<APIAttributes>
-  <APIItem name="children" type="Descendant[]">
-    An array of child nodes that can be either elements or text nodes.
-  </APIItem>
-  <APIItem name="type" type="string">
-    A string identifier that defines the element's type (e.g., 'paragraph', 'heading', etc.).
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="children" type="Descendant[]">
+      An array of child nodes that can be either elements or text nodes.
+    </APIItem>
+    <APIItem name="type" type="string">
+      A string identifier that defines the element's type (e.g., 'paragraph', 'heading',
+      etc.).
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `ElementEntry`
@@ -166,14 +167,14 @@ Check if an element matches a set of properties.
 Element entries represent an Element node and its path.
 
 <API name="ElementEntry">
-<APIAttributes>
-  <APIItem name="0" type="Element">
-    The Element node.
-  </APIItem>
-  <APIItem name="1" type="Path">
-    The path to the element.
-  </APIItem>
-</APIAttributes>
+  <APIAttributes>
+    <APIItem name="0" type="Element">
+      The Element node.
+    </APIItem>
+    <APIItem name="1" type="Path">
+      The path to the element.
+    </APIItem>
+  </APIAttributes>
 </API>
 
 ### `ElementOrTextOf`
@@ -203,4 +204,7 @@ type ElementIn<V extends Value> = ElementOf<V[number]>;
 ```
 
 `ElementIn` is a utility type to get an element type from a Plate `Value` type.
+
+```
+
 ```

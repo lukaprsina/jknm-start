@@ -6,7 +6,7 @@ description: Configure common editing behaviors.
 Plugin Rules control how editor nodes respond to common user actions. Instead of overriding the editor methods, you can configure these behaviors directly on a plugin's `rules` property.
 
 This guide shows you how to use `rules.break`, `rules.delete`, `rules.merge`, `rules.normalize`, `rules.selection`
- and `rules.match` to create intuitive editing experiences.
+and `rules.match` to create intuitive editing experiences.
 
 <ComponentPreview name="plugin-rules-demo" />
 
@@ -25,9 +25,7 @@ Plugin rules use specific action names to define behavior:
 Standard Slate behavior. For `rules.break`, splits the block. For `rules.delete`, merges with the previous block.
 
 ```tsx
-<p>
-  Hello world|
-</p>
+<p>Hello world|</p>
 ```
 
 After pressing `Enter`:
@@ -50,17 +48,13 @@ After pressing `Backspace`:
 Converts the current block to a default paragraph while preserving content. Custom properties are removed.
 
 ```tsx
-<h3 listStyleType="disc">
-  |
-</h3>
+<h3 listStyleType="disc">|</h3>
 ```
 
 After pressing `Enter` with `rules: { break: { empty: 'reset' } }`:
 
 ```tsx
-<p>
-  |
-</p>
+<p>|</p>
 ```
 
 ### `exit`
@@ -68,9 +62,7 @@ After pressing `Enter` with `rules: { break: { empty: 'reset' } }`:
 Exits the current block structure by inserting a new paragraph after it.
 
 ```tsx
-<blockquote>
-  |
-</blockquote>
+<blockquote>|</blockquote>
 ```
 
 After pressing `Enter` with `rules: { break: { empty: 'exit' } }`:
@@ -89,10 +81,7 @@ After pressing `Enter` with `rules: { break: { empty: 'exit' } }`:
 Deletes content then exits the block.
 
 ```tsx
-<blockquote>
-  line1
-  |
-</blockquote>
+<blockquote>line1 |</blockquote>
 ```
 
 After pressing `Enter` with `rules: { break: { emptyLineEnd: 'deleteExit' } }`:
@@ -109,18 +98,13 @@ After pressing `Enter` with `rules: { break: { emptyLineEnd: 'deleteExit' } }`:
 Inserts a soft line break (`\n`) instead of splitting the block.
 
 ```tsx
-<blockquote>
-  Hello|
-</blockquote>
+<blockquote>Hello|</blockquote>
 ```
 
 After pressing `Enter` with `rules: { break: { default: 'lineBreak' } }`:
 
 ```tsx
-<blockquote>
-  Hello
-  |
-</blockquote>
+<blockquote>Hello |</blockquote>
 ```
 
 ## `rules.break`
@@ -134,13 +118,13 @@ BlockquotePlugin.configure({
   rules: {
     break: {
       // Action when Enter is pressed normally
-      default: 'default' | 'lineBreak' | 'exit' | 'deleteExit',
-      
+      default: "default" | "lineBreak" | "exit" | "deleteExit",
+
       // Action when Enter is pressed in an empty block
-      empty: 'default' | 'reset' | 'exit' | 'deleteExit',
-      
+      empty: "default" | "reset" | "exit" | "deleteExit",
+
       // Action when Enter is pressed at end of empty line
-      emptyLineEnd: 'default' | 'exit' | 'deleteExit',
+      emptyLineEnd: "default" | "exit" | "deleteExit",
 
       // If true, the new block after splitting will be reset
       splitReset: boolean,
@@ -152,18 +136,21 @@ BlockquotePlugin.configure({
 Each property controls a specific scenario:
 
 - `default`
+
   - [`'default'`](#default)
   - [`'lineBreak'`](#linebreak)
   - [`'exit'`](#exit)
   - [`'deleteExit'`](#deleteexit)
 
 - `empty`
+
   - [`'default'`](#default)
   - [`'reset'`](#reset)
   - [`'exit'`](#exit)
   - [`'deleteExit'`](#deleteexit)
 
 - `emptyLineEnd`
+
   - [`'default'`](#default)
   - [`'exit'`](#exit)
   - [`'deleteExit'`](#deleteexit)
@@ -175,7 +162,7 @@ Each property controls a specific scenario:
 **Reset heading on break:**
 
 ```tsx
-import { H1Plugin } from '@platejs/heading/react';
+import { H1Plugin } from "@platejs/heading/react";
 
 const plugins = [
   // ...otherPlugins,
@@ -192,9 +179,7 @@ const plugins = [
 Before pressing `Enter`:
 
 ```tsx
-<h1>
-  Heading|text
-</h1>
+<h1>Heading|text</h1>
 ```
 
 After (split and reset):
@@ -211,16 +196,16 @@ After (split and reset):
 **Blockquote with line breaks and smart exits:**
 
 ```tsx
-import { BlockquotePlugin } from '@platejs/basic-nodes/react';
+import { BlockquotePlugin } from "@platejs/basic-nodes/react";
 
 const plugins = [
   // ...otherPlugins,
   BlockquotePlugin.configure({
     rules: {
       break: {
-        default: 'lineBreak',
-        empty: 'reset',
-        emptyLineEnd: 'deleteExit',
+        default: "lineBreak",
+        empty: "reset",
+        emptyLineEnd: "deleteExit",
       },
     },
   }),
@@ -228,32 +213,29 @@ const plugins = [
 ```
 
 Before pressing `Enter` in blockquote:
+
 ```tsx
-<blockquote>
-  Quote text|
-</blockquote>
+<blockquote>Quote text|</blockquote>
 ```
 
 After (line break):
+
 ```tsx
-<blockquote>
-  Quote text
-  |
-</blockquote>
+<blockquote>Quote text |</blockquote>
 ```
 
 **Code block with custom empty handling:**
 
 ```tsx
-import { CodeBlockPlugin } from '@platejs/code-block/react';
+import { CodeBlockPlugin } from "@platejs/code-block/react";
 
 const plugins = [
   // ...otherPlugins,
   CodeBlockPlugin.configure({
     rules: {
-      delete: { empty: 'reset' },
+      delete: { empty: "reset" },
       match: ({ editor, rule }) => {
-        return rule === 'delete.empty' && isCodeBlockEmpty(editor);
+        return rule === "delete.empty" && isCodeBlockEmpty(editor);
       },
     },
   }),
@@ -261,19 +243,17 @@ const plugins = [
 ```
 
 Before pressing `Backspace` in empty code block:
+
 ```tsx
 <code_block>
-  <code_line>
-    |
-  </code_line>
+  <code_line>|</code_line>
 </code_block>
 ```
 
 After (reset):
+
 ```tsx
-<p>
-  |
-</p>
+<p>|</p>
 ```
 
 ## `rules.delete`
@@ -287,10 +267,10 @@ HeadingPlugin.configure({
   rules: {
     delete: {
       // Action when Backspace is pressed at block start
-      start: 'default' | 'reset',
-      
+      start: "default" | "reset",
+
       // Action when Backspace is pressed in empty block
-      empty: 'default' | 'reset',
+      empty: "default" | "reset",
     },
   },
 });
@@ -299,6 +279,7 @@ HeadingPlugin.configure({
 Each property controls a specific scenario:
 
 - `start`
+
   - [`'default'`](#default)
   - [`'reset'`](#reset)
 
@@ -311,44 +292,42 @@ Each property controls a specific scenario:
 **Reset blockquotes at start:**
 
 ```tsx
-import { BlockquotePlugin } from '@platejs/basic-nodes/react';
+import { BlockquotePlugin } from "@platejs/basic-nodes/react";
 
 const plugins = [
   // ...otherPlugins,
   BlockquotePlugin.configure({
     rules: {
-      delete: { start: 'reset' },
+      delete: { start: "reset" },
     },
   }),
 ];
 ```
 
 Before pressing `Backspace` at start:
+
 ```tsx
-<blockquote>
-  |Quote content
-</blockquote>
+<blockquote>|Quote content</blockquote>
 ```
 
 After (reset):
+
 ```tsx
-<p>
-  |Quote content
-</p>
+<p>|Quote content</p>
 ```
 
 **List items with start reset:**
 
 ```tsx
-import { ListPlugin } from '@platejs/list/react';
+import { ListPlugin } from "@platejs/list/react";
 
 const plugins = [
   // ...otherPlugins,
   ListPlugin.configure({
     rules: {
-      delete: { start: 'reset' },
+      delete: { start: "reset" },
       match: ({ rule, node }) => {
-        return rule === 'delete.start' && Boolean(node.listStyleType);
+        return rule === "delete.start" && Boolean(node.listStyleType);
       },
     },
   }),
@@ -356,17 +335,15 @@ const plugins = [
 ```
 
 Before pressing `Backspace` at start of list item:
+
 ```tsx
-<p listStyleType="disc">
-  |List item content
-</p>
+<p listStyleType="disc">|List item content</p>
 ```
 
 After (reset):
+
 ```tsx
-<p>
-  |List item content
-</p>
+<p>|List item content</p>
 ```
 
 ## `rules.merge`
@@ -391,7 +368,7 @@ ParagraphPlugin.configure({
 Only paragraph and heading plugins enable removal by default. Most other plugins use `false`:
 
 ```tsx
-import { H1Plugin, ParagraphPlugin } from 'platejs/react';
+import { H1Plugin, ParagraphPlugin } from "platejs/react";
 
 const plugins = [
   // ...otherPlugins,
@@ -401,6 +378,7 @@ const plugins = [
 ```
 
 Before pressing `Backspace` at start:
+
 ```tsx
 <p>
   <text />
@@ -411,16 +389,15 @@ Before pressing `Backspace` at start:
 ```
 
 After (empty paragraph removed):
+
 ```tsx
-<h1>
-  |Heading content
-</h1>
+<h1>|Heading content</h1>
 ```
 
 **Blockquote with removal disabled:**
 
 ```tsx
-import { BlockquotePlugin } from '@platejs/basic-nodes/react';
+import { BlockquotePlugin } from "@platejs/basic-nodes/react";
 
 const plugins = [
   // ...otherPlugins,
@@ -433,6 +410,7 @@ const plugins = [
 ```
 
 Before pressing `Backspace` at start:
+
 ```tsx
 <p>
   <text />
@@ -443,16 +421,15 @@ Before pressing `Backspace` at start:
 ```
 
 After (empty paragraph preserved):
+
 ```tsx
-<p>
-  |Code content
-</p>
+<p>|Code content</p>
 ```
 
 **Table cells preserve structure during merge:**
 
 ```tsx
-import { TablePlugin } from '@platejs/table/react';
+import { TablePlugin } from "@platejs/table/react";
 
 const plugins = [
   // ...otherPlugins,
@@ -461,6 +438,7 @@ const plugins = [
 ```
 
 Before pressing `Delete` at end of paragraph:
+
 ```tsx
 <p>
   Content|
@@ -478,6 +456,7 @@ Before pressing `Delete` at end of paragraph:
 ```
 
 After (cell content merged, structure preserved):
+
 ```tsx
 <p>
   Content|Cell data
@@ -497,7 +476,9 @@ After (cell content merged, structure preserved):
 ```
 
 <Callout>
-Slate's default is `true` since the default block (paragraph) is first-class, while Plate plugins are likely used to define other node behaviors that shouldn't automatically remove empty predecessors.
+  Slate's default is `true` since the default block (paragraph) is first-class, while
+  Plate plugins are likely used to define other node behaviors that shouldn't
+  automatically remove empty predecessors.
 </Callout>
 
 ## `rules.normalize`
@@ -522,7 +503,7 @@ LinkPlugin.configure({
 **Remove empty link nodes:**
 
 ```tsx
-import { LinkPlugin } from '@platejs/link/react';
+import { LinkPlugin } from "@platejs/link/react";
 
 const plugins = [
   // ...otherPlugins,
@@ -535,6 +516,7 @@ const plugins = [
 ```
 
 Before normalization:
+
 ```tsx
 <p>
   <a href="http://google.com">
@@ -545,6 +527,7 @@ Before normalization:
 ```
 
 After normalization (empty link removed):
+
 ```tsx
 <p>
   <cursor />
@@ -560,15 +543,15 @@ The `match` function in plugin rules allows you to override the default behavior
 **Code block with custom empty detection:**
 
 ```tsx
-import { CodeBlockPlugin } from '@platejs/code-block/react';
+import { CodeBlockPlugin } from "@platejs/code-block/react";
 
 const plugins = [
   // ...otherPlugins,
   CodeBlockPlugin.configure({
     rules: {
-      delete: { empty: 'reset' },
+      delete: { empty: "reset" },
       match: ({ rule, node }) => {
-        return rule === 'delete.empty' && isCodeBlockEmpty(editor);
+        return rule === "delete.empty" && isCodeBlockEmpty(editor);
       },
     },
   }),
@@ -580,14 +563,14 @@ Since the list plugin extends existing blocks that already have their own plugin
 **List override for paragraphs:**
 
 ```tsx
-import { ListPlugin } from '@platejs/list/react';
+import { ListPlugin } from "@platejs/list/react";
 
 const plugins = [
   // ...otherPlugins,
   ListPlugin.configure({
     rules: {
       match: ({ editor, rule }) => {
-        return rule === 'delete.empty' && isCodeBlockEmpty(editor);
+        return rule === "delete.empty" && isCodeBlockEmpty(editor);
       },
     },
   }),
@@ -602,7 +585,7 @@ Some plugins need special reset behavior beyond the standard paragraph conversio
 
 ```tsx
 const ListPlugin = createPlatePlugin({
-  key: 'list',
+  key: "list",
   // ... other config
 }).overrideEditor(({ editor, tf: { resetBlock } }) => ({
   transforms: {
@@ -611,7 +594,7 @@ const ListPlugin = createPlatePlugin({
         outdentList();
         return;
       }
-      
+
       return resetBlock(options);
     },
   },
@@ -622,19 +605,21 @@ const ListPlugin = createPlatePlugin({
 
 ```tsx
 const CodeBlockPlugin = createPlatePlugin({
-  key: 'code_block',
+  key: "code_block",
   // ... other config
 }).overrideEditor(({ editor, tf: { resetBlock } }) => ({
   transforms: {
     resetBlock(options) {
-      if (editor.api.block({
-        at: options?.at,
-        match: { type: 'code_block' },
-      })) {
+      if (
+        editor.api.block({
+          at: options?.at,
+          match: { type: "code_block" },
+        })
+      ) {
         unwrapCodeBlock();
         return;
       }
-      
+
       return resetBlock(options);
     },
   },
@@ -646,18 +631,18 @@ const CodeBlockPlugin = createPlatePlugin({
 You can combine different rules for comprehensive block behavior:
 
 ```tsx
-import { H1Plugin } from '@platejs/heading/react';
+import { H1Plugin } from "@platejs/heading/react";
 
 const plugins = [
   // ...otherPlugins,
   H1Plugin.configure({
     rules: {
       break: {
-        empty: 'reset',
+        empty: "reset",
         splitReset: true,
       },
       delete: {
-        start: 'reset',
+        start: "reset",
       },
     },
   }),
@@ -665,45 +650,39 @@ const plugins = [
 ```
 
 **Line break behavior (default):**
+
 ```tsx
-<blockquote>
-  Hello|
-</blockquote>
+<blockquote>Hello|</blockquote>
 ```
 
 After `Enter`:
+
 ```tsx
-<blockquote>
-  Hello
-  |
-</blockquote>
+<blockquote>Hello |</blockquote>
 ```
 
 **Empty reset behavior:**
+
 ```tsx
-<blockquote>
-  |
-</blockquote>
+<blockquote>|</blockquote>
 ```
 
 After `Enter`:
+
 ```tsx
-<p>
-  |
-</p>
+<p>|</p>
 ```
 
 **Start reset behavior:**
+
 ```tsx
-<blockquote>
-  |Quote content
-</blockquote>
+<blockquote>|Quote content</blockquote>
 ```
+
 After `Backspace`:
+
 ```tsx
-<p>
-  |Quote content
-</p>
+<p>|Quote content</p>
 ```
 
 ## Advanced
@@ -718,33 +697,33 @@ const CustomPlugin = createPlatePlugin({
   transforms: {
     insertBreak() {
       const block = editor.api.block();
-      
+
       if (/* Custom condition */) {
         // Custom behavior
         return;
       }
-      
+
       // Default behavior
       insertBreak();
     },
-    
+
     deleteBackward(unit) {
       const block = editor.api.block();
-      
+
       if (/* Custom condition */) {
         // Custom behavior
         return;
       }
-      
+
       deleteBackward(unit);
     },
-    
+
     resetBlock(options) {
       if (/* Custom condition */) {
         // Custom behavior
         return true;
       }
-      
+
       return resetBlock(options);
     },
   },
@@ -762,7 +741,7 @@ BoldPlugin.configure({
   rules: {
     selection: {
       // Define selection behavior at boundaries
-      affinity: 'default' | 'directional' | 'outward' | 'hard',
+      affinity: "default" | "directional" | "outward" | "hard",
     },
   },
 });
@@ -777,18 +756,22 @@ The `affinity` property determines how the cursor behaves when positioned at the
 Uses Slate's default behavior. For marks, the cursor has outward affinity at the start edge (typing before the mark doesn't apply it) and inward affinity at the end edge (typing after the mark extends it).
 
 **At end of mark (inward affinity):**
+
 ```tsx
 <p>
-  <text bold>Bold text|</text><text>Normal text</text>
+  <text bold>Bold text|</text>
+  <text>Normal text</text>
 </p>
 ```
 
 Typing would extend the bold formatting to new text.
 
 **At start of mark (outward affinity):**
+
 ```tsx
 <p>
-  <text>Normal text|</text><text bold>Bold text</text>
+  <text>Normal text|</text>
+  <text bold>Bold text</text>
 </p>
 ```
 
@@ -799,48 +782,53 @@ Typing would not apply bold formatting to new text.
 Selection affinity is determined by the direction of cursor movement. When the cursor moves to a boundary, it maintains the affinity based on where it came from.
 
 ```tsx
-import { BoldPlugin } from '@platejs/basic-nodes/react';
+import { BoldPlugin } from "@platejs/basic-nodes/react";
 
 const plugins = [
   // ...otherPlugins,
   BoldPlugin.configure({
     rules: {
-      selection: { affinity: 'directional' },
+      selection: { affinity: "directional" },
     },
   }),
 ];
 ```
 
 **Movement from right (inward affinity):**
+
 ```tsx
 <p>
-  <text>Normal</text><text bold>B|old text</text>
+  <text>Normal</text>
+  <text bold>B|old text</text>
 </p>
 ```
 
 After pressing `←`:
+
 ```tsx
 <p>
-  <text>Normal</text><text bold>|Bold text</text>
+  <text>Normal</text>
+  <text bold>|Bold text</text>
 </p>
 ```
 
 Typing would extend the bold formatting, which is not possible with `default` affinity.
 
 ```tsx
-import { LinkPlugin } from '@platejs/link/react';
+import { LinkPlugin } from "@platejs/link/react";
 
 const plugins = [
   // ...otherPlugins,
   LinkPlugin.configure({
     rules: {
-      selection: { affinity: 'directional' },
+      selection: { affinity: "directional" },
     },
   }),
 ];
 ```
 
 **Movement from right (outward affinity):**
+
 ```tsx
 <p>
   Visit <a href="https://example.com">our website</a> |for more information text.
@@ -848,6 +836,7 @@ const plugins = [
 ```
 
 After pressing `←`:
+
 ```tsx
 <p>
   Visit <a href="https://example.com">our website</a>| for more information text.
@@ -861,29 +850,33 @@ Cursor movement direction determines whether new text extends the link or create
 Forces outward affinity, automatically clearing marks when typing at their boundaries. This creates a natural "exit" behavior from formatted text.
 
 ```tsx
-import { CommentPlugin } from '@platejs/comment/react';
+import { CommentPlugin } from "@platejs/comment/react";
 
 const plugins = [
   // ...otherPlugins,
   CommentPlugin.configure({
     rules: {
-      selection: { affinity: 'outward' },
+      selection: { affinity: "outward" },
     },
   }),
 ];
 ```
 
 **At end of marked text:**
+
 ```tsx
 <p>
-  <text comment>Commented text|</text><text>Normal</text>
+  <text comment>Commented text|</text>
+  <text>Normal</text>
 </p>
 ```
 
 After typing:
+
 ```tsx
 <p>
-  <text comment>Commented text</text><text>x|Normal</text>
+  <text comment>Commented text</text>
+  <text>x|Normal</text>
 </p>
 ```
 
@@ -894,36 +887,44 @@ Users automatically exit comment formatting by typing at the end of commented te
 Creates a "hard" edge that requires two key presses to move across. This provides precise cursor control for elements that need exact positioning.
 
 ```tsx
-import { CodePlugin } from '@platejs/basic-nodes/react';
+import { CodePlugin } from "@platejs/basic-nodes/react";
 
 const plugins = [
   // ...otherPlugins,
   CodePlugin.configure({
     rules: {
-      selection: { affinity: 'hard' },
+      selection: { affinity: "hard" },
     },
   }),
 ];
 ```
 
 **Moving across hard edges:**
+
 ```tsx
 <p>
-  <text>Before</text><text code>code|</text><text>After</text>
+  <text>Before</text>
+  <text code>code|</text>
+  <text>After</text>
 </p>
 ```
 
 First `→` press changes affinity:
+
 ```tsx
 <p>
-  <text>Before</text><text code>code</text>|<text>After</text>
+  <text>Before</text>
+  <text code>code</text>|<text>After</text>
 </p>
 ```
 
 Second `→` press moves cursor:
+
 ```tsx
 <p>
-  <text>Before</text><text code>code</text><text>A|fter</text>
+  <text>Before</text>
+  <text code>code</text>
+  <text>A|fter</text>
 </p>
 ```
 

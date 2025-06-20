@@ -30,8 +30,8 @@ npm install @platejs/csv
 ### Add Plugin
 
 ```tsx
-import { CsvPlugin } from '@platejs/csv';
-import { createPlateEditor } from 'platejs/react';
+import { CsvPlugin } from "@platejs/csv";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -44,8 +44,8 @@ const editor = createPlateEditor({
 ### Configure Plugin
 
 ```tsx
-import { CsvPlugin } from '@platejs/csv';
-import { createPlateEditor } from 'platejs/react';
+import { CsvPlugin } from "@platejs/csv";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -56,7 +56,7 @@ const editor = createPlateEditor({
         parseOptions: {
           header: true,
           skipEmptyLines: true,
-          delimiter: ',',
+          delimiter: ",",
         },
       },
     }),
@@ -97,12 +97,14 @@ Plugin for CSV deserialization functionality.
     The tolerance for errors in the CSV data, represented as a percentage in decimal form. This value is calculated as the ratio of errors to the total number of rows.
 
     - **Default:** `0.25` (This indicates that up to 25% of the rows can contain errors.)
+
   </APIItem>
   <APIItem name="parseOptions" type="ParseConfig" optional>
     Options to be passed to the PapaParse library for parsing CSV data.
 
     - **Default:** `{ header: true }` (Indicating that the first row of the CSV data should be treated as a header.)
     - See [PapaParse documentation](https://www.papaparse.com/docs#config) for more details about these options.
+
   </APIItem>
 </APIOptions>
 </API>
@@ -135,6 +137,7 @@ Takes a CSV (Comma Separated Values) string and converts it into a Plate compati
 </API>
 
 Creates a table representation of the CSV data:
+
 - Headers (if present) become the first row
 - Each CSV row becomes a table row
 - Uses plugins: `TablePlugin`, `TableCellHeaderPlugin`, `TableRowPlugin`, and `TableCellPlugin`

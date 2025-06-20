@@ -36,8 +36,8 @@ The fastest way to add drag and drop functionality is with the `DndKit`, which i
 ### Add Kit
 
 ```tsx
-import { createPlateEditor } from 'platejs/react';
-import { DndKit } from '@/components/editor/plugins/dnd-kit';
+import { createPlateEditor } from "platejs/react";
+import { DndKit } from "@/components/editor/plugins/dnd-kit";
 
 const editor = createPlateEditor({
   plugins: [
@@ -62,8 +62,8 @@ npm install @platejs/dnd react-dnd react-dnd-html5-backend
 ### Add Plugin
 
 ```tsx
-import { DndPlugin } from '@platejs/dnd';
-import { createPlateEditor } from 'platejs/react';
+import { DndPlugin } from "@platejs/dnd";
+import { createPlateEditor } from "platejs/react";
 
 const editor = createPlateEditor({
   plugins: [
@@ -78,9 +78,9 @@ const editor = createPlateEditor({
 Configure drag and drop with a draggable component and DnD provider:
 
 ```tsx
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { DndPlugin } from '@platejs/dnd';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { DndPlugin } from "@platejs/dnd";
 
 DndPlugin.configure({
   render: {
@@ -99,8 +99,8 @@ DndPlugin.configure({
 Add automatic scrolling and file drop handling:
 
 ```tsx
-import { DndPlugin } from '@platejs/dnd';
-import { PlaceholderPlugin } from '@platejs/media/react';
+import { DndPlugin } from "@platejs/dnd";
+import { PlaceholderPlugin } from "@platejs/media/react";
 
 DndPlugin.configure({
   options: {
@@ -132,35 +132,40 @@ DndPlugin.configure({
 Plugin for drag and drop functionality within the editor.
 
 <API name="DndPlugin">
-<APIOptions>
-  <APIItem name="enableScroller" type="boolean" optional>
-    Enables automatic scrolling when dragging blocks near viewport edges.
-    - **Default:** `false`
-  </APIItem>
-  <APIItem name="scrollerProps" type="Partial<ScrollerProps>" optional>
-    Props for the `Scroller` component when `enableScroller` is true.
-  </APIItem>
-  <APIItem name="onDropFiles" type="function" optional>
-    Handler for file drop events.
-    <APISubList>
-      <APISubListItem parent="onDropFiles" name="id" type="string">
-        ID of the target element.
-      </APISubListItem>
-      <APISubListItem parent="onDropFiles" name="dragItem" type="FileDragItemNode">
-        Object containing the dropped files.
-      </APISubListItem>
-      <APISubListItem parent="onDropFiles" name="editor" type="PlateEditor">
-        The editor instance.
-      </APISubListItem>
-      <APISubListItem parent="onDropFiles" name="target" type="Path">
-        Path where files should be inserted.
-      </APISubListItem>
-    </APISubList>
-  </APIItem>
-  <APIItem name="dropTarget" type="{ id: string | null; line: DropLineDirection }" optional>
-    The current drop target state containing both the target element id and drop line direction.
-  </APIItem>
-</APIOptions>
+  <APIOptions>
+    <APIItem name="enableScroller" type="boolean" optional>
+      Enables automatic scrolling when dragging blocks near viewport edges. - **Default:**
+      `false`
+    </APIItem>
+    <APIItem name="scrollerProps" type="Partial<ScrollerProps>" optional>
+      Props for the `Scroller` component when `enableScroller` is true.
+    </APIItem>
+    <APIItem name="onDropFiles" type="function" optional>
+      Handler for file drop events.
+      <APISubList>
+        <APISubListItem parent="onDropFiles" name="id" type="string">
+          ID of the target element.
+        </APISubListItem>
+        <APISubListItem parent="onDropFiles" name="dragItem" type="FileDragItemNode">
+          Object containing the dropped files.
+        </APISubListItem>
+        <APISubListItem parent="onDropFiles" name="editor" type="PlateEditor">
+          The editor instance.
+        </APISubListItem>
+        <APISubListItem parent="onDropFiles" name="target" type="Path">
+          Path where files should be inserted.
+        </APISubListItem>
+      </APISubList>
+    </APIItem>
+    <APIItem
+      name="dropTarget"
+      type="{ id: string | null; line: DropLineDirection }"
+      optional
+    >
+      The current drop target state containing both the target element id and drop line
+      direction.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ## API
@@ -170,11 +175,11 @@ Plugin for drag and drop functionality within the editor.
 Selects the start of a block by ID and focuses the editor.
 
 <API name="focusBlockStartById">
-<APIParameters>
-  <APIItem name="id" type="string">
-    The ID of the block to be focused.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="id" type="string">
+      The ID of the block to be focused.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ### `getBlocksWithId`
@@ -196,11 +201,11 @@ Returns an array of blocks that have an ID.
 Selects a block by its ID.
 
 <API name="selectBlockById">
-<APIParameters>
-  <APIItem name="id" type="string">
-    The ID of the block to select.
-  </APIItem>
-</APIParameters>
+  <APIParameters>
+    <APIItem name="id" type="string">
+      The ID of the block to select.
+    </APIItem>
+  </APIParameters>
 </API>
 
 ## Hooks
@@ -260,14 +265,14 @@ A custom hook that combines the `useDragNode` and `useDropNode` hooks to enable 
 A custom hook that enables dragging of a node from the editor using the `useDrag` hook from `react-dnd`.
 
 <API name="useDragNode">
-<APIOptions type="UseDragNodeOptions">
-  <APIItem name="element" type="TElement">
-    The node to be dragged.
-  </APIItem>
-  <APIItem name="item" type="DragObject | DragObjectFactory<DragObject>" optional>
-    Drag object or factory function that returns it.
-  </APIItem>
-</APIOptions>
+  <APIOptions type="UseDragNodeOptions">
+    <APIItem name="element" type="TElement">
+      The node to be dragged.
+    </APIItem>
+    <APIItem name="item" type="DragObject | DragObjectFactory<DragObject>" optional>
+      Drag object or factory function that returns it.
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `useDraggable`
@@ -310,25 +315,24 @@ A custom hook that enables draggable behavior for a given element. It provides a
 A custom hook that enables dropping a node on the editor. It uses the `useDrop` hook from `react-dnd` to handle the drop behavior.
 
 <API name="useDropNode">
-<APIOptions type="UseDropNodeOptions">
-  <APIItem name="nodeRef" type="any">
-    Reference to the node being dragged.
-  </APIItem>
-  <APIItem name="element" type="TElement">
-    The node to which the drop line is attached.
-  </APIItem>
-  <APIItem name="dropLine" type="string">
-    Current value of the drop line.
-  </APIItem>
-  <APIItem name="onChangeDropLine" type="function">
-    Callback when drop line changes.
-  </APIItem>
-  <APIItem name="onDropHandler" type="object">
-    Callback that intercepts drop handling.
-    - Returns `true` to prevent default behavior
-    - Returns `false` to run default behavior after
-  </APIItem>
-</APIOptions>
+  <APIOptions type="UseDropNodeOptions">
+    <APIItem name="nodeRef" type="any">
+      Reference to the node being dragged.
+    </APIItem>
+    <APIItem name="element" type="TElement">
+      The node to which the drop line is attached.
+    </APIItem>
+    <APIItem name="dropLine" type="string">
+      Current value of the drop line.
+    </APIItem>
+    <APIItem name="onChangeDropLine" type="function">
+      Callback when drop line changes.
+    </APIItem>
+    <APIItem name="onDropHandler" type="object">
+      Callback that intercepts drop handling. - Returns `true` to prevent default behavior
+      - Returns `false` to run default behavior after
+    </APIItem>
+  </APIOptions>
 </API>
 
 ### `useDropLine`
