@@ -3,8 +3,8 @@ after logging in, query isn't invalidated, so you see the logged out state until
 going from logged in to /, i get: Could not find match for from: /dashboard
 
 db size: 62 MB
-
 jknm total header count: 822
+
 algolia-init:
 - krajše dokumente ne lomt
 - unsearchable atributi samo na prvi element grupe
@@ -13,4 +13,4 @@ algolia-init:
 na sploh -> unicode čas za id
 
 admin page sidebar:
-nova novica, osnutki, arhivirano, zbrisani, avtorji, nastavitve
+nova novica, osnutki, arhivirano, izbrisani, avtorji, nastavitve

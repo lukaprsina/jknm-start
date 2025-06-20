@@ -1,13 +1,13 @@
 import { AppSidebar } from "~/components/layouts/app-sidebar";
 import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
-import { NavigationMenuDemo2 } from "./desktop-header";
+import { DesktopHeader } from "./desktop-header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="[--header-height:calc(--spacing(24))]">
+    <div className="[--header-height:calc(--spacing(20))]">
       <SidebarProvider className="flex min-h-0 w-full flex-col">
         {/* <SiteHeader /> */}
-        <NavigationMenuDemo2 />
+        <DesktopHeader />
         <div className="flex flex-1">
           <AppSidebar />
           <SidebarInset>{children}</SidebarInset>
