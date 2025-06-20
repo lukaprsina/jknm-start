@@ -65,13 +65,60 @@ const navigationMenuTriggerStyle = cva(
 function NavigationMenuTrigger({
   className,
   children,
+  onClick,
   ...props
 }: React.ComponentProps<typeof NavigationMenuPrimitive.Trigger>) {
+  const [isAnimating, setIsAnimating] = React.useState(false);
+  const [wasOpen, setWasOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement>(null);
+
+  // Track animation state by observing data-motion attribute changes
+  React.useEffect(() => {
+    const trigger = triggerRef.current;
+    if (!trigger) return;
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-state') {
+          const currentState = trigger.getAttribute('data-state');
+          const isCurrentlyOpen = currentState === 'open';
+          
+          // If state changed, we're likely animating
+          if (isCurrentlyOpen !== wasOpen) {
+            setIsAnimating(true);
+            setWasOpen(isCurrentlyOpen);
+            
+            // Clear animation state after animation duration
+            setTimeout(() => {
+              setIsAnimating(false);
+            }, 300); // Match your animation duration
+          }
+        }
+      });
+    });
+
+    observer.observe(trigger, { attributes: true });
+    
+    return () => observer.disconnect();
+  }, [wasOpen]);
+
+  // Custom click handler that prevents clicks during animations
+  const handleClick = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    if (isAnimating) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
+    onClick?.(event);
+  }, [isAnimating, onClick]);
+
   return (
     <NavigationMenuPrimitive.Trigger
+      ref={triggerRef}
       data-slot="navigation-menu-trigger"
       className={cn(navigationMenuTriggerStyle(), "group", className)}
       {...props}
+      onClick={handleClick}
     >
       {children}{" "}
       <ChevronDownIcon
