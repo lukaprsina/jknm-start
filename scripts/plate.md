@@ -1,5 +1,3 @@
-# Heading 1
-
 This is a top-level heading, typically used for main titles and major section headers.
 
 ## Heading 2

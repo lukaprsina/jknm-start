@@ -6,26 +6,13 @@ import { useEffect, useRef } from "react";
 
 import { getUser } from "~/lib/auth/functions/getUser";
 
-/**
- * Component that preloads the editor route for logged-in users
- * to improve UX by avoiding loading delays when accessing the editor.
- *
- * This component:
- * - Uses the same user query as the root route to avoid duplicate requests
- * - Only preloads once per session using a ref
- * - Resets the preload flag on error to allow retries
- * - Only logs in development mode
- * - Returns null as it's a utility component with no UI
- */
 export function EditorPreloader() {
   const router = useRouter();
   const hasPreloadedRef = useRef(false);
 
-  // Use the same query that's used in the root route to avoid duplicate requests
   const { data: user, isLoading } = useQuery({
     queryKey: ["user"],
     queryFn: ({ signal }) => getUser({ signal }),
-    staleTime: 1000 * 60 * 2, // 2 minutes - same as router.tsx
   });
 
   useEffect(() => {
@@ -33,34 +20,24 @@ export function EditorPreloader() {
     if (user && !isLoading && !hasPreloadedRef.current) {
       hasPreloadedRef.current = true;
 
-      // Preload editor code chunk to avoid lazy load delay
       const editorRoute = router.routesByPath["/editor"];
-      router
-        .loadRouteChunk(editorRoute)
+      Promise.all([
+        router.loadRouteChunk(editorRoute),
+        router.preloadRoute({ to: "/editor" }),
+        import("platejs/react"),
+        import("~/components/editor-kit"),
+        import("~/components/ui/editor"),
+      ])
         .then(() => {
           if (import.meta.env.DEV) {
-            console.log("Editor code chunk loaded successfully!");
+            console.log("Editor preloaded successfully!");
           }
         })
         .catch((error) => {
           if (import.meta.env.DEV) {
-            console.error("Failed to load editor code chunk:", error);
+            console.error("Failed to preload editor:", error);
           }
-        });
 
-      // Preload route data and component
-      router
-        .preloadRoute({ to: "/editor" })
-        .then(() => {
-          if (import.meta.env.DEV) {
-            console.log("Editor route preloaded successfully!");
-          }
-        })
-        .catch((error) => {
-          if (import.meta.env.DEV) {
-            console.error("Failed to preload editor route:", error);
-          }
-          // Reset flag on error so we can retry
           hasPreloadedRef.current = false;
         });
     }
