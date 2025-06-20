@@ -1,0 +1,42 @@
+{
+  "time": 1750446590442,
+  "blocks": [
+    {
+      "id": "sheNwCUP5A",
+      "type": "header",
+      "data": {
+        "text": "Luka test",
+        "level": 1
+      }
+    },
+    {
+      "id": "91PctWKRFv",
+      "type": "paragraph",
+      "data": {
+        "text": "tekst <b>bold </b>tekst"
+      }
+    },
+    {
+      "id": "ThBWpq7ka6",
+      "type": "paragraph",
+      "data": {
+        "text": "tekst <i>italic</i> tekst<br>tekst&nbsp;<u>underline&nbsp;</u>tekst&nbsp;&nbsp;"
+      }
+    },
+    {
+      "id": "IbhetJa_wP",
+      "type": "paragraph",
+      "data": {
+        "text": "tekst <a href=\"http://www.example.com\">link</a>&nbsp;tekst&nbsp;"
+      }
+    },
+    {
+      "id": "1dDBBplRka",
+      "type": "paragraph",
+      "data": {
+        "text": "E<sub>initial</sub> = mc<sup>2</sup>"
+      }
+    }
+  ],
+  "version": "2.31.0-rc.7"
+}
