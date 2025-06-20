@@ -13,12 +13,12 @@ import { createServerRootRoute } from "@tanstack/react-start/server";
 
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as ShellRouteImport } from "./routes/shell";
+import { Route as LoginRouteRouteImport } from "./routes/login/route";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
-import { Route as authRouteRouteImport } from "./routes/(auth)/route";
 import { Route as IndexRouteImport } from "./routes/index";
+import { Route as LoginIndexRouteImport } from "./routes/login/index";
 import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
-import { Route as authOldLoginRouteImport } from "./routes/(auth)/old-login";
-import { Route as authLoginRouteImport } from "./routes/(auth)/login";
+import { Route as staticZgodovinaRouteImport } from "./routes/(static)/zgodovina";
 import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
 
 const EditorIndexLazyRouteImport = createFileRoute("/editor/")();
@@ -29,13 +29,14 @@ const ShellRoute = ShellRouteImport.update({
   path: "/shell",
   getParentRoute: () => rootRouteImport,
 } as any);
+const LoginRouteRoute = LoginRouteRouteImport.update({
+  id: "/login",
+  path: "/login",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: "/dashboard",
   path: "/dashboard",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const authRouteRoute = authRouteRouteImport.update({
-  id: "/(auth)",
   getParentRoute: () => rootRouteImport,
 } as any);
 const IndexRoute = IndexRouteImport.update({
@@ -48,20 +49,20 @@ const EditorIndexLazyRoute = EditorIndexLazyRouteImport.update({
   path: "/editor/",
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import("./routes/editor/index.lazy").then((d) => d.Route));
+const LoginIndexRoute = LoginIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => LoginRouteRoute,
+} as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: "/",
   path: "/",
   getParentRoute: () => DashboardRouteRoute,
 } as any);
-const authOldLoginRoute = authOldLoginRouteImport.update({
-  id: "/old-login",
-  path: "/old-login",
-  getParentRoute: () => authRouteRoute,
-} as any);
-const authLoginRoute = authLoginRouteImport.update({
-  id: "/login",
-  path: "/login",
-  getParentRoute: () => authRouteRoute,
+const staticZgodovinaRoute = staticZgodovinaRouteImport.update({
+  id: "/(static)/zgodovina",
+  path: "/zgodovina",
+  getParentRoute: () => rootRouteImport,
 } as any);
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: "/api/auth/$",
@@ -70,31 +71,32 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 } as any);
 
 export interface FileRoutesByFullPath {
-  "/": typeof authRouteRouteWithChildren;
+  "/": typeof IndexRoute;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
-  "/login": typeof authLoginRoute;
-  "/old-login": typeof authOldLoginRoute;
+  "/zgodovina": typeof staticZgodovinaRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/login/": typeof LoginIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
 }
 export interface FileRoutesByTo {
-  "/": typeof authRouteRouteWithChildren;
+  "/": typeof IndexRoute;
   "/shell": typeof ShellRoute;
-  "/login": typeof authLoginRoute;
-  "/old-login": typeof authOldLoginRoute;
+  "/zgodovina": typeof staticZgodovinaRoute;
   "/dashboard": typeof DashboardIndexRoute;
+  "/login": typeof LoginIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
-  "/(auth)": typeof authRouteRouteWithChildren;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
-  "/(auth)/login": typeof authLoginRoute;
-  "/(auth)/old-login": typeof authOldLoginRoute;
+  "/(static)/zgodovina": typeof staticZgodovinaRoute;
   "/dashboard/": typeof DashboardIndexRoute;
+  "/login/": typeof LoginIndexRoute;
   "/editor/": typeof EditorIndexLazyRoute;
 }
 export interface FileRouteTypes {
@@ -102,30 +104,32 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | "/dashboard"
-    | "/shell"
     | "/login"
-    | "/old-login"
+    | "/shell"
+    | "/zgodovina"
     | "/dashboard/"
+    | "/login/"
     | "/editor";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/shell" | "/login" | "/old-login" | "/dashboard" | "/editor";
+  to: "/" | "/shell" | "/zgodovina" | "/dashboard" | "/login" | "/editor";
   id:
     | "__root__"
     | "/"
-    | "/(auth)"
     | "/dashboard"
+    | "/login"
     | "/shell"
-    | "/(auth)/login"
-    | "/(auth)/old-login"
+    | "/(static)/zgodovina"
     | "/dashboard/"
+    | "/login/"
     | "/editor/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
-  authRouteRoute: typeof authRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  LoginRouteRoute: typeof LoginRouteRouteWithChildren;
   ShellRoute: typeof ShellRoute;
+  staticZgodovinaRoute: typeof staticZgodovinaRoute;
   EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
 }
 export interface FileServerRoutesByFullPath {
@@ -159,18 +163,18 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ShellRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/dashboard": {
       id: "/dashboard";
       path: "/dashboard";
       fullPath: "/dashboard";
       preLoaderRoute: typeof DashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/(auth)": {
-      id: "/(auth)";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof authRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/": {
@@ -187,6 +191,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof EditorIndexLazyRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/login/": {
+      id: "/login/";
+      path: "/";
+      fullPath: "/login/";
+      preLoaderRoute: typeof LoginIndexRouteImport;
+      parentRoute: typeof LoginRouteRoute;
+    };
     "/dashboard/": {
       id: "/dashboard/";
       path: "/";
@@ -194,19 +205,12 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardIndexRouteImport;
       parentRoute: typeof DashboardRouteRoute;
     };
-    "/(auth)/old-login": {
-      id: "/(auth)/old-login";
-      path: "/old-login";
-      fullPath: "/old-login";
-      preLoaderRoute: typeof authOldLoginRouteImport;
-      parentRoute: typeof authRouteRoute;
-    };
-    "/(auth)/login": {
-      id: "/(auth)/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof authLoginRouteImport;
-      parentRoute: typeof authRouteRoute;
+    "/(static)/zgodovina": {
+      id: "/(static)/zgodovina";
+      path: "/zgodovina";
+      fullPath: "/zgodovina";
+      preLoaderRoute: typeof staticZgodovinaRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
   }
 }
@@ -222,20 +226,6 @@ declare module "@tanstack/react-start/server" {
   }
 }
 
-interface authRouteRouteChildren {
-  authLoginRoute: typeof authLoginRoute;
-  authOldLoginRoute: typeof authOldLoginRoute;
-}
-
-const authRouteRouteChildren: authRouteRouteChildren = {
-  authLoginRoute: authLoginRoute,
-  authOldLoginRoute: authOldLoginRoute,
-};
-
-const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
-  authRouteRouteChildren,
-);
-
 interface DashboardRouteRouteChildren {
   DashboardIndexRoute: typeof DashboardIndexRoute;
 }
@@ -248,11 +238,24 @@ const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
   DashboardRouteRouteChildren,
 );
 
+interface LoginRouteRouteChildren {
+  LoginIndexRoute: typeof LoginIndexRoute;
+}
+
+const LoginRouteRouteChildren: LoginRouteRouteChildren = {
+  LoginIndexRoute: LoginIndexRoute,
+};
+
+const LoginRouteRouteWithChildren = LoginRouteRoute._addFileChildren(
+  LoginRouteRouteChildren,
+);
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  authRouteRoute: authRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  LoginRouteRoute: LoginRouteRouteWithChildren,
   ShellRoute: ShellRoute,
+  staticZgodovinaRoute: staticZgodovinaRoute,
   EditorIndexLazyRoute: EditorIndexLazyRoute,
 };
 export const routeTree = rootRouteImport

@@ -10,4 +10,7 @@ algolia-init:
 - unsearchable atributi samo na prvi element grupe
 - merge db_id v objectID
 
-na sploh -> čas za id
+na sploh -> unicode čas za id
+
+admin page sidebar:
+nova novica, osnutki, arhivirano, zbrisani, avtorji, nastavitve

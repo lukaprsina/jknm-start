@@ -1,6 +1,6 @@
 import { SidebarIcon } from "lucide-react";
 
-import { SearchForm } from "~/components/shell/search-form";
+import { SearchForm } from "~/components/layouts/search-form";
 import {
   Breadcrumb,
   BreadcrumbItem,
