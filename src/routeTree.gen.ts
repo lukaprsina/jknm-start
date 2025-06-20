@@ -12,6 +12,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { createServerRootRoute } from "@tanstack/react-start/server";
 
 import { Route as rootRouteImport } from "./routes/__root";
+import { Route as ShellRouteImport } from "./routes/shell";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as authRouteRouteImport } from "./routes/(auth)/route";
 import { Route as IndexRouteImport } from "./routes/index";
@@ -22,6 +23,11 @@ import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/
 const EditorIndexLazyRouteImport = createFileRoute("/editor/")();
 const rootServerRouteImport = createServerRootRoute();
 
+const ShellRoute = ShellRouteImport.update({
+  id: "/shell",
+  path: "/shell",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
   id: "/dashboard",
   path: "/dashboard",
@@ -60,12 +66,14 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   "/": typeof authRouteRouteWithChildren;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/shell": typeof ShellRoute;
   "/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
 }
 export interface FileRoutesByTo {
   "/": typeof authRouteRouteWithChildren;
+  "/shell": typeof ShellRoute;
   "/login": typeof authLoginRoute;
   "/dashboard": typeof DashboardIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
@@ -75,20 +83,28 @@ export interface FileRoutesById {
   "/": typeof IndexRoute;
   "/(auth)": typeof authRouteRouteWithChildren;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/shell": typeof ShellRoute;
   "/(auth)/login": typeof authLoginRoute;
   "/dashboard/": typeof DashboardIndexRoute;
   "/editor/": typeof EditorIndexLazyRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/dashboard" | "/login" | "/dashboard/" | "/editor";
+  fullPaths:
+    | "/"
+    | "/dashboard"
+    | "/shell"
+    | "/login"
+    | "/dashboard/"
+    | "/editor";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/login" | "/dashboard" | "/editor";
+  to: "/" | "/shell" | "/login" | "/dashboard" | "/editor";
   id:
     | "__root__"
     | "/"
     | "/(auth)"
     | "/dashboard"
+    | "/shell"
     | "/(auth)/login"
     | "/dashboard/"
     | "/editor/";
@@ -98,6 +114,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   authRouteRoute: typeof authRouteRouteWithChildren;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  ShellRoute: typeof ShellRoute;
   EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
 }
 export interface FileServerRoutesByFullPath {
@@ -124,6 +141,13 @@ export interface RootServerRouteChildren {
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
+    "/shell": {
+      id: "/shell";
+      path: "/shell";
+      fullPath: "/shell";
+      preLoaderRoute: typeof ShellRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/dashboard": {
       id: "/dashboard";
       path: "/dashboard";
@@ -208,6 +232,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   authRouteRoute: authRouteRouteWithChildren,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  ShellRoute: ShellRoute,
   EditorIndexLazyRoute: EditorIndexLazyRoute,
 };
 export const routeTree = rootRouteImport
