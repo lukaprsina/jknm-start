@@ -55,6 +55,17 @@ function generateSlug(url: string): string {
     .replace(/^-|-$/g, "");
 }
 
+function decodeHtmlEntities(text: string): string {
+  // Decode common HTML entities
+  return text
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, " ");
+}
+
 function calculateReadingTime(content: ArticleContentType): number {
   // Estimate reading time based on content blocks
   let wordCount = 0;
@@ -163,10 +174,11 @@ async function main() {
       const contentLength = calculateContentLength(oldArticle.content);
       const excerpt = generateExcerpt(oldArticle.content);
       const slug = generateSlug(oldArticle.url);
+      const decodedTitle = decodeHtmlEntities(oldArticle.title);
 
       // Insert into new Article table
       await db.insert(Article).values({
-        title: oldArticle.title,
+        title: decodedTitle,
         slug: slug,
         url: oldArticle.url,
         status: "published",
