@@ -4,6 +4,7 @@ going from logged in to /, i get: Could not find match for from: /dashboard
 
 db size: 62 MB
 jknm total header count: 822
+algolia, 3.3KB avg size, 8 replicas
 
 algolia-init:
 - krajše dokumente ne lomt

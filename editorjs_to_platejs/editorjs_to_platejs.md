@@ -14,32 +14,32 @@
 
 ```json
 {
-    "type" : "paragraph",
-    "data" : {
-        "text" : "Check out our projects on a <a href=\"https://github.com/codex-team\">GitHub page</a>.",
-    }
+  "type": "paragraph",
+  "data": {
+    "text": "Check out our projects on a <a href=\"https://github.com/codex-team\">GitHub page</a>."
+  }
 }
 ```
 
 ```json
 {
-    "type" : "image",
-    "data" : {
-        "file": {
-            "url" : "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg"
-        },
-        "caption" : "Roadster // tesla.com",
-        "withBorder" : false,
-        "withBackground" : false,
-        "stretched" : true,
-    }
+  "type": "image",
+  "data": {
+    "file": {
+      "url": "https://www.tesla.com/tesla_theme/assets/img/_vehicle_redesign/roadster_and_semi/roadster/hero.jpg"
+    },
+    "caption": "Roadster // tesla.com",
+    "withBorder": false,
+    "withBackground": false,
+    "stretched": true
+  }
 }
 ```
 
 ```json
 {
-  "type" : "list",
-  "data" : {
+  "type": "list",
+  "data": {
     "style": "unordered",
     "items": [
       {
@@ -50,9 +50,9 @@
             "content": "Red",
             "meta": {},
             "items": []
-          },
+          }
         ]
-      },
+      }
     ]
   }
 }
@@ -60,14 +60,14 @@
 
 ```json
 {
-  "type" : "list",
-  "data" : {
+  "type": "list",
+  "data": {
     "style": "ordered",
     "meta": {
       "start": 2,
-      "counterType": "upper-roman",
+      "counterType": "upper-roman"
     },
-    "items" : [
+    "items": [
       {
         "content": "Apples",
         "meta": {},
@@ -76,15 +76,15 @@
             "content": "Red",
             "meta": {},
             "items": []
-          },
+          }
         ]
-      },
+      }
     ]
   }
 }
 ```
 
-```json
+````json
 {
   "type" : "embed",
   "data" : {
@@ -112,4 +112,4 @@ type TText = {
 } & UnknownObject
 
 type Descendant = TElement | TText
-```
+````

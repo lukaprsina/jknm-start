@@ -7,7 +7,8 @@ import { join } from "path";
 import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
-import { z } from "zod";
+import { z } from "zod/v4";
+import { ArticleStatusValidator } from "~/lib/db/schema/article.schema";
 
 const client = algoliasearch(
   process.env.ALGOLIA_APP_ID!,
@@ -17,34 +18,40 @@ const client = algoliasearch(
 // Zod validator for Algolia objects
 const AlgoliaObjectSchema = z.object({
   // searchable
+  objectID: z.string(), // copied from db_id
   title: z.string(),
-  permalink: z.string().url(),
+  authors: z.array(z.string()).optional(), // authors are indexed, can be used for filtering
+  permalink: z.url(),
   content: z.string(),
   section: z.string(),
-  status: z.enum(["draft", "published", "archived", "deleted"]),
+  status: ArticleStatusValidator,
   // unsearchable, just for filtering
-  db_id: z.number(),
-  old_db_id: z.number().nullable(),
+  old_id: z.number().nullable(),
   created_at: z.date(),
-  last_updated_at: z.date(),
-  last_published_at: z.date(),
-  last_deleted_at: z.date().nullable(),
+  updated_at: z.date(),
+  deleted_at: z.date().nullable(),
+  published_at: z.date().nullable(),
+  archived_at: z.date().nullable(),
+  migrated_at: z.date().nullable(),
 });
 
 type AlgoliaObject = z.infer<typeof AlgoliaObjectSchema>;
 
 const object_template: Omit<AlgoliaObject, "content" | "section"> = {
   // searchable
+  objectID: "1",
   title: "Plate Editor Documentation",
+  authors: ["Jane Doe", "John Smith"],
   permalink: "https://www.jknm.si/docs/plate-editor",
   status: "published",
   // unsearchable, just for filtering
-  db_id: 1,
-  old_db_id: null,
+  old_id: null,
   created_at: new Date(),
-  last_updated_at: new Date(),
-  last_published_at: new Date(),
-  last_deleted_at: null,
+  updated_at: new Date(),
+  published_at: new Date(),
+  archived_at: null,
+  deleted_at: null,
+  migrated_at: null,
 };
 
 interface DocumentSection {

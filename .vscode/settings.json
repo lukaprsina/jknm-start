@@ -33,5 +33,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "easynpm.defaultProjectRoot": "d:\\dev\\js\\jknm-start",
-  "typescript.experimental.useTsgo": true
+  "typescript.experimental.useTsgo": false
 }
