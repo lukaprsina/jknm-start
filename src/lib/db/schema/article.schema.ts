@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
 import {
+  boolean,
   index,
   integer,
   json,
@@ -29,20 +30,30 @@ export const Article = pgTable(
   {
     id: serial().primaryKey(),
     title: varchar({ length: 255 }).notNull(),
-    url: varchar({ length: 255 }).notNull(),
+    slug: varchar({ length: 255 }).unique().notNull(), // URL-friendly version
+    url: varchar({ length: 255 }).notNull(), // Full URL for legacy
     status: ArticleStatus().default("draft").notNull(),
     content_json: json().$type<Value>().notNull(),
     content_html: text().notNull(),
+    content_markdown: text(), // For Algolia indexing
+    excerpt: varchar({ length: 500 }), // For previews/SEO
     view_count: integer().notNull().default(0),
     reading_time: integer(), // in minutes
+    content_length: integer(), // Character count for analytics
     thumbnail_crop: json().$type<ThumbnailType>(),
+    meta_description: varchar({ length: 160 }), // SEO
+    featured: boolean().default(false), // For highlighting posts
     old_id: integer().unique(),
     ...timestamps,
     published_at: timestamp(),
     archived_at: timestamp(),
     migrated_at: timestamp(),
   },
-  (article) => [index().on(article.created_at)],
+  (article) => [
+    index().on(article.created_at),
+    index().on(article.slug),
+    index().on(article.status),
+  ],
 );
 
 export const ArticleRelations = relations(Article, ({ many }) => ({

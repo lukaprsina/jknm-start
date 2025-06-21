@@ -1,4 +1,6 @@
-`[ "header", "paragraph", "image", "list", "embed" ]`
+I only used `[ "header", "paragraph", "image", "list", "embed" ]` plugins with EditorJS, in all my posts, I checked.
+
+Here are their full API's, since they are untyped.
 
 ```json
 [
@@ -96,20 +98,4 @@
     "caption" : "My Life"
   }
 }
-
-```ts
-type UnknownObject = {
-    [x: string]: unknown;
-}
-
-type TElement = {
-    children: Descendant[];
-    type: string;
-} & UnknownObject
-
-type TText = {
-    text: string;
-} & UnknownObject
-
-type Descendant = TElement | TText
-````
+```

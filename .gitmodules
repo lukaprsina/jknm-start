@@ -1,0 +1,3 @@
+[submodule "vendor/plate"]
+	path = vendor/plate
+	url = http://github.com/udecode/plate/
