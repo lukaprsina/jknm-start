@@ -169,16 +169,17 @@ function convertListBlock(block: ArticleBlockType): TElement[] {
       listStyleType,
     };
 
-    // Handle numbering for ordered lists
-    if (isOrdered) {
-      if (index === 0 && startNumber !== 1) {
-        element.listRestartPolite = startNumber;
-      } else if (index > 0) {
-        element.listStart = startNumber + index;
-      }
+    // Handle listStart - both ordered and unordered lists use it for proper numbering
+    // First item (index 0) doesn't get listStart unless the list starts from a different number
+    if (index === 0 && startNumber !== 1) {
+      // Use listRestartPolite only when explicitly starting from a different number
+      element.listRestartPolite = startNumber;
+      element.listStart = startNumber;
     } else if (index > 0) {
-      element.listStart = index + 1;
+      // Subsequent items get listStart to indicate their position
+      element.listStart = startNumber + index;
     }
+    // Note: First item with default start (1) gets no listStart property (omitted when it would be 1)
 
     elements.push(element);
   });

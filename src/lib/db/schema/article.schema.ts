@@ -34,7 +34,7 @@ export const Article = pgTable(
     url: varchar({ length: 255 }).notNull(), // Full URL for legacy
     status: ArticleStatus().default("draft").notNull(),
     content_json: json().$type<Value>().notNull(),
-    content_html: text().notNull(),
+    content_html: text(),
     content_markdown: text(), // For Algolia indexing
     excerpt: varchar({ length: 500 }), // For previews/SEO
     view_count: integer().notNull().default(0),
