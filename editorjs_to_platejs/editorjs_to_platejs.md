@@ -96,4 +96,20 @@
     "caption" : "My Life"
   }
 }
+
+```ts
+type UnknownObject = {
+    [x: string]: unknown;
+}
+
+type TElement = {
+    children: Descendant[];
+    type: string;
+} & UnknownObject
+
+type TText = {
+    text: string;
+} & UnknownObject
+
+type Descendant = TElement | TText
 ```

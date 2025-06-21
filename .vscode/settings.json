@@ -32,5 +32,6 @@
   "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "easynpm.defaultProjectRoot": "d:\\dev\\js\\jknm-start"
+  "easynpm.defaultProjectRoot": "d:\\dev\\js\\jknm-start",
+  "typescript.experimental.useTsgo": true
 }

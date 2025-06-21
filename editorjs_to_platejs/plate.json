@@ -1,0 +1,135 @@
+{
+  "children": [
+    {
+      "children": [
+        {
+          "text": "PlateJS test"
+        }
+      ],
+      "type": "h1",
+      "id": "VzISZBVei0"
+    },
+    {
+      "type": "p",
+      "id": "xPtbpVuU04",
+      "children": [
+        {
+          "text": "normal "
+        },
+        {
+          "text": "bold",
+          "bold": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "italic",
+          "italic": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "underline",
+          "underline": true
+        },
+        {
+          "text": " x"
+        },
+        {
+          "text": "2",
+          "superscript": true
+        },
+        {
+          "text": " v"
+        },
+        {
+          "text": "initial",
+          "subscript": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "children": [
+            {
+              "text": "link"
+            }
+          ],
+          "type": "a",
+          "url": "https://www.example.com",
+          "id": "7ycdCRJnTi"
+        },
+        {
+          "text": " break\nafter break"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "id": "QgpEpFXt_e",
+      "children": [
+        {
+          "text": "new paragraph"
+        }
+      ]
+    },
+    {
+      "type": "p",
+      "id": "t6Vi_gnEef",
+      "children": [
+        {
+          "text": "unordered"
+        }
+      ],
+      "indent": 1,
+      "listStyleType": "disc"
+    },
+    {
+      "type": "p",
+      "id": "oqv4kBONE2",
+      "indent": 1,
+      "listStyleType": "disc",
+      "children": [
+        {
+          "text": "list"
+        }
+      ],
+      "listStart": 2
+    },
+    {
+      "type": "p",
+      "id": "ipl-GH4Ueu",
+      "listRestartPolite": 1,
+      "children": [
+        {
+          "text": "ordered"
+        }
+      ],
+      "indent": 1,
+      "listStyleType": "decimal"
+    },
+    {
+      "type": "p",
+      "id": "gHU9rsZcn2",
+      "indent": 1,
+      "listStyleType": "decimal",
+      "children": [
+        {
+          "text": "list"
+        }
+      ],
+      "listStart": 2
+    },
+    {
+      "children": [
+        {
+          "text": ""
+        }
+      ],
+      "type": "p",
+      "id": "gsQTopUBXY"
+    }
+  ]
+}

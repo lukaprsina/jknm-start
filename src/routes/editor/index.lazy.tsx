@@ -3,7 +3,6 @@ import { createLazyFileRoute } from "@tanstack/react-router";
 import { Plate, usePlateEditor } from "platejs/react";
 import { useEffect } from "react";
 
-import { Value } from "platejs";
 import { EditorKit } from "~/components/editor-kit";
 import { Button } from "~/components/ui/button";
 import { Editor, EditorContainer } from "~/components/ui/editor";
@@ -20,12 +19,6 @@ export function PlateEditor() {
     value,
   });
 
-  // Function to set new content
-  const setEditorContent = (newValue: Value) => {
-    // This is the recommended way to replace editor content
-    editor.tf.setValue(newValue);
-  };
-
   // Example of setting new content
   const loadNewContent = () => {
     const newContent = [
@@ -39,7 +32,7 @@ export function PlateEditor() {
       },
     ];
 
-    setEditorContent(newContent);
+    editor.tf.setValue(newContent);
   };
 
   useEffect(() => {
@@ -52,6 +45,7 @@ export function PlateEditor() {
         Log contents
       </Button>
       <Button onClick={loadNewContent}>Load New Content</Button>
+      <Button onClick={() => editor.tf.normalize()}>Normalize</Button>
       <Plate editor={editor}>
         <EditorContainer>
           <Editor variant="demo" />

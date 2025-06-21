@@ -1,40 +1,57 @@
 {
-  "time": 1750446590442,
+  "time": 1750492331071,
   "blocks": [
     {
       "id": "sheNwCUP5A",
       "type": "header",
       "data": {
-        "text": "Luka test",
+        "text": "EditorJS test",
         "level": 1
       }
     },
     {
-      "id": "91PctWKRFv",
+      "id": "h1ztpgrVgp",
       "type": "paragraph",
       "data": {
-        "text": "tekst <b>bold </b>tekst"
+        "text": "normal <b>bold</b>&nbsp;<i>italic</i> <u>underline</u>&nbsp;x<sup>2 </sup>v<sub>initial&nbsp;</sub>break<br>after break"
       }
     },
     {
-      "id": "ThBWpq7ka6",
+      "id": "RtUiTeemop",
       "type": "paragraph",
       "data": {
-        "text": "tekst <i>italic</i> tekst<br>tekst&nbsp;<u>underline&nbsp;</u>tekst"
+        "text": "new paragraph"
       }
     },
     {
-      "id": "IbhetJa_wP",
-      "type": "paragraph",
+      "id": "ZfvkkWtUHd",
+      "type": "image",
       "data": {
-        "text": "tekst <a href=\"http://www.example.com\">link</a>&nbsp;tekst&nbsp;"
+        "caption": "image caption",
+        "withBorder": false,
+        "withBackground": false,
+        "stretched": false,
+        "file": {
+          "url": "https://jknm-osnutki.s3.eu-central-003.backblazeb2.com/1112/jdk-error.png",
+          "width": 1015,
+          "height": 141
+        }
       }
     },
     {
-      "id": "1dDBBplRka",
-      "type": "paragraph",
+      "id": "hCJmiASIqX",
+      "type": "list",
       "data": {
-        "text": "E<sub>initial</sub> = mc<sup>2</sup>"
+        "style": "unordered",
+        "items": ["unordered", "list"]
+      }
+    },
+    {
+      "id": "2Etvp7jMA2",
+      "type": "list",
+      "data": {
+        "style": "ordered",
+        "items": ["ordered", "list"]
       }
     }
   ],
