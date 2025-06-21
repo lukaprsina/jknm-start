@@ -43,7 +43,7 @@ function LoginForm() {
               <div className="grid gap-4">
                 {user ? (
                   // User is logged in - show logout button
-                  (<Button
+                  <Button
                     type="button"
                     onClick={async () => {
                       setIsLoading(true);
@@ -62,10 +62,10 @@ function LoginForm() {
                     className="w-full"
                   >
                     {isLoading ? "Odjavljanje..." : "Odjava"}
-                  </Button>)
+                  </Button>
                 ) : (
                   // User is not logged in - show Google login button
-                  (<Button
+                  <Button
                     type="button"
                     onClick={() => {
                       authClient.signIn.social(
@@ -99,7 +99,7 @@ function LoginForm() {
                       />
                     </svg>
                     {isLoading ? "Prijavljanje..." : "Prijava z Google"}
-                  </Button>)
+                  </Button>
                 )}
 
                 <Button type="button" variant="outline" className="w-full" asChild>
@@ -127,5 +127,5 @@ function LoginForm() {
         čistega ter zdravega podzemskega sveta.
       </div>
     </div>
-  )
+  );
 }

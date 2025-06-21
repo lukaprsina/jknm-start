@@ -74,7 +74,7 @@ A function that returns a plugin config to be injected into other plugins `injec
 Plugin keys used by `InjectNodeProps` and the `targetPluginToInject` function.
 
 - **Default:** `[ParagraphPlugin.key]`
-  </APISubListItem>
+    </APISubListItem>
 </APISubList>
 </APIItem>
 
@@ -87,7 +87,7 @@ Indicates if this plugin's nodes can be rendered as decorated leaf. Set to false
 
 - **Default:** `true`
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="node" name="isElement" type="boolean" optional>
 Indicates if this plugin's nodes should be rendered as elements.
 </APISubListItem>
@@ -110,7 +110,7 @@ Defines the selection behavior at the boundaries of nodes. See [Plugin Rules](/d
 
 - **Default:** `undefined` (Slate's default behavior)
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="node" name="isMarkableVoid" type="boolean" optional>
 Indicates if this plugin's void elements should be markable.
 </APISubListItem>
@@ -118,7 +118,7 @@ Indicates if this plugin's void elements should be markable.
 Indicates if this plugin's nodes should be selectable.
 
 - **Default:** `true`
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="node" name="isStrictSiblings" type="boolean" optional>
 Indicates whether this element enforces strict sibling type constraints. Set to `true` when the element only allows specific siblings (e.g., `td` can only have `td` siblings, `column` can only have `column` siblings) and prevents standard text blocks like paragraphs from being inserted as siblings.
 
@@ -126,7 +126,7 @@ Used by exit break functionality to determine appropriate exit points in nested 
 
 - **Default:** `false`
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="break.empty" type="'default' | 'deleteExit' | 'exit' | 'reset'" optional>
 Action when Enter is pressed in an empty block. See [Plugin Rules](/docs/plugin-rules).
 
@@ -135,7 +135,7 @@ Action when Enter is pressed in an empty block. See [Plugin Rules](/docs/plugin-
 - `'exit'`: Exit the current block
 - `'deleteExit'`: Delete backward then exit
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="break.emptyLineEnd" type="'default' | 'deleteExit' | 'exit'" optional>
 Action when Enter is pressed at the end of an empty line. This is typically used with `rules.break.default: 'lineBreak'`. See [Plugin Rules](/docs/plugin-rules).
 
@@ -143,7 +143,7 @@ Action when Enter is pressed at the end of an empty line. This is typically used
 - `'exit'`: Exit the current block
 - `'deleteExit'`: Delete backward then exit
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="break.default" type="'default' | 'deleteExit' | 'exit' | 'lineBreak'" optional>
 Default action when Enter is pressed. Defaults to splitting the block. See [Plugin Rules](/docs/plugin-rules).
 
@@ -152,7 +152,7 @@ Default action when Enter is pressed. Defaults to splitting the block. See [Plug
 - `'lineBreak'`: Insert newline character
 - `'deleteExit'`: Delete backward then exit
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="break.splitReset" type="boolean" optional>
 If true, the new block after splitting will be reset to the default type. See [Plugin Rules](/docs/plugin-rules).
 </APISubListItem>
@@ -162,13 +162,13 @@ Action when Backspace is pressed at the start of the block. This applies whether
 - `'default'`: Default behavior
 - `'reset'`: Reset block to default paragraph type
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="delete.empty" type="'default' | 'reset'" optional>
 Action when Backspace is pressed and the block is empty. See [Plugin Rules](/docs/plugin-rules).
 
 - `'default'`: Default behavior
 - `'reset'`: Reset block to default paragraph type
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="match" type="MatchRules" optional>
 Function to determine if this plugin's rules should apply to a node. Used to override behavior based on node properties beyond just type matching.
 
@@ -184,13 +184,13 @@ Whether to remove the node when it's empty during merge operations. See [Plugin 
 
 - **Default:** `false`
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="rules" name="normalize.removeEmpty" type="boolean" optional>
 Whether to remove nodes with empty text during normalization. See [Plugin Rules](/docs/plugin-rules).
 
 - **Default:** `false`
 
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="node" name="isVoid" type="boolean" optional>
 Indicates if this plugin's elements should be treated as void.
 </APISubListItem>
@@ -198,7 +198,7 @@ Indicates if this plugin's elements should be treated as void.
 Specifies the type identifier for this plugin's nodes.
 
 - **Default:** `plugin.key`
-  </APISubListItem>
+    </APISubListItem>
 <APISubListItem parent="node" name="component" type="NodeComponent | null" optional>
 React component used to render this plugin's nodes.
 </APISubListItem>

@@ -6,6 +6,7 @@ import {
   pgEnum,
   pgTable,
   serial,
+  text,
   timestamp,
   varchar,
 } from "drizzle-orm/pg-core";
@@ -30,8 +31,8 @@ export const Article = pgTable(
     title: varchar({ length: 255 }).notNull(),
     url: varchar({ length: 255 }).notNull(),
     status: ArticleStatus().default("draft").notNull(),
-    content_json: json().$type<Value>(),
-    content_html: varchar(),
+    content_json: json().$type<Value>().notNull(),
+    content_html: text().notNull(),
     view_count: integer().notNull().default(0),
     reading_time: integer(), // in minutes
     thumbnail_crop: json().$type<ThumbnailType>(),
