@@ -21,6 +21,10 @@ type TText = {
 type Descendant = TElement | TText
 */
 
+function generateId(): string {
+  return Math.random().toString(36).substr(2, 10);
+}
+
 // EditorJS editor value is ArticleContentType:
 export interface ArticleContentType {
   time?: number;
@@ -33,13 +37,6 @@ export interface ArticleBlockType {
   type: string;
   data: object;
 }
-
-interface EditorJsListItem {
-  content: string;
-  items: EditorJsListItems;
-}
-
-type EditorJsListItems = (string | EditorJsListItem)[];
 
 function mapTagToFormat(tag: string): string {
   switch (tag.toLowerCase()) {
@@ -60,141 +57,132 @@ function mapTagToFormat(tag: string): string {
   }
 }
 
-function parseMarks(html: string): TText[] {
-  const text = html.replace(/&nbsp;/g, " ").replace(/<br\s*\/?>/g, "\n");
-  const fragments = text.match(/<[^>]+>|[^<]+/g) || [];
-  const results: TText[] = [];
-  const activeMarks: string[] = [];
-
-  for (const fragment of fragments) {
-    if (fragment.startsWith("</")) {
-      activeMarks.pop();
-    } else if (fragment.startsWith("<")) {
-      const tagName = fragment.match(/<(\w+)/)?.[1];
-      if (tagName) {
-        const mark = mapTagToFormat(tagName);
-        if (mark) {
-          activeMarks.push(mark);
-        }
-      }
-    } else if (fragment) {
-      const textNode: TText = { text: fragment };
-      activeMarks.forEach((mark) => {
-        (textNode as Record<string, unknown>)[mark] = true;
-      });
-      results.push(textNode);
-    }
-  }
-  return results;
-}
-
 function parseText(html: string): Descendant[] {
   if (!html) return [{ text: "" }];
 
+  // Clean up HTML entities and breaks
+  const cleanText = html.replace(/&nbsp;/g, " ").replace(/<br\s*\/?>/g, "\n");
+
+  // Simple approach: parse links first, then handle inline formatting
   const results: Descendant[] = [];
-  const parts = html.split(/(<a\s+href="[^"]+"[^>]*>.*?<\/a>)/g).filter(Boolean);
+  const linkRegex = /<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/g;
+  let lastIndex = 0;
+  let match;
 
-  for (const part of parts) {
-    if (part.startsWith("<a")) {
-      const match = part.match(/<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/);
-      if (match) {
-        const [, href, content] = match;
-        const linkNode: TElement = {
-          type: "a",
-          url: href,
-          children: parseMarks(content),
-        };
-        results.push(linkNode);
-      }
-    } else {
-      results.push(...parseMarks(part));
+  while ((match = linkRegex.exec(cleanText)) !== null) {
+    // Add text before link
+    if (match.index > lastIndex) {
+      const beforeText = cleanText.slice(lastIndex, match.index);
+      results.push(...parseInlineFormats(beforeText));
     }
+
+    // Add link element
+    const linkElement: TElement = {
+      type: "a",
+      url: match[1],
+      id: generateId(),
+      children: parseInlineFormats(match[2]),
+    };
+    results.push(linkElement);
+    lastIndex = match.index + match[0].length;
   }
 
+  // Add remaining text
+  if (lastIndex < cleanText.length) {
+    const remainingText = cleanText.slice(lastIndex);
+    results.push(...parseInlineFormats(remainingText));
+  }
+
+  // If no links were found, just parse the whole text
   if (results.length === 0) {
-    return [{ text: "" }];
+    return parseInlineFormats(cleanText);
   }
 
-  const merged: Descendant[] = [];
-  if (results.length > 0) {
-    merged.push(results[0]);
-    for (let i = 1; i < results.length; i++) {
-      const current = results[i];
-      const previous = merged[merged.length - 1];
+  return results.length > 0 ? results : [{ text: "" }];
+}
 
-      const isPreviousText = "text" in previous && !previous.type;
-      const isCurrentText = "text" in current && !current.type;
+function parseInlineFormats(text: string): TText[] {
+  if (!text) return [{ text: "" }];
 
-      if (isPreviousText && isCurrentText) {
-        const prevNode = previous as TText;
-        const currNode = current as TText;
-        const prevMarks = Object.keys(prevNode).filter((k) => k !== "text");
-        const currMarks = Object.keys(currNode).filter((k) => k !== "text");
+  // Simple regex-based approach for common formatting
+  const formatRegex = /<(b|strong|i|em|u|sup|sub)>(.*?)<\/\1>/g;
+  const results: TText[] = [];
+  let lastIndex = 0;
+  let match;
 
-        if (
-          prevMarks.length === currMarks.length &&
-          prevMarks.every(
-            (k) =>
-              (prevNode as Record<string, unknown>)[k] ===
-              (currNode as Record<string, unknown>)[k],
-          )
-        ) {
-          prevNode.text += currNode.text;
-        } else {
-          merged.push(currNode);
-        }
-      } else {
-        merged.push(current);
+  while ((match = formatRegex.exec(text)) !== null) {
+    // Add unformatted text before this match
+    if (match.index > lastIndex) {
+      const beforeText = text.slice(lastIndex, match.index);
+      if (beforeText) {
+        results.push({ text: beforeText });
       }
+    }
+
+    // Add formatted text
+    const format = mapTagToFormat(match[1]);
+    if (format) {
+      const formattedText: TText = { text: match[2] };
+      formattedText[format] = true;
+      results.push(formattedText);
+    } else {
+      results.push({ text: match[2] });
+    }
+
+    lastIndex = match.index + match[0].length;
+  }
+
+  // Add remaining unformatted text
+  if (lastIndex < text.length) {
+    const remainingText = text.slice(lastIndex);
+    if (remainingText) {
+      results.push({ text: remainingText });
     }
   }
 
-  return merged;
+  // If no formatting was found, return the whole text
+  if (results.length === 0) {
+    return [{ text: text }];
+  }
+
+  return results;
 }
 
 function convertListBlock(block: ArticleBlockType): TElement[] {
   const data = block.data as {
     style: "ordered" | "unordered";
-    items: EditorJsListItems;
+    items: string[]; // Simplified - EditorJS doesn't support nested lists by default
     meta?: { start?: number };
   };
+
   const elements: TElement[] = [];
+  const isOrdered = data.style === "ordered";
+  const listStyleType = isOrdered ? "decimal" : "disc";
+  const startNumber = data.meta?.start ?? 1;
 
-  const processItems = (items: EditorJsListItems, indent: number, start: number) => {
-    const isOrdered = data.style === "ordered";
-    const listStyleType = isOrdered ? "decimal" : "disc";
+  data.items.forEach((item, index) => {
+    const element: TElement = {
+      type: "p",
+      id: generateId(),
+      children: parseText(item),
+      indent: 1,
+      listStyleType,
+    };
 
-    items.forEach((item, index) => {
-      const content = typeof item === "string" ? item : item.content;
-      const nestedItems = typeof item === "object" && item.items ? item.items : [];
-
-      const element: TElement = {
-        type: "p",
-        children: parseText(content),
-        indent,
-        listStyleType,
-      };
-
-      const itemNumber = start + index;
-      if (isOrdered) {
-        if (index === 0 && start !== 1) {
-          (element as Record<string, unknown>).listRestart = itemNumber;
-        } else if (index > 0 || start > 1) {
-          (element as Record<string, unknown>).listStart = itemNumber;
-        }
+    // Handle numbering for ordered lists
+    if (isOrdered) {
+      if (index === 0 && startNumber !== 1) {
+        element.listRestartPolite = startNumber;
       } else if (index > 0) {
-        (element as Record<string, unknown>).listStart = index + 1;
+        element.listStart = startNumber + index;
       }
+    } else if (index > 0) {
+      element.listStart = index + 1;
+    }
 
-      elements.push(element);
+    elements.push(element);
+  });
 
-      if (nestedItems.length > 0) {
-        processItems(nestedItems, indent + 1, 1);
-      }
-    });
-  };
-
-  processItems(data.items, 1, data.meta?.start ?? 1);
   return elements;
 }
 
@@ -207,6 +195,7 @@ export function convert_editorjs_to_platejs(editorjs_value: ArticleContentType):
         const data = block.data as { text: string; level: number };
         plateValue.push({
           type: `h${data.level}`,
+          id: generateId(),
           children: parseText(data.text),
         });
         break;
@@ -215,19 +204,21 @@ export function convert_editorjs_to_platejs(editorjs_value: ArticleContentType):
         const data = block.data as { text: string };
         plateValue.push({
           type: "p",
+          id: generateId(),
           children: parseText(data.text),
         });
         break;
       }
       case "image": {
-        const data = block.data as { file: { url: string }; caption: string };
+        const data = block.data as { file: { url: string }; caption?: string };
         const imageElement: TElement = {
           type: "img",
+          id: generateId(),
           url: data.file.url,
           children: [{ text: "" }],
         };
         if (data.caption) {
-          (imageElement as Record<string, unknown>).caption = parseText(data.caption);
+          imageElement.caption = parseText(data.caption);
         }
         plateValue.push(imageElement);
         break;
@@ -237,14 +228,15 @@ export function convert_editorjs_to_platejs(editorjs_value: ArticleContentType):
         break;
       }
       case "embed": {
-        const data = block.data as { embed: string; caption: string };
+        const data = block.data as { embed: string; caption?: string };
         const embedElement: TElement = {
           type: "media_embed",
+          id: generateId(),
           url: data.embed,
           children: [{ text: "" }],
         };
         if (data.caption) {
-          (embedElement as Record<string, unknown>).caption = parseText(data.caption);
+          embedElement.caption = parseText(data.caption);
         }
         plateValue.push(embedElement);
         break;
