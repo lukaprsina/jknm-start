@@ -14,6 +14,7 @@ import { createServerRootRoute } from "@tanstack/react-start/server";
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as ShellRouteImport } from "./routes/shell";
 import { Route as LoginRouteRouteImport } from "./routes/login/route";
+import { Route as HomepageRouteRouteImport } from "./routes/homepage/route";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as IndexRouteImport } from "./routes/index";
 import { Route as LoginIndexRouteImport } from "./routes/login/index";
@@ -32,6 +33,11 @@ const ShellRoute = ShellRouteImport.update({
 const LoginRouteRoute = LoginRouteRouteImport.update({
   id: "/login",
   path: "/login",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const HomepageRouteRoute = HomepageRouteRouteImport.update({
+  id: "/homepage",
+  path: "/homepage",
   getParentRoute: () => rootRouteImport,
 } as any);
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -73,6 +79,7 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/homepage": typeof HomepageRouteRoute;
   "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
   "/zgodovina": typeof staticZgodovinaRoute;
@@ -82,6 +89,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/homepage": typeof HomepageRouteRoute;
   "/shell": typeof ShellRoute;
   "/zgodovina": typeof staticZgodovinaRoute;
   "/dashboard": typeof DashboardIndexRoute;
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/homepage": typeof HomepageRouteRoute;
   "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
   "/(static)/zgodovina": typeof staticZgodovinaRoute;
@@ -104,6 +113,7 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | "/dashboard"
+    | "/homepage"
     | "/login"
     | "/shell"
     | "/zgodovina"
@@ -111,11 +121,19 @@ export interface FileRouteTypes {
     | "/login/"
     | "/editor";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/shell" | "/zgodovina" | "/dashboard" | "/login" | "/editor";
+  to:
+    | "/"
+    | "/homepage"
+    | "/shell"
+    | "/zgodovina"
+    | "/dashboard"
+    | "/login"
+    | "/editor";
   id:
     | "__root__"
     | "/"
     | "/dashboard"
+    | "/homepage"
     | "/login"
     | "/shell"
     | "/(static)/zgodovina"
@@ -127,6 +145,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  HomepageRouteRoute: typeof HomepageRouteRoute;
   LoginRouteRoute: typeof LoginRouteRouteWithChildren;
   ShellRoute: typeof ShellRoute;
   staticZgodovinaRoute: typeof staticZgodovinaRoute;
@@ -168,6 +187,13 @@ declare module "@tanstack/react-router" {
       path: "/login";
       fullPath: "/login";
       preLoaderRoute: typeof LoginRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/homepage": {
+      id: "/homepage";
+      path: "/homepage";
+      fullPath: "/homepage";
+      preLoaderRoute: typeof HomepageRouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/dashboard": {
@@ -253,6 +279,7 @@ const LoginRouteRouteWithChildren = LoginRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  HomepageRouteRoute: HomepageRouteRoute,
   LoginRouteRoute: LoginRouteRouteWithChildren,
   ShellRoute: ShellRoute,
   staticZgodovinaRoute: staticZgodovinaRoute,
