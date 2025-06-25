@@ -32,9 +32,10 @@ export const Article = pgTable(
     slug: varchar({ length: 255 }).unique().notNull(), // URL-friendly version
     url: varchar({ length: 255 }).notNull(), // Full URL for legacy
     status: ArticleStatus().default("draft").notNull(),
-    content_json: json().$type<Value>().notNull(),
+    content_json: json().$type<Value>(),
     content_html: text(),
     content_markdown: text(), // For Algolia indexing
+    content_editorjs: text(), // For EditorJS compatibility
     excerpt: varchar({ length: 500 }), // For previews/SEO
     view_count: integer().default(0),
     reading_time: integer().default(0), // in minutes
