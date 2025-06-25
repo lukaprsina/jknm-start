@@ -15,3 +15,6 @@ na sploh -> unicode čas za id
 
 admin page sidebar:
 nova novica, osnutki, arhivirano, izbrisani, avtorji, nastavitve
+
+25. 6. 2025
+- id 2 markdown list čist napačen
