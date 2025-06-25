@@ -50,7 +50,7 @@ export const Route = createRootRouteWithContext<{
         //https://www.algolia.com/doc/guides/building-search-ui/going-further/improve-performance/react/#prepare-the-connection-to-algolia
         rel: "preconnect",
         crossOrigin: "anonymous",
-        href: `https://${process.env.ALGOLIA_APP_ID!}-dsn.algolia.net`,
+        href: `https://${process.env.VITE_ALGOLIA_APP_ID!}-dsn.algolia.net`,
       },
     ],
   }),

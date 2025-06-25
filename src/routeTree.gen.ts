@@ -15,6 +15,7 @@ import { Route as rootRouteImport } from "./routes/__root";
 import { Route as ShellRouteImport } from "./routes/shell";
 import { Route as LoginRouteRouteImport } from "./routes/login/route";
 import { Route as HomepageRouteRouteImport } from "./routes/homepage/route";
+import { Route as Home2RouteRouteImport } from "./routes/home2/route";
 import { Route as DashboardRouteRouteImport } from "./routes/dashboard/route";
 import { Route as IndexRouteImport } from "./routes/index";
 import { Route as LoginIndexRouteImport } from "./routes/login/index";
@@ -38,6 +39,11 @@ const LoginRouteRoute = LoginRouteRouteImport.update({
 const HomepageRouteRoute = HomepageRouteRouteImport.update({
   id: "/homepage",
   path: "/homepage",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const Home2RouteRoute = Home2RouteRouteImport.update({
+  id: "/home2",
+  path: "/home2",
   getParentRoute: () => rootRouteImport,
 } as any);
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
@@ -79,6 +85,7 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   "/": typeof IndexRoute;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/home2": typeof Home2RouteRoute;
   "/homepage": typeof HomepageRouteRoute;
   "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
@@ -89,6 +96,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   "/": typeof IndexRoute;
+  "/home2": typeof Home2RouteRoute;
   "/homepage": typeof HomepageRouteRoute;
   "/shell": typeof ShellRoute;
   "/zgodovina": typeof staticZgodovinaRoute;
@@ -100,6 +108,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/": typeof IndexRoute;
   "/dashboard": typeof DashboardRouteRouteWithChildren;
+  "/home2": typeof Home2RouteRoute;
   "/homepage": typeof HomepageRouteRoute;
   "/login": typeof LoginRouteRouteWithChildren;
   "/shell": typeof ShellRoute;
@@ -113,6 +122,7 @@ export interface FileRouteTypes {
   fullPaths:
     | "/"
     | "/dashboard"
+    | "/home2"
     | "/homepage"
     | "/login"
     | "/shell"
@@ -123,6 +133,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/"
+    | "/home2"
     | "/homepage"
     | "/shell"
     | "/zgodovina"
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | "__root__"
     | "/"
     | "/dashboard"
+    | "/home2"
     | "/homepage"
     | "/login"
     | "/shell"
@@ -145,6 +157,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
   DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+  Home2RouteRoute: typeof Home2RouteRoute;
   HomepageRouteRoute: typeof HomepageRouteRoute;
   LoginRouteRoute: typeof LoginRouteRouteWithChildren;
   ShellRoute: typeof ShellRoute;
@@ -194,6 +207,13 @@ declare module "@tanstack/react-router" {
       path: "/homepage";
       fullPath: "/homepage";
       preLoaderRoute: typeof HomepageRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/home2": {
+      id: "/home2";
+      path: "/home2";
+      fullPath: "/home2";
+      preLoaderRoute: typeof Home2RouteRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/dashboard": {
@@ -279,6 +299,7 @@ const LoginRouteRouteWithChildren = LoginRouteRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRouteRoute: DashboardRouteRouteWithChildren,
+  Home2RouteRoute: Home2RouteRoute,
   HomepageRouteRoute: HomepageRouteRoute,
   LoginRouteRoute: LoginRouteRouteWithChildren,
   ShellRoute: ShellRoute,

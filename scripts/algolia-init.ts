@@ -43,7 +43,7 @@ import { ArticleStatusValidator } from "~/lib/db/schema/article.schema";
 // import type { Value } from "platejs";
 
 const client = algoliasearch(
-  process.env.ALGOLIA_APP_ID!,
+  process.env.VITE_ALGOLIA_APP_ID!,
   process.env.ALGOLIA_ADMIN_API_KEY!,
 );
 

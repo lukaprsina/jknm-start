@@ -24,3 +24,5 @@ dist
 .tanstack
 .env*.local
 scripts/editorjs_to_platejs/articles.json
+
+.env*.local

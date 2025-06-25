@@ -1,20 +1,21 @@
-import { SearchClient, searchClient } from "@algolia/client-search";
+// import { SearchClient, searchClient } from "@algolia/client-search";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { createFileRoute, stripSearchParams } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
+// import { SearchClient, algoliasearch } from "algoliasearch";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { useEffect, useState } from "react";
 import { z } from "zod";
 import Layout from "~/components/layouts";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
+import { search_client } from "~/lib/algolia";
 
 const defaultValues = {
   filter: "",
   sort: "newest",
 } as const;
 
-// BRO sej sploh ne uporabiš Drizzle ORM, ampak samo Algolio
 const infinite_posts_query = infiniteQueryOptions({
   queryKey: ["articles"],
   // initialPageParam: new Date(),
@@ -22,14 +23,6 @@ const infinite_posts_query = infiniteQueryOptions({
   queryFn: async ({ pageParam, meta }) => {
     const filter = meta!.filter as string;
     const pageSize = meta!.pageSize as number;
-    // const order: "asc" | "desc" = meta!.order as "asc" | "desc";
-    const search_client = meta!.search_client as SearchClient;
-
-    /* console.log("Fetching articles with pagination", {
-      pageParam,
-      order,
-      meta,
-    }); */
 
     const data = await search_client.searchSingleIndex({
       indexName: "articles",
@@ -40,23 +33,6 @@ const infinite_posts_query = infiniteQueryOptions({
         // sortFacetValuesBy: order === "asc" ? "alpha" : "alpha_desc",
       },
     });
-
-    /* const data = await db.query.Article.findMany({
-      ...withCursorPagination({
-        where: eq(Article.status, "published"),
-        limit: meta.pageSize,
-        cursors: [
-          [Article.published_at, order, pageParam],
-          // [Article.id, "asc", "94b5a795-5af4-40c3-8db8-a1c33906f5af"],
-        ],
-      }),
-      with: {
-        articles_to_authors: {
-          with: { author: true },
-          orderBy: asc(ArticlesToAuthors.order),
-        },
-      },
-    }); */
 
     return {
       data,
@@ -84,21 +60,16 @@ export const Route = createFileRoute("/homepage")({
   search: {
     middlewares: [stripSearchParams(defaultValues)],
   },
-  beforeLoad: async () => {
-    const search_client = searchClient(
-      process.env.ALGOLIA_APP_ID!,
-      process.env.ALGOLIA_SEARCH_API_KEY!,
-    );
-    console.log("Search client initialized:", process.env.ALGOLIA_APP_ID);
-    return { search_client };
-  },
+  loaderDeps: ({ search: { filter, sort } }) => ({
+    filter,
+    sort,
+  }),
   loader: ({ context }) => {
     context.queryClient.ensureInfiniteQueryData({
       ...infinite_posts_query,
       meta: {
-        pageSize: 10,
+        pageSize: 30,
         order: "desc",
-        search_client: context.search_client,
       },
     });
   },
@@ -106,7 +77,6 @@ export const Route = createFileRoute("/homepage")({
 });
 
 function Homepage() {
-  const context = Route.useRouteContext();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
   const [showFilters, setShowFilters] = useState(false);
@@ -118,9 +88,8 @@ function Homepage() {
   const data = useSuspenseInfiniteQuery({
     ...infinite_posts_query,
     meta: {
-      pageSize: 10,
+      pageSize: 30,
       order: "desc",
-      search_client: context.search_client,
     },
   });
 
