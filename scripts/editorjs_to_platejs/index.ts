@@ -3,7 +3,6 @@ import { readFileSync } from "fs";
 import fs_promises from "fs/promises";
 import path, { join } from "path";
 import slugify from "slugify";
-import { db } from "~/lib/db";
 import { Article } from "~/lib/db/schema";
 import { ThumbnailType } from "~/lib/validators";
 
@@ -110,7 +109,7 @@ async function main() {
     const jknmsi_article = jknmsi_articles[i];
 
     const markdown_article = markdown_articles.find(
-      (article) => article.id === jknmsi_article.old_id,
+      (article) => article.id === jknmsi_article.id,
     );
 
     const csv_article = csv_articles.find(
@@ -131,22 +130,14 @@ async function main() {
       const new_article: typeof Article.$inferInsert = {
         title,
         slug,
+        status: "published",
         url: `www.jknm.si/novica/${slug}`,
+        content_markdown: markdown_article!.markdown,
         created_at: new Date(jknmsi_article.created_at),
         updated_at: new Date(jknmsi_article.updated_at),
         old_id: jknmsi_article.old_id,
         thumbnail_crop: jknmsi_article.thumbnail_crop,
       };
-
-      if (markdown_article) {
-        new_article.content_markdown = markdown_article.markdown;
-      } else if (jknmsi_article.content) {
-        new_article.content_editorjs = JSON.stringify(jknmsi_article.content);
-      } else {
-        throw new Error(
-          `No content found for article "${jknmsi_article.title}" with old_id ${jknmsi_article.old_id}, new_id ${jknmsi_article.id}`,
-        );
-      }
 
       article_data.push(new_article);
 
@@ -163,8 +154,9 @@ async function main() {
       break;
     }
 
-    if (errorCount === 0)
-      await db.insert(Article).values(article_data).onConflictDoNothing();
+    if (errorCount === 0) {
+      // await db.insert(Article).values(article_data).onConflictDoNothing();
+    }
   }
 
   console.log("\n=== Migration Complete ===");
