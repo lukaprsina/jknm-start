@@ -1,3 +1,5 @@
+import { eq } from "drizzle-orm";
+import { Article } from "./../src/lib/db/schema/article.schema";
 /**
  * Enhanced Algolia Indexing Script for PlateJS-based Caving Blog
  * =============================================================
@@ -32,7 +34,7 @@ import remarkFrontmatter from "remark-frontmatter";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { z } from "zod/v4";
-import type { Article } from "~/lib/db/schema/article.schema";
+import { db } from "~/lib/db";
 import { ArticleStatusValidator } from "~/lib/db/schema/article.schema";
 
 // Add PlateJS Markdown utilities for real conversion
@@ -266,10 +268,13 @@ const processRecords = async () => {
 const processArticlesFromDatabase = async () => {
   try {
     // Example: This would come from your database query
-    // const articles = await db.select().from(Article).where(eq(Article.status, "published"));
+    const articles = await db
+      .select()
+      .from(Article)
+      .where(eq(Article.status, "published"));
 
     // For demo purposes, let's simulate a database article
-    const mockArticle: typeof Article.$inferSelect = {
+    /* const mockArticle: typeof Article.$inferSelect = {
       id: 1,
       title: "Understanding Slovenian Cave Systems",
       slug: "understanding-slovenian-cave-systems",
@@ -298,46 +303,50 @@ const processArticlesFromDatabase = async () => {
       published_at: new Date("2024-01-20"),
       archived_at: null,
       migrated_at: new Date("2024-01-10"),
-    };
+    }; */
+    const algoliaObjects: AlgoliaObject[] = [];
 
-    // Step 1: Convert PlateJS content to Markdown
-    const markdownContent = plateToMarkdownForAlgolia(mockArticle.content_json);
+    for (const mockArticle of articles) {
+      // Step 1: Convert PlateJS content to Markdown
+      const markdownContent = plateToMarkdownForAlgolia(mockArticle.content_json);
 
-    // Step 2: Split the markdown into sections by H2 headings
-    // For this demo, we'll create a temporary markdown file
-    const tempMarkdownPath = join(process.cwd(), "temp-article.md");
-    await import("fs/promises").then((fs) =>
-      fs.writeFile(tempMarkdownPath, markdownContent),
-    );
+      // Step 2: Split the markdown into sections by H2 headings
+      // For this demo, we'll create a temporary markdown file
+      const tempMarkdownPath = join(process.cwd(), "temp-article.md");
+      await import("fs/promises").then((fs) =>
+        fs.writeFile(tempMarkdownPath, markdownContent),
+      );
 
-    // Step 3: Parse and split the markdown
-    const sections = await parseAndSplitMarkdown(tempMarkdownPath);
-    console.log(`Found ${sections.length} sections in article: ${mockArticle.title}`);
+      // Step 3: Parse and split the markdown
+      const sections = await parseAndSplitMarkdown(tempMarkdownPath);
+      console.log(`Found ${sections.length} sections in article: ${mockArticle.title}`);
 
-    // Step 4: Create Algolia objects with proper metadata
-    const algoliaObjects = createAlgoliaObjectsFromArticle(sections, mockArticle);
-    console.log(`Created ${algoliaObjects.length} Algolia objects`);
+      // Step 4: Create Algolia objects with proper metadata
+      algoliaObjects.push(...createAlgoliaObjectsFromArticle(sections, mockArticle));
+      console.log(`Created ${algoliaObjects.length} Algolia objects`);
 
-    // Step 5: Log the objects for debugging
-    algoliaObjects.forEach((obj, index) => {
-      console.log(`Section ${index + 1}:`, {
-        objectID: obj.objectID,
-        title: obj.title,
-        section: obj.section,
-        content: obj.content.substring(0, 100) + "...",
-        section_order: obj.section_order,
-        parent_post_id: obj.parent_post_id,
+      // Step 5: Log the objects for debugging
+      algoliaObjects.forEach((obj, index) => {
+        console.log(`Section ${index + 1}:`, {
+          objectID: obj.objectID,
+          title: obj.title,
+          section: obj.section,
+          content: obj.content.substring(0, 100) + "...",
+          section_order: obj.section_order,
+          parent_post_id: obj.parent_post_id,
+        });
       });
-    });
+      // Clean up temp file
+      await import("fs/promises").then((fs) =>
+        fs.unlink(tempMarkdownPath).catch(() => {}),
+      );
+    }
 
     // Step 6: Index in Algolia
     const result = await client.saveObjects({
       indexName: ALGOLIA_CONFIG.indexName,
       objects: algoliaObjects,
     });
-
-    // Clean up temp file
-    await import("fs/promises").then((fs) => fs.unlink(tempMarkdownPath).catch(() => {}));
 
     return result;
   } catch (error) {

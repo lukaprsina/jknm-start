@@ -44,7 +44,15 @@ export const Route = createRootRouteWithContext<{
           "Specialisti za dokumentirano raziskovanje in ohranjanje čistega ter zdravega podzemskega sveta.",
       },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      {
+        //https://www.algolia.com/doc/guides/building-search-ui/going-further/improve-performance/react/#prepare-the-connection-to-algolia
+        rel: "preconnect",
+        crossOrigin: "anonymous",
+        href: `https://${process.env.ALGOLIA_APP_ID!}-dsn.algolia.net`,
+      },
+    ],
   }),
   component: RootComponent,
 });

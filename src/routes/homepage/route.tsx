@@ -2,9 +2,12 @@ import { SearchClient, searchClient } from "@algolia/client-search";
 import { infiniteQueryOptions, useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import { createFileRoute, stripSearchParams } from "@tanstack/react-router";
 import { zodValidator } from "@tanstack/zod-adapter";
-import { useEffect } from "react";
+import { ChevronDown, ChevronUp } from "lucide-react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import Layout from "~/components/layouts";
+import { Button } from "~/components/ui/button";
+import { Input } from "~/components/ui/input";
 
 const defaultValues = {
   filter: "",
@@ -86,6 +89,7 @@ export const Route = createFileRoute("/homepage")({
       process.env.ALGOLIA_APP_ID!,
       process.env.ALGOLIA_SEARCH_API_KEY!,
     );
+    console.log("Search client initialized:", process.env.ALGOLIA_APP_ID);
     return { search_client };
   },
   loader: ({ context }) => {
@@ -104,6 +108,8 @@ export const Route = createFileRoute("/homepage")({
 function Homepage() {
   const context = Route.useRouteContext();
   const search = Route.useSearch();
+  const navigate = Route.useNavigate();
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     console.log("Search params:", search.filter, search.sort);
@@ -120,6 +126,31 @@ function Homepage() {
 
   return (
     <Layout>
+      <div className="flex items-center space-x-2">
+        <Button variant="outline" size="sm" onClick={() => setShowFilters(!showFilters)}>
+          Filters{" "}
+          {showFilters ? (
+            <ChevronUp className="size-4" />
+          ) : (
+            <ChevronDown className="size-4" />
+          )}
+        </Button>
+      </div>
+      {showFilters && (
+        <div className="mt-2">
+          <Input
+            placeholder="Search articles..."
+            value={search.filter}
+            onChange={(e) =>
+              navigate({
+                from: "/homepage",
+                to: "/homepage",
+                search: { filter: e.target.value },
+              })
+            }
+          />
+        </div>
+      )}
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </Layout>
   );
