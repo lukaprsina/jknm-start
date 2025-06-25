@@ -1,8 +1,10 @@
 import { parse as csvParse } from "csv-parse/sync";
+import { sql } from "drizzle-orm";
 import { readFileSync } from "fs";
 import fs_promises from "fs/promises";
 import path, { join } from "path";
 import slugify from "slugify";
+import { db } from "~/lib/db";
 import { Article } from "~/lib/db/schema";
 import { ThumbnailType } from "~/lib/validators";
 
@@ -100,14 +102,8 @@ async function main() {
   const csv_articles = await read_from_csv();
   console.log(`Found ${csv_articles.length} original articles from CSV to process`);
 
-  let successCount = 0;
-  let errorCount = 0;
-
-  const article_data: (typeof Article.$inferInsert)[] = [];
-
-  for (let i = 0; i < jknmsi_articles.length; i++) {
-    const jknmsi_article = jknmsi_articles[i];
-
+  // Process articles in parallel
+  const processArticle = async (jknmsi_article: JKNMSIArticle, index: number) => {
     const markdown_article = markdown_articles.find(
       (article) => article.id === jknmsi_article.id,
     );
@@ -116,47 +112,61 @@ async function main() {
       (article) => article.objave_id === jknmsi_article.old_id,
     );
 
-    try {
-      const title = csv_article?.title ?? jknmsi_article.title;
+    const title = csv_article?.title ?? jknmsi_article.title;
 
-      console.log(`Processing article ${i + 1}/${jknmsi_articles.length}: "${title}"`);
+    console.log(`Processing article ${index + 1}/${jknmsi_articles.length}: "${title}"`);
 
-      const slug = slugify(title, {
-        lower: true,
-        strict: true,
-        remove: /[*+~.()'"!:@]/g, // Remove special characters
-      });
+    const slug = slugify(title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@]/g, // Remove special characters
+    });
 
-      const new_article: typeof Article.$inferInsert = {
-        title,
-        slug,
-        status: "published",
-        url: `www.jknm.si/novica/${slug}`,
-        content_markdown: markdown_article!.markdown,
-        created_at: new Date(jknmsi_article.created_at),
-        updated_at: new Date(jknmsi_article.updated_at),
-        old_id: jknmsi_article.old_id,
-        thumbnail_crop: jknmsi_article.thumbnail_crop,
-      };
+    const new_article: typeof Article.$inferInsert = {
+      title,
+      slug,
+      status: "published",
+      url: `www.jknm.si/novica/${slug}`,
+      content_markdown: markdown_article!.markdown,
+      created_at: new Date(jknmsi_article.created_at),
+      updated_at: new Date(jknmsi_article.updated_at),
+      old_id: jknmsi_article.old_id,
+      thumbnail_crop: jknmsi_article.thumbnail_crop,
+    };
 
-      article_data.push(new_article);
+    return new_article;
+  };
 
+  // Process all articles in parallel
+  const results = await Promise.allSettled(
+    jknmsi_articles.map((article, index) => processArticle(article, index)),
+  );
+
+  // Separate successful results from errors
+  const article_data: (typeof Article.$inferInsert)[] = [];
+  let successCount = 0;
+  let errorCount = 0;
+
+  results.forEach((result, index) => {
+    if (result.status === "fulfilled") {
+      article_data.push(result.value);
       successCount++;
-
-      if (i % 50 === 49) {
-        console.log(`Progress: ${i + 1}/${jknmsi_articles.length} articles processed`);
-      }
-    } catch (error) {
-      console.error(`Error processing article "${jknmsi_article.title}":`, error);
+    } else {
+      console.error(
+        `Error processing article "${jknmsi_articles[index].title}":`,
+        result.reason,
+      );
       errorCount++;
-
-      // Maybe continue with next article instead of stopping
-      break;
     }
+  });
 
-    if (errorCount === 0) {
-      // await db.insert(Article).values(article_data).onConflictDoNothing();
-    }
+  // Reset the id sequence before inserting (PostgreSQL, DrizzleORM)
+  // Use the correct sequence name for the Article table's id column
+  await db.execute(sql`ALTER SEQUENCE article_id_seq RESTART WITH 1;`);
+
+  // Insert all successful articles at once
+  if (article_data.length > 0) {
+    await db.insert(Article).values(article_data).onConflictDoNothing();
   }
 
   console.log("\n=== Migration Complete ===");
