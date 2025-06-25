@@ -1,9 +1,8 @@
 import { readFileSync } from "fs";
 import { join } from "path";
-import { db } from "~/lib/db";
-import { Article } from "~/lib/db/schema/article.schema";
 import { ThumbnailType } from "~/lib/validators";
-import { convert_editorjs_to_platejs, type ArticleContentType } from "./converter";
+/* import { db } from "~/lib/db";
+import { Article } from "~/lib/db/schema/article.schema"; */
 
 /*
 Old EditorJS PublishedArticle table
@@ -34,6 +33,19 @@ export const PublishedArticle = pgTable(
 );
 */
 
+// EditorJS editor value is ArticleContentType:
+export interface ArticleContentType {
+  time?: number;
+  blocks: ArticleBlockType[];
+  version?: string;
+}
+
+export interface ArticleBlockType {
+  id?: string;
+  type: string;
+  data: object;
+}
+
 interface OldArticle {
   id: number;
   old_id: number | null;
@@ -46,97 +58,10 @@ interface OldArticle {
   thumbnail_crop: ThumbnailType | null;
 }
 
-function generateSlug(url: string): string {
-  // Clean up the URL to make it a proper slug
-  return url
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-function decodeHtmlEntities(text: string): string {
-  // Decode common HTML entities
-  return text
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, " ");
-}
-
-function calculateReadingTime(content: ArticleContentType): number {
-  // Estimate reading time based on content blocks
-  let wordCount = 0;
-
-  for (const block of content.blocks) {
-    if (block.type === "paragraph" || block.type === "header") {
-      const data = block.data as { text?: string };
-      if (data.text) {
-        // Strip HTML tags and count words
-        const textContent = data.text.replace(/<[^>]*>/g, " ");
-        wordCount += textContent.split(/\s+/).filter((word) => word.length > 0).length;
-      }
-    } else if (block.type === "list") {
-      const data = block.data as { items?: string[] };
-      if (data.items) {
-        for (const item of data.items) {
-          const textContent = item.replace(/<[^>]*>/g, " ");
-          wordCount += textContent.split(/\s+/).filter((word) => word.length > 0).length;
-        }
-      }
-    }
-  }
-
-  // Average reading speed: 200 words per minute
-  return Math.max(1, Math.ceil(wordCount / 200));
-}
-
-function calculateContentLength(content: ArticleContentType): number {
-  // Calculate total character count of text content
-  let charCount = 0;
-
-  for (const block of content.blocks) {
-    if (block.type === "paragraph" || block.type === "header") {
-      const data = block.data as { text?: string };
-      if (data.text) {
-        // Strip HTML tags and count characters
-        const textContent = data.text.replace(/<[^>]*>/g, "");
-        charCount += textContent.length;
-      }
-    } else if (block.type === "list") {
-      const data = block.data as { items?: string[] };
-      if (data.items) {
-        for (const item of data.items) {
-          const textContent = item.replace(/<[^>]*>/g, "");
-          charCount += textContent.length;
-        }
-      }
-    }
-  }
-
-  return charCount;
-}
-
-function generateExcerpt(content: ArticleContentType): string | null {
-  // Extract first paragraph or header as excerpt
-  for (const block of content.blocks) {
-    if (block.type === "paragraph" || block.type === "header") {
-      const data = block.data as { text?: string };
-      if (data.text) {
-        // Strip HTML tags and truncate to 500 characters
-        const textContent = data.text.replace(/<[^>]*>/g, " ").trim();
-        if (textContent.length > 0) {
-          return textContent.length > 497
-            ? textContent.substring(0, 497) + "..."
-            : textContent;
-        }
-      }
-    }
-  }
-  return null;
-}
+type MarkdownArticle = {
+  id: number;
+  markdown: string;
+};
 
 async function main() {
   console.log("Starting EditorJS to PlateJS migration...");
@@ -155,53 +80,45 @@ async function main() {
 
   console.log(`Found ${oldArticles.length} articles to migrate`);
 
+  // Read the markdown_articles.json file
+  const markdownArticlesPath = join(
+    process.cwd(),
+    "scripts",
+    "editorjs_to_platejs",
+    "markdown_articles.json",
+  );
+  console.log("Reading markdown articles from:", markdownArticlesPath);
+  const markdownArticlesData = readFileSync(markdownArticlesPath, "utf-8");
+  const markdownArticles: MarkdownArticle[] = JSON.parse(markdownArticlesData);
+
   let successCount = 0;
   let errorCount = 0;
 
   for (let i = 0; i < oldArticles.length; i++) {
     const oldArticle = oldArticles[i];
+    const markdownArticle = markdownArticles.find(
+      (article) => article.id === oldArticle.old_id,
+    );
+
+    if (!markdownArticle) {
+      throw new Error(`No markdown article found for old ID ${oldArticle.old_id}`);
+    }
 
     try {
       console.log(
         `Processing article ${i + 1}/${oldArticles.length}: "${oldArticle.title}"`,
       );
 
-      // Convert EditorJS content to PlateJS
-      const plateContent = convert_editorjs_to_platejs(oldArticle.content);
+      // TODO: Convert EditorJS content to PlateJS
 
-      // Calculate derived fields
-      const readingTime = calculateReadingTime(oldArticle.content);
-      const contentLength = calculateContentLength(oldArticle.content);
-      const excerpt = generateExcerpt(oldArticle.content);
-      const slug = generateSlug(oldArticle.url);
-      const decodedTitle = decodeHtmlEntities(oldArticle.title);
-
-      // Insert into new Article table
-      await db.insert(Article).values({
-        title: decodedTitle,
-        slug: slug,
-        url: oldArticle.url,
-        status: "published",
-        content_json: plateContent,
-        content_html: null, // Will be generated later
-        content_markdown: null, // Will be generated later
-        excerpt: excerpt,
-        view_count: 0,
-        reading_time: readingTime,
-        content_length: contentLength,
-        thumbnail_crop: oldArticle.thumbnail_crop,
-        meta_description: excerpt
-          ? excerpt.length > 160
-            ? excerpt.substring(0, 157) + "..."
-            : excerpt
-          : null,
-        featured: false,
-        old_id: oldArticle.old_id,
-        created_at: new Date(oldArticle.created_at),
-        updated_at: new Date(oldArticle.updated_at),
-        published_at: new Date(oldArticle.created_at),
-        migrated_at: new Date(),
+      /*
+      Ignore oldArticle.url, recreate it from the title with slugify
+      slugify(oldArticle.title, {
+        lower: true,
+        strict: true,
+        remove: /[*+~.()'"!:@]/g, // Remove special characters
       });
+      */
 
       successCount++;
 
@@ -212,8 +129,8 @@ async function main() {
       console.error(`Error processing article "${oldArticle.title}":`, error);
       errorCount++;
 
-      // Continue with next article instead of stopping
-      continue;
+      // Maybe continue with next article instead of stopping
+      break;
     }
   }
 

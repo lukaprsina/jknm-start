@@ -1,6 +1,5 @@
 import { relations } from "drizzle-orm";
 import {
-  boolean,
   index,
   integer,
   json,
@@ -37,17 +36,15 @@ export const Article = pgTable(
     content_html: text(),
     content_markdown: text(), // For Algolia indexing
     excerpt: varchar({ length: 500 }), // For previews/SEO
-    view_count: integer().notNull().default(0),
-    reading_time: integer(), // in minutes
-    content_length: integer(), // Character count for analytics
+    view_count: integer().default(0),
+    reading_time: integer().default(0), // in minutes
+    content_length: integer().default(0), // Character count for analytics
     thumbnail_crop: json().$type<ThumbnailType>(),
     meta_description: varchar({ length: 160 }), // SEO
-    featured: boolean().default(false), // For highlighting posts
     old_id: integer().unique(),
     ...timestamps,
     published_at: timestamp(),
     archived_at: timestamp(),
-    migrated_at: timestamp(),
   },
   (article) => [
     index().on(article.created_at),

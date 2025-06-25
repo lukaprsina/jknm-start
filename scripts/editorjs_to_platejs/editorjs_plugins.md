@@ -1,4 +1,4 @@
-I only used `[ "header", "paragraph", "image", "list", "embed" ]` plugins with EditorJS, in all my posts, I checked.
+I only used `[ "header", "paragraph", "image", "list", "embed" ]` plugins with EditorJS.
 
 Here are their full API's, since they are untyped.
 
@@ -86,16 +86,16 @@ Here are their full API's, since they are untyped.
 }
 ```
 
-````json
+```json
 {
-  "type" : "embed",
-  "data" : {
-    "service" : "coub",
-    "source" : "https://coub.com/view/1czcdf",
-    "embed" : "https://coub.com/embed/1czcdf",
-    "width" : 580,
-    "height" : 320,
-    "caption" : "My Life"
+  "type": "embed",
+  "data": {
+    "service": "coub",
+    "source": "https://coub.com/view/1czcdf",
+    "embed": "https://coub.com/embed/1czcdf",
+    "width": 580,
+    "height": 320,
+    "caption": "My Life"
   }
 }
 ```
