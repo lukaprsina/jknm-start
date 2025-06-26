@@ -17,6 +17,7 @@ const defaultValues = {
 } as const;
 
 const infinite_posts_query = infiniteQueryOptions({
+  // TODO: this should have pageParam, filter, sort in it
   queryKey: ["articles"],
   // initialPageParam: new Date(),
   initialPageParam: 0,
