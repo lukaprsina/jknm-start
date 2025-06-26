@@ -68,6 +68,7 @@ function RouteComponent() {
 
 	const editor = createSlateEditor({
 		plugins: BaseEditorKit,
+		nodeId: false, // Disable NodeIdPlugin to prevent hydration mismatches
 		value: (editor) => {
 			if (isNaN(novica_id_number)) {
 				throw new Error("Invalid article ID");

@@ -1,13 +1,4 @@
 {
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[json][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
   "editor.codeActionsOnSave": {
     "source.action.useSortedKeys.biome": "always",
     "source.fixAll.biome": "explicit"
