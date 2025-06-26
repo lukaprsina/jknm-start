@@ -1,0 +1,1 @@
+Please implement `src/routes/api/upload.ts`, to get a presigned URL, used by `src/hooks/use-upload-file.tsx`. I use backblaze B2, and I will add the necesarry keys to the .env file, assume they are already there. Use the s3-compatible API, install it first. BTW I don't have any media-based database tables in my DrizzleORM schema.

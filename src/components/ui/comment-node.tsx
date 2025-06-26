@@ -10,34 +10,36 @@ import { commentPlugin } from "~/components/plugins/comment-kit";
 import { cn } from "~/lib/utils";
 
 export function CommentLeaf(props: PlateLeafProps<TCommentText>) {
-  const { children, leaf } = props;
+	const { children, leaf } = props;
 
-  const { api, setOption } = useEditorPlugin(commentPlugin);
-  const hoverId = usePluginOption(commentPlugin, "hoverId");
-  const activeId = usePluginOption(commentPlugin, "activeId");
+	const { api, setOption } = useEditorPlugin(commentPlugin);
+	const hoverId = usePluginOption(commentPlugin, "hoverId");
+	const activeId = usePluginOption(commentPlugin, "activeId");
 
-  const isOverlapping = getCommentCount(leaf) > 1;
-  const currentId = api.comment.nodeId(leaf);
-  const isActive = activeId === currentId;
-  const isHover = hoverId === currentId;
+	const isOverlapping = getCommentCount(leaf) > 1;
+	const currentId = api.comment.nodeId(leaf);
+	const isActive = activeId === currentId;
+	const isHover = hoverId === currentId;
 
-  return (
-    <PlateLeaf
-      {...props}
-      className={cn(
-        "border-b-highlight/[.36] bg-highlight/[.13] border-b-2 transition-colors duration-200",
-        (isHover || isActive) && "border-b-highlight bg-highlight/25",
-        isOverlapping && "border-b-highlight/[.7] bg-highlight/25 border-b-2",
-        (isHover || isActive) && isOverlapping && "border-b-highlight bg-highlight/45",
-      )}
-      attributes={{
-        ...props.attributes,
-        onClick: () => setOption("activeId", currentId ?? null),
-        onMouseEnter: () => setOption("hoverId", currentId ?? null),
-        onMouseLeave: () => setOption("hoverId", null),
-      }}
-    >
-      {children}
-    </PlateLeaf>
-  );
+	return (
+		<PlateLeaf
+			{...props}
+			className={cn(
+				"border-b-highlight/[.36] bg-highlight/[.13] border-b-2 transition-colors duration-200",
+				(isHover || isActive) && "border-b-highlight bg-highlight/25",
+				isOverlapping && "border-b-highlight/[.7] bg-highlight/25 border-b-2",
+				(isHover || isActive) &&
+					isOverlapping &&
+					"border-b-highlight bg-highlight/45",
+			)}
+			attributes={{
+				...props.attributes,
+				onClick: () => setOption("activeId", currentId ?? null),
+				onMouseEnter: () => setOption("hoverId", currentId ?? null),
+				onMouseLeave: () => setOption("hoverId", null),
+			}}
+		>
+			{children}
+		</PlateLeaf>
+	);
 }

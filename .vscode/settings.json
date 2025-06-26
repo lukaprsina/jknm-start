@@ -32,6 +32,13 @@
   "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "easynpm.defaultProjectRoot": "d:\\dev\\js\\jknm-start",
-  "typescript.experimental.useTsgo": false
+  "typescript.experimental.useTsgo": false,
+
+  // https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
 }

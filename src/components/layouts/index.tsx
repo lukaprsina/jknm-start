@@ -3,18 +3,18 @@ import { SidebarInset, SidebarProvider } from "~/components/ui/sidebar";
 import { DesktopHeader } from "./desktop-header";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="[--header-height:calc(--spacing(20))]">
-      <SidebarProvider className="flex min-h-0 w-full flex-col">
-        {/* <SiteHeader /> */}
-        <DesktopHeader />
-        <div className="flex flex-1">
-          <AppSidebar />
-          <SidebarInset>{children}</SidebarInset>
-        </div>
-      </SidebarProvider>
-    </div>
-  );
+	return (
+		<div className="[--header-height:calc(--spacing(20))]">
+			<SidebarProvider className="flex min-h-0 w-full flex-col">
+				{/* <SiteHeader /> */}
+				<DesktopHeader />
+				<div className="flex flex-1">
+					<AppSidebar />
+					<SidebarInset>{children}</SidebarInset>
+				</div>
+			</SidebarProvider>
+		</div>
+	);
 }
 
 /* 

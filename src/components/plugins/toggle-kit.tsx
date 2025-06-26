@@ -5,4 +5,7 @@ import { TogglePlugin } from "@platejs/toggle/react";
 import { IndentKit } from "~/components/plugins/indent-kit";
 import { ToggleElement } from "~/components/ui/toggle-node";
 
-export const ToggleKit = [...IndentKit, TogglePlugin.withComponent(ToggleElement)];
+export const ToggleKit = [
+	...IndentKit,
+	TogglePlugin.withComponent(ToggleElement),
+];

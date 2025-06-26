@@ -30,348 +30,348 @@ const EditorIndexLazyRouteImport = createFileRoute("/editor/")();
 const rootServerRouteImport = createServerRootRoute();
 
 const ShellRoute = ShellRouteImport.update({
-  id: "/shell",
-  path: "/shell",
-  getParentRoute: () => rootRouteImport,
+	id: "/shell",
+	path: "/shell",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const LoginRouteRoute = LoginRouteRouteImport.update({
-  id: "/login",
-  path: "/login",
-  getParentRoute: () => rootRouteImport,
+	id: "/login",
+	path: "/login",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const HomepageRouteRoute = HomepageRouteRouteImport.update({
-  id: "/homepage",
-  path: "/homepage",
-  getParentRoute: () => rootRouteImport,
+	id: "/homepage",
+	path: "/homepage",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const Home2RouteRoute = Home2RouteRouteImport.update({
-  id: "/home2",
-  path: "/home2",
-  getParentRoute: () => rootRouteImport,
+	id: "/home2",
+	path: "/home2",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const DashboardRouteRoute = DashboardRouteRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
-  getParentRoute: () => rootRouteImport,
+	id: "/dashboard",
+	path: "/dashboard",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const IndexRoute = IndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => rootRouteImport,
+	id: "/",
+	path: "/",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const EditorIndexLazyRoute = EditorIndexLazyRouteImport.update({
-  id: "/editor/",
-  path: "/editor/",
-  getParentRoute: () => rootRouteImport,
+	id: "/editor/",
+	path: "/editor/",
+	getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import("./routes/editor/index.lazy").then((d) => d.Route));
 const LoginIndexRoute = LoginIndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => LoginRouteRoute,
+	id: "/",
+	path: "/",
+	getParentRoute: () => LoginRouteRoute,
 } as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => DashboardRouteRoute,
+	id: "/",
+	path: "/",
+	getParentRoute: () => DashboardRouteRoute,
 } as any);
 const staticZgodovinaRoute = staticZgodovinaRouteImport.update({
-  id: "/(static)/zgodovina",
-  path: "/zgodovina",
-  getParentRoute: () => rootRouteImport,
+	id: "/(static)/zgodovina",
+	path: "/zgodovina",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const NovicaNovica_idIndexRoute = NovicaNovica_idIndexRouteImport.update({
-  id: "/novica/$novica_id/",
-  path: "/novica/$novica_id/",
-  getParentRoute: () => rootRouteImport,
+	id: "/novica/$novica_id/",
+	path: "/novica/$novica_id/",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const NovicaNovica_idUrediRoute = NovicaNovica_idUrediRouteImport.update({
-  id: "/novica/$novica_id/uredi",
-  path: "/novica/$novica_id/uredi",
-  getParentRoute: () => rootRouteImport,
+	id: "/novica/$novica_id/uredi",
+	path: "/novica/$novica_id/uredi",
+	getParentRoute: () => rootRouteImport,
 } as any);
 const ApiUploadServerRoute = ApiUploadServerRouteImport.update({
-  id: "/api/upload",
-  path: "/api/upload",
-  getParentRoute: () => rootServerRouteImport,
+	id: "/api/upload",
+	path: "/api/upload",
+	getParentRoute: () => rootServerRouteImport,
 } as any);
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
-  id: "/api/auth/$",
-  path: "/api/auth/$",
-  getParentRoute: () => rootServerRouteImport,
+	id: "/api/auth/$",
+	path: "/api/auth/$",
+	getParentRoute: () => rootServerRouteImport,
 } as any);
 
 export interface FileRoutesByFullPath {
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/home2": typeof Home2RouteRoute;
-  "/homepage": typeof HomepageRouteRoute;
-  "/login": typeof LoginRouteRouteWithChildren;
-  "/shell": typeof ShellRoute;
-  "/zgodovina": typeof staticZgodovinaRoute;
-  "/dashboard/": typeof DashboardIndexRoute;
-  "/login/": typeof LoginIndexRoute;
-  "/editor": typeof EditorIndexLazyRoute;
-  "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
-  "/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
+	"/": typeof IndexRoute;
+	"/dashboard": typeof DashboardRouteRouteWithChildren;
+	"/home2": typeof Home2RouteRoute;
+	"/homepage": typeof HomepageRouteRoute;
+	"/login": typeof LoginRouteRouteWithChildren;
+	"/shell": typeof ShellRoute;
+	"/zgodovina": typeof staticZgodovinaRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
+	"/login/": typeof LoginIndexRoute;
+	"/editor": typeof EditorIndexLazyRoute;
+	"/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
+	"/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
 }
 export interface FileRoutesByTo {
-  "/": typeof IndexRoute;
-  "/home2": typeof Home2RouteRoute;
-  "/homepage": typeof HomepageRouteRoute;
-  "/shell": typeof ShellRoute;
-  "/zgodovina": typeof staticZgodovinaRoute;
-  "/dashboard": typeof DashboardIndexRoute;
-  "/login": typeof LoginIndexRoute;
-  "/editor": typeof EditorIndexLazyRoute;
-  "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
-  "/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
+	"/": typeof IndexRoute;
+	"/home2": typeof Home2RouteRoute;
+	"/homepage": typeof HomepageRouteRoute;
+	"/shell": typeof ShellRoute;
+	"/zgodovina": typeof staticZgodovinaRoute;
+	"/dashboard": typeof DashboardIndexRoute;
+	"/login": typeof LoginIndexRoute;
+	"/editor": typeof EditorIndexLazyRoute;
+	"/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
+	"/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport;
-  "/": typeof IndexRoute;
-  "/dashboard": typeof DashboardRouteRouteWithChildren;
-  "/home2": typeof Home2RouteRoute;
-  "/homepage": typeof HomepageRouteRoute;
-  "/login": typeof LoginRouteRouteWithChildren;
-  "/shell": typeof ShellRoute;
-  "/(static)/zgodovina": typeof staticZgodovinaRoute;
-  "/dashboard/": typeof DashboardIndexRoute;
-  "/login/": typeof LoginIndexRoute;
-  "/editor/": typeof EditorIndexLazyRoute;
-  "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
-  "/novica/$novica_id/": typeof NovicaNovica_idIndexRoute;
+	__root__: typeof rootRouteImport;
+	"/": typeof IndexRoute;
+	"/dashboard": typeof DashboardRouteRouteWithChildren;
+	"/home2": typeof Home2RouteRoute;
+	"/homepage": typeof HomepageRouteRoute;
+	"/login": typeof LoginRouteRouteWithChildren;
+	"/shell": typeof ShellRoute;
+	"/(static)/zgodovina": typeof staticZgodovinaRoute;
+	"/dashboard/": typeof DashboardIndexRoute;
+	"/login/": typeof LoginIndexRoute;
+	"/editor/": typeof EditorIndexLazyRoute;
+	"/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
+	"/novica/$novica_id/": typeof NovicaNovica_idIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths:
-    | "/"
-    | "/dashboard"
-    | "/home2"
-    | "/homepage"
-    | "/login"
-    | "/shell"
-    | "/zgodovina"
-    | "/dashboard/"
-    | "/login/"
-    | "/editor"
-    | "/novica/$novica_id/uredi"
-    | "/novica/$novica_id";
-  fileRoutesByTo: FileRoutesByTo;
-  to:
-    | "/"
-    | "/home2"
-    | "/homepage"
-    | "/shell"
-    | "/zgodovina"
-    | "/dashboard"
-    | "/login"
-    | "/editor"
-    | "/novica/$novica_id/uredi"
-    | "/novica/$novica_id";
-  id:
-    | "__root__"
-    | "/"
-    | "/dashboard"
-    | "/home2"
-    | "/homepage"
-    | "/login"
-    | "/shell"
-    | "/(static)/zgodovina"
-    | "/dashboard/"
-    | "/login/"
-    | "/editor/"
-    | "/novica/$novica_id/uredi"
-    | "/novica/$novica_id/";
-  fileRoutesById: FileRoutesById;
+	fileRoutesByFullPath: FileRoutesByFullPath;
+	fullPaths:
+		| "/"
+		| "/dashboard"
+		| "/home2"
+		| "/homepage"
+		| "/login"
+		| "/shell"
+		| "/zgodovina"
+		| "/dashboard/"
+		| "/login/"
+		| "/editor"
+		| "/novica/$novica_id/uredi"
+		| "/novica/$novica_id";
+	fileRoutesByTo: FileRoutesByTo;
+	to:
+		| "/"
+		| "/home2"
+		| "/homepage"
+		| "/shell"
+		| "/zgodovina"
+		| "/dashboard"
+		| "/login"
+		| "/editor"
+		| "/novica/$novica_id/uredi"
+		| "/novica/$novica_id";
+	id:
+		| "__root__"
+		| "/"
+		| "/dashboard"
+		| "/home2"
+		| "/homepage"
+		| "/login"
+		| "/shell"
+		| "/(static)/zgodovina"
+		| "/dashboard/"
+		| "/login/"
+		| "/editor/"
+		| "/novica/$novica_id/uredi"
+		| "/novica/$novica_id/";
+	fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute;
-  DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
-  Home2RouteRoute: typeof Home2RouteRoute;
-  HomepageRouteRoute: typeof HomepageRouteRoute;
-  LoginRouteRoute: typeof LoginRouteRouteWithChildren;
-  ShellRoute: typeof ShellRoute;
-  staticZgodovinaRoute: typeof staticZgodovinaRoute;
-  EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
-  NovicaNovica_idUrediRoute: typeof NovicaNovica_idUrediRoute;
-  NovicaNovica_idIndexRoute: typeof NovicaNovica_idIndexRoute;
+	IndexRoute: typeof IndexRoute;
+	DashboardRouteRoute: typeof DashboardRouteRouteWithChildren;
+	Home2RouteRoute: typeof Home2RouteRoute;
+	HomepageRouteRoute: typeof HomepageRouteRoute;
+	LoginRouteRoute: typeof LoginRouteRouteWithChildren;
+	ShellRoute: typeof ShellRoute;
+	staticZgodovinaRoute: typeof staticZgodovinaRoute;
+	EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
+	NovicaNovica_idUrediRoute: typeof NovicaNovica_idUrediRoute;
+	NovicaNovica_idIndexRoute: typeof NovicaNovica_idIndexRoute;
 }
 export interface FileServerRoutesByFullPath {
-  "/api/upload": typeof ApiUploadServerRoute;
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
+	"/api/upload": typeof ApiUploadServerRoute;
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRoutesByTo {
-  "/api/upload": typeof ApiUploadServerRoute;
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
+	"/api/upload": typeof ApiUploadServerRoute;
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport;
-  "/api/upload": typeof ApiUploadServerRoute;
-  "/api/auth/$": typeof ApiAuthSplatServerRoute;
+	__root__: typeof rootServerRouteImport;
+	"/api/upload": typeof ApiUploadServerRoute;
+	"/api/auth/$": typeof ApiAuthSplatServerRoute;
 }
 export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath;
-  fullPaths: "/api/upload" | "/api/auth/$";
-  fileServerRoutesByTo: FileServerRoutesByTo;
-  to: "/api/upload" | "/api/auth/$";
-  id: "__root__" | "/api/upload" | "/api/auth/$";
-  fileServerRoutesById: FileServerRoutesById;
+	fileServerRoutesByFullPath: FileServerRoutesByFullPath;
+	fullPaths: "/api/upload" | "/api/auth/$";
+	fileServerRoutesByTo: FileServerRoutesByTo;
+	to: "/api/upload" | "/api/auth/$";
+	id: "__root__" | "/api/upload" | "/api/auth/$";
+	fileServerRoutesById: FileServerRoutesById;
 }
 export interface RootServerRouteChildren {
-  ApiUploadServerRoute: typeof ApiUploadServerRoute;
-  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute;
+	ApiUploadServerRoute: typeof ApiUploadServerRoute;
+	ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute;
 }
 
 declare module "@tanstack/react-router" {
-  interface FileRoutesByPath {
-    "/shell": {
-      id: "/shell";
-      path: "/shell";
-      fullPath: "/shell";
-      preLoaderRoute: typeof ShellRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/login": {
-      id: "/login";
-      path: "/login";
-      fullPath: "/login";
-      preLoaderRoute: typeof LoginRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/homepage": {
-      id: "/homepage";
-      path: "/homepage";
-      fullPath: "/homepage";
-      preLoaderRoute: typeof HomepageRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/home2": {
-      id: "/home2";
-      path: "/home2";
-      fullPath: "/home2";
-      preLoaderRoute: typeof Home2RouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/dashboard": {
-      id: "/dashboard";
-      path: "/dashboard";
-      fullPath: "/dashboard";
-      preLoaderRoute: typeof DashboardRouteRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/": {
-      id: "/";
-      path: "/";
-      fullPath: "/";
-      preLoaderRoute: typeof IndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/editor/": {
-      id: "/editor/";
-      path: "/editor";
-      fullPath: "/editor";
-      preLoaderRoute: typeof EditorIndexLazyRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/login/": {
-      id: "/login/";
-      path: "/";
-      fullPath: "/login/";
-      preLoaderRoute: typeof LoginIndexRouteImport;
-      parentRoute: typeof LoginRouteRoute;
-    };
-    "/dashboard/": {
-      id: "/dashboard/";
-      path: "/";
-      fullPath: "/dashboard/";
-      preLoaderRoute: typeof DashboardIndexRouteImport;
-      parentRoute: typeof DashboardRouteRoute;
-    };
-    "/(static)/zgodovina": {
-      id: "/(static)/zgodovina";
-      path: "/zgodovina";
-      fullPath: "/zgodovina";
-      preLoaderRoute: typeof staticZgodovinaRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/novica/$novica_id/": {
-      id: "/novica/$novica_id/";
-      path: "/novica/$novica_id";
-      fullPath: "/novica/$novica_id";
-      preLoaderRoute: typeof NovicaNovica_idIndexRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/novica/$novica_id/uredi": {
-      id: "/novica/$novica_id/uredi";
-      path: "/novica/$novica_id/uredi";
-      fullPath: "/novica/$novica_id/uredi";
-      preLoaderRoute: typeof NovicaNovica_idUrediRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-  }
+	interface FileRoutesByPath {
+		"/shell": {
+			id: "/shell";
+			path: "/shell";
+			fullPath: "/shell";
+			preLoaderRoute: typeof ShellRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/login": {
+			id: "/login";
+			path: "/login";
+			fullPath: "/login";
+			preLoaderRoute: typeof LoginRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/homepage": {
+			id: "/homepage";
+			path: "/homepage";
+			fullPath: "/homepage";
+			preLoaderRoute: typeof HomepageRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/home2": {
+			id: "/home2";
+			path: "/home2";
+			fullPath: "/home2";
+			preLoaderRoute: typeof Home2RouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/dashboard": {
+			id: "/dashboard";
+			path: "/dashboard";
+			fullPath: "/dashboard";
+			preLoaderRoute: typeof DashboardRouteRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/": {
+			id: "/";
+			path: "/";
+			fullPath: "/";
+			preLoaderRoute: typeof IndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/editor/": {
+			id: "/editor/";
+			path: "/editor";
+			fullPath: "/editor";
+			preLoaderRoute: typeof EditorIndexLazyRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/login/": {
+			id: "/login/";
+			path: "/";
+			fullPath: "/login/";
+			preLoaderRoute: typeof LoginIndexRouteImport;
+			parentRoute: typeof LoginRouteRoute;
+		};
+		"/dashboard/": {
+			id: "/dashboard/";
+			path: "/";
+			fullPath: "/dashboard/";
+			preLoaderRoute: typeof DashboardIndexRouteImport;
+			parentRoute: typeof DashboardRouteRoute;
+		};
+		"/(static)/zgodovina": {
+			id: "/(static)/zgodovina";
+			path: "/zgodovina";
+			fullPath: "/zgodovina";
+			preLoaderRoute: typeof staticZgodovinaRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/novica/$novica_id/": {
+			id: "/novica/$novica_id/";
+			path: "/novica/$novica_id";
+			fullPath: "/novica/$novica_id";
+			preLoaderRoute: typeof NovicaNovica_idIndexRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+		"/novica/$novica_id/uredi": {
+			id: "/novica/$novica_id/uredi";
+			path: "/novica/$novica_id/uredi";
+			fullPath: "/novica/$novica_id/uredi";
+			preLoaderRoute: typeof NovicaNovica_idUrediRouteImport;
+			parentRoute: typeof rootRouteImport;
+		};
+	}
 }
 declare module "@tanstack/react-start/server" {
-  interface ServerFileRoutesByPath {
-    "/api/upload": {
-      id: "/api/upload";
-      path: "/api/upload";
-      fullPath: "/api/upload";
-      preLoaderRoute: typeof ApiUploadServerRouteImport;
-      parentRoute: typeof rootServerRouteImport;
-    };
-    "/api/auth/$": {
-      id: "/api/auth/$";
-      path: "/api/auth/$";
-      fullPath: "/api/auth/$";
-      preLoaderRoute: typeof ApiAuthSplatServerRouteImport;
-      parentRoute: typeof rootServerRouteImport;
-    };
-  }
+	interface ServerFileRoutesByPath {
+		"/api/upload": {
+			id: "/api/upload";
+			path: "/api/upload";
+			fullPath: "/api/upload";
+			preLoaderRoute: typeof ApiUploadServerRouteImport;
+			parentRoute: typeof rootServerRouteImport;
+		};
+		"/api/auth/$": {
+			id: "/api/auth/$";
+			path: "/api/auth/$";
+			fullPath: "/api/auth/$";
+			preLoaderRoute: typeof ApiAuthSplatServerRouteImport;
+			parentRoute: typeof rootServerRouteImport;
+		};
+	}
 }
 
 interface DashboardRouteRouteChildren {
-  DashboardIndexRoute: typeof DashboardIndexRoute;
+	DashboardIndexRoute: typeof DashboardIndexRoute;
 }
 
 const DashboardRouteRouteChildren: DashboardRouteRouteChildren = {
-  DashboardIndexRoute: DashboardIndexRoute,
+	DashboardIndexRoute: DashboardIndexRoute,
 };
 
 const DashboardRouteRouteWithChildren = DashboardRouteRoute._addFileChildren(
-  DashboardRouteRouteChildren,
+	DashboardRouteRouteChildren,
 );
 
 interface LoginRouteRouteChildren {
-  LoginIndexRoute: typeof LoginIndexRoute;
+	LoginIndexRoute: typeof LoginIndexRoute;
 }
 
 const LoginRouteRouteChildren: LoginRouteRouteChildren = {
-  LoginIndexRoute: LoginIndexRoute,
+	LoginIndexRoute: LoginIndexRoute,
 };
 
 const LoginRouteRouteWithChildren = LoginRouteRoute._addFileChildren(
-  LoginRouteRouteChildren,
+	LoginRouteRouteChildren,
 );
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DashboardRouteRoute: DashboardRouteRouteWithChildren,
-  Home2RouteRoute: Home2RouteRoute,
-  HomepageRouteRoute: HomepageRouteRoute,
-  LoginRouteRoute: LoginRouteRouteWithChildren,
-  ShellRoute: ShellRoute,
-  staticZgodovinaRoute: staticZgodovinaRoute,
-  EditorIndexLazyRoute: EditorIndexLazyRoute,
-  NovicaNovica_idUrediRoute: NovicaNovica_idUrediRoute,
-  NovicaNovica_idIndexRoute: NovicaNovica_idIndexRoute,
+	IndexRoute: IndexRoute,
+	DashboardRouteRoute: DashboardRouteRouteWithChildren,
+	Home2RouteRoute: Home2RouteRoute,
+	HomepageRouteRoute: HomepageRouteRoute,
+	LoginRouteRoute: LoginRouteRouteWithChildren,
+	ShellRoute: ShellRoute,
+	staticZgodovinaRoute: staticZgodovinaRoute,
+	EditorIndexLazyRoute: EditorIndexLazyRoute,
+	NovicaNovica_idUrediRoute: NovicaNovica_idUrediRoute,
+	NovicaNovica_idIndexRoute: NovicaNovica_idIndexRoute,
 };
 export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+	._addFileChildren(rootRouteChildren)
+	._addFileTypes<FileRouteTypes>();
 const rootServerRouteChildren: RootServerRouteChildren = {
-  ApiUploadServerRoute: ApiUploadServerRoute,
-  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
+	ApiUploadServerRoute: ApiUploadServerRoute,
+	ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
 };
 export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>();
+	._addFileChildren(rootServerRouteChildren)
+	._addFileTypes<FileServerRouteTypes>();

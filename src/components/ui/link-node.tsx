@@ -7,19 +7,19 @@ import { useLink } from "@platejs/link/react";
 import { PlateElement } from "platejs/react";
 
 export function LinkElement(props: PlateElementProps<TLinkElement>) {
-  const { props: linkProps } = useLink({ element: props.element });
+	const { props: linkProps } = useLink({ element: props.element });
 
-  return (
-    <PlateElement
-      {...props}
-      as="a"
-      className="text-primary decoration-primary font-medium underline underline-offset-4"
-      attributes={{
-        ...props.attributes,
-        ...(linkProps as any),
-      }}
-    >
-      {props.children}
-    </PlateElement>
-  );
+	return (
+		<PlateElement
+			{...props}
+			as="a"
+			className="text-primary decoration-primary font-medium underline underline-offset-4"
+			attributes={{
+				...props.attributes,
+				...(linkProps as any),
+			}}
+		>
+			{props.children}
+		</PlateElement>
+	);
 }
