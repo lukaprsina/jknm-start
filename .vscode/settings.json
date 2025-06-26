@@ -1,44 +1,48 @@
 {
-  "files.readonlyInclude": {
-    "**/routeTree.gen.ts": true,
-    "**/.tanstack/**/*": true,
-    "bun.lock": true
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true,
-    "**/.tanstack/**/*": true,
-    "bun.lock": true
+  "[json][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true,
-    "**/.tanstack/**/*": true,
-    "bun.lock": true
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
-
+  "editor.codeActionsOnSave": {
+    "source.action.useSortedKeys.biome": "always",
+    "source.fixAll.biome": "explicit"
+  },
+  "editor.quickSuggestions": {
+    // https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings
+    "strings": "on"
+  },
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock",
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
-    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
-    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock"
+    "vite.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*"
   },
-
-  // always choose typescript from node_modules
-  "typescript.tsdk": "./node_modules/typescript/lib",
-
-  // use LF line endings
-  "files.eol": "\n",
-
-  // set prettier as default formatter for json, ts, tsx, js, jsx, html, css
-  "[json][jsonc][typescript][typescriptreact][javascript][javascriptreact][html][css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "typescript.experimental.useTsgo": false,
-
-  // https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss#recommended-vs-code-settings
   "files.associations": {
     "*.css": "tailwindcss"
   },
-  "editor.quickSuggestions": {
-    "strings": "on"
-  }
+  // use LF line endings
+  "files.eol": "\n",
+  "files.readonlyInclude": {
+    "**/.tanstack/**/*": true,
+    "**/routeTree.gen.ts": true,
+    "bun.lock": true
+  },
+  "files.watcherExclude": {
+    "**/.tanstack/**/*": true,
+    "**/routeTree.gen.ts": true,
+    "bun.lock": true
+  },
+  "search.exclude": {
+    "**/.tanstack/**/*": true,
+    "**/routeTree.gen.ts": true,
+    "bun.lock": true
+  },
+  "typescript.experimental.useTsgo": false,
+  // always choose typescript from node_modules
+  "typescript.tsdk": "./node_modules/typescript/lib"
 }

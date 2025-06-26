@@ -6,7 +6,6 @@ import { eq } from "drizzle-orm";
 import { createSlateEditor, PlateStatic } from "platejs";
 import { z } from "zod/v4";
 import { BaseEditorKit } from "~/components/editor-base-kit";
-import { staticComponents } from "~/components/static-components";
 import { db } from "~/lib/db";
 import { Article } from "~/lib/db/schema";
 
@@ -69,7 +68,6 @@ function RouteComponent() {
 
 	const editor = createSlateEditor({
 		plugins: BaseEditorKit,
-		components: staticComponents,
 		value: (editor) => {
 			if (isNaN(novica_id_number)) {
 				throw new Error("Invalid article ID");
