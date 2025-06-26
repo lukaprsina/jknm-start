@@ -17,4 +17,8 @@ admin page sidebar:
 nova novica, osnutki, arhivirano, izbrisani, avtorji, nastavitve
 
 25. 6. 2025
-- id 2 markdown list čist napačen
++ id 2 markdown list čist napačen
+
+26. 6. 2025
+novica 29
+pdf linki pokvarjeni, kažejo še na amazon s3 lol
