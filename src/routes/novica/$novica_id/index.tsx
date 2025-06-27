@@ -66,27 +66,17 @@ function RouteComponent() {
 		article_query_options(novica_id_number),
 	);
 
+	if (!article.content_markdown) {
+		return null;
+	}
+
 	const editor = createSlateEditor({
 		plugins: BaseEditorKit,
 		nodeId: false, // Disable NodeIdPlugin to prevent hydration mismatches
 		value: (editor) => {
-			if (isNaN(novica_id_number)) {
-				throw new Error("Invalid article ID");
-			}
-
-			if (!article.content_markdown) {
-				console.warn(
-					"No content found for the article with ID:",
-					novica_id_number,
-				);
-				return [
-					{ type: "paragraph", children: [{ text: "No content found" }] },
-				];
-			}
-
 			return editor
 				.getApi(MarkdownPlugin)
-				.markdown.deserialize(article.content_markdown);
+				.markdown.deserialize(article.content_markdown ?? "# No article");
 		},
 	});
 
