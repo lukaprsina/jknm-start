@@ -27,3 +27,5 @@ dist
 .env*.local
 scripts/editorjs_to_platejs/articles.json
 scripts/editorjs_to_platejs/markdown_articles.json
+
+.sst

@@ -60,11 +60,6 @@ function PlateEditor({ initialValue }: { initialValue: string }) {
 		},
 	});
 
-
-	useEffect(() => {
-		console.log("PlateEditor mounted with initial value:", { initialValue });
-	}, [initialValue]);
-
 	return (
 		<>
 			<Card className="my-4 p-4 flex flex-col gap-4">

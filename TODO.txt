@@ -22,3 +22,6 @@ nova novica, osnutki, arhivirano, izbrisani, avtorji, nastavitve
 26. 6. 2025
 novica 29
 pdf linki pokvarjeni, kažejo še na amazon s3 lol
+
+28. 6.
+- kot https://models.dev/?sort=tool-call&order=desc, sort on click
