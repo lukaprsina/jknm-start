@@ -3,17 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "sso": "aws sso login --sso-session=jknm",
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "start": "node --env-file=.env.development.local .output/server/index.mjs",
+    "start": "node .output/server/index.mjs",
     "lint": "eslint .",
     "check-types": "tsc --noEmit",
     "format": "prettier --write .",
-    "db": "bun x --env-file=.env.development.local drizzle-kit",
-    "deps": "bun x --env-file=.env.development.local npm-check-updates@latest --interactive --format group",
-    "ui": "bun x --env-file=.env.development.local shadcn@latest",
-    "auth:secret": "bun x --env-file=.env.development.local @better-auth/cli@latest secret",
-    "auth:generate": "bun x --env-file=.env.development.local @better-auth/cli@latest generate --config ./src/lib/auth/index.ts --y --output ./src/lib/db/schema/auth.schema.ts && prettier --write ./src/lib/db/schema/auth.schema.ts"
+    "db": "bun x drizzle-kit",
+    "deps": "bun x npm-check-updates@latest --interactive --format group",
+    "ui": "bun x shadcn@latest",
+    "auth:secret": "bun x @better-auth/cli@latest secret",
+    "auth:generate": "bun x @better-auth/cli@latest generate --config ./src/lib/auth/index.ts --y --output ./src/lib/db/schema/auth.schema.ts && prettier --write ./src/lib/db/schema/auth.schema.ts"
   },
   "dependencies": {
     "-": "^0.0.1",
