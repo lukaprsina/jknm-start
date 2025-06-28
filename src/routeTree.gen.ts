@@ -23,6 +23,7 @@ import { Route as DashboardIndexRouteImport } from "./routes/dashboard/index";
 import { Route as staticZgodovinaRouteImport } from "./routes/(static)/zgodovina";
 import { Route as NovicaNovica_idIndexRouteImport } from "./routes/novica/$novica_id/index";
 import { Route as NovicaNovica_idUrediRouteImport } from "./routes/novica/$novica_id/uredi";
+import { Route as NovicaNovica_idPrimerjajRouteImport } from "./routes/novica/$novica_id/primerjaj";
 import { ServerRoute as ApiUploadServerRouteImport } from "./routes/api/upload";
 import { ServerRoute as ApiAuthSplatServerRouteImport } from "./routes/api/auth/$";
 
@@ -89,6 +90,12 @@ const NovicaNovica_idUrediRoute = NovicaNovica_idUrediRouteImport.update({
   path: "/novica/$novica_id/uredi",
   getParentRoute: () => rootRouteImport,
 } as any);
+const NovicaNovica_idPrimerjajRoute =
+  NovicaNovica_idPrimerjajRouteImport.update({
+    id: "/novica/$novica_id/primerjaj",
+    path: "/novica/$novica_id/primerjaj",
+    getParentRoute: () => rootRouteImport,
+  } as any);
 const ApiUploadServerRoute = ApiUploadServerRouteImport.update({
   id: "/api/upload",
   path: "/api/upload",
@@ -111,6 +118,7 @@ export interface FileRoutesByFullPath {
   "/dashboard/": typeof DashboardIndexRoute;
   "/login/": typeof LoginIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
+  "/novica/$novica_id/primerjaj": typeof NovicaNovica_idPrimerjajRoute;
   "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
   "/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
 }
@@ -123,6 +131,7 @@ export interface FileRoutesByTo {
   "/dashboard": typeof DashboardIndexRoute;
   "/login": typeof LoginIndexRoute;
   "/editor": typeof EditorIndexLazyRoute;
+  "/novica/$novica_id/primerjaj": typeof NovicaNovica_idPrimerjajRoute;
   "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
   "/novica/$novica_id": typeof NovicaNovica_idIndexRoute;
 }
@@ -138,6 +147,7 @@ export interface FileRoutesById {
   "/dashboard/": typeof DashboardIndexRoute;
   "/login/": typeof LoginIndexRoute;
   "/editor/": typeof EditorIndexLazyRoute;
+  "/novica/$novica_id/primerjaj": typeof NovicaNovica_idPrimerjajRoute;
   "/novica/$novica_id/uredi": typeof NovicaNovica_idUrediRoute;
   "/novica/$novica_id/": typeof NovicaNovica_idIndexRoute;
 }
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
     | "/dashboard/"
     | "/login/"
     | "/editor"
+    | "/novica/$novica_id/primerjaj"
     | "/novica/$novica_id/uredi"
     | "/novica/$novica_id";
   fileRoutesByTo: FileRoutesByTo;
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | "/dashboard"
     | "/login"
     | "/editor"
+    | "/novica/$novica_id/primerjaj"
     | "/novica/$novica_id/uredi"
     | "/novica/$novica_id";
   id:
@@ -180,6 +192,7 @@ export interface FileRouteTypes {
     | "/dashboard/"
     | "/login/"
     | "/editor/"
+    | "/novica/$novica_id/primerjaj"
     | "/novica/$novica_id/uredi"
     | "/novica/$novica_id/";
   fileRoutesById: FileRoutesById;
@@ -193,6 +206,7 @@ export interface RootRouteChildren {
   ShellRoute: typeof ShellRoute;
   staticZgodovinaRoute: typeof staticZgodovinaRoute;
   EditorIndexLazyRoute: typeof EditorIndexLazyRoute;
+  NovicaNovica_idPrimerjajRoute: typeof NovicaNovica_idPrimerjajRoute;
   NovicaNovica_idUrediRoute: typeof NovicaNovica_idUrediRoute;
   NovicaNovica_idIndexRoute: typeof NovicaNovica_idIndexRoute;
 }
@@ -308,6 +322,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof NovicaNovica_idUrediRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/novica/$novica_id/primerjaj": {
+      id: "/novica/$novica_id/primerjaj";
+      path: "/novica/$novica_id/primerjaj";
+      fullPath: "/novica/$novica_id/primerjaj";
+      preLoaderRoute: typeof NovicaNovica_idPrimerjajRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 declare module "@tanstack/react-start/server" {
@@ -362,6 +383,7 @@ const rootRouteChildren: RootRouteChildren = {
   ShellRoute: ShellRoute,
   staticZgodovinaRoute: staticZgodovinaRoute,
   EditorIndexLazyRoute: EditorIndexLazyRoute,
+  NovicaNovica_idPrimerjajRoute: NovicaNovica_idPrimerjajRoute,
   NovicaNovica_idUrediRoute: NovicaNovica_idUrediRoute,
   NovicaNovica_idIndexRoute: NovicaNovica_idIndexRoute,
 };
