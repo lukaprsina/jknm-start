@@ -2,12 +2,13 @@ import { serverOnly } from "@tanstack/react-start";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { reactStartCookies } from "better-auth/react-start";
+import { Resource } from "sst";
 
 import { db } from "~/lib/db";
 
 const getAuthConfig = serverOnly(() =>
 	betterAuth({
-		baseURL: process.env.VITE_BASE_URL,
+		baseURL: import.meta.env.VITE_BASE_URL,
 		database: drizzleAdapter(db, {
 			provider: "pg",
 		}),
@@ -26,8 +27,8 @@ const getAuthConfig = serverOnly(() =>
 		// https://www.better-auth.com/docs/concepts/oauth
 		socialProviders: {
 			google: {
-				clientId: process.env.GOOGLE_CLIENT_ID!,
-				clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+				clientId: Resource.GoogleClientId.value,
+				clientSecret: Resource.GoogleClientSecret.value,
 			},
 		},
 

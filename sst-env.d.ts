@@ -5,6 +5,46 @@
 
 declare module "sst" {
   export interface Resource {
+    "AlgoliaAdminApiKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "AlgoliaAppId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "AlgoliaSearchApiKey": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "BetterAuthSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "DatabaseUrl": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "DirectUrl": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GoogleClientId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "GoogleClientSecret": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "JknmServiceAccountCredentials": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
+    "JknmWorkspaceId": {
+      "type": "sst.sst.Secret"
+      "value": string
+    }
     "MyBucket": {
       "name": string
       "type": "sst.aws.Bucket"

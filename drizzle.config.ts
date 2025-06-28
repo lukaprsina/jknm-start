@@ -1,4 +1,5 @@
 import type { Config } from "drizzle-kit";
+import { Resource } from "sst";
 
 export default {
   out: "./drizzle",
@@ -9,6 +10,6 @@ export default {
   dialect: "postgresql",
   casing: "snake_case",
   dbCredentials: {
-    url: process.env.DIRECT_URL!, // changed from DATABASE_URL
+    url: Resource.DirectUrl.value, // changed from DATABASE_URL
   },
 } satisfies Config;

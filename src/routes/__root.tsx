@@ -13,6 +13,7 @@ import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 
 import { getUser } from "~/lib/auth/functions/getUser";
 import appCss from "~/styles.css?url";
+import { Resource } from "sst";
 
 export const Route = createRootRouteWithContext<{
 	queryClient: QueryClient;
@@ -49,7 +50,7 @@ export const Route = createRootRouteWithContext<{
 				//https://www.algolia.com/doc/guides/building-search-ui/going-further/improve-performance/react/#prepare-the-connection-to-algolia
 				rel: "preconnect",
 				crossOrigin: "anonymous",
-				href: `https://${process.env.VITE_ALGOLIA_APP_ID!}-dsn.algolia.net`,
+				href: `https://${Resource.AlgoliaAppId.value}-dsn.algolia.net`,
 			},
 		],
 	}),

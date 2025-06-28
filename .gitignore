@@ -22,11 +22,10 @@ dist
 /public/build
 
 .tanstack
-.env*.local
-
-.env*.local
+.env*
 scripts/editorjs_to_platejs/articles.json
 scripts/editorjs_to_platejs/markdown_articles.json
 
 .sst
 .vercel
+.secret-set.ps1

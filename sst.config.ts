@@ -18,6 +18,10 @@ export default $config({
         };
     },
     async run() {
+        const bucket = new sst.aws.Bucket("MyBucket", {
+            access: "public",
+        });
+
         const TANSTACK_TARGET = $app.stage === "production"
             ? "aws-lambda"
             : "node-server"
@@ -28,12 +32,23 @@ export default $config({
             ? `https://${domain_name}`
             : "http://localhost:3000";
 
-        const bucket = new sst.aws.Bucket("MyBucket", {
-            access: "public",
-        });
+        const secrets = [
+            "AlgoliaAdminApiKey",
+            "BetterAuthSecret",
+            "DatabaseUrl",
+            "DirectUrl",
+            "GoogleClientId",
+            "GoogleClientSecret",
+            "JknmServiceAccountCredentials",
+            "JknmWorkspaceId",
+            "AlgoliaAppId",
+            "AlgoliaSearchApiKey",
+        ];
+
+        const sst_secrets = secrets.map((s) => new sst.Secret(s))
 
         new sst.aws.TanStackStart("MyWeb", {
-            link: [bucket],
+            link: [bucket, ...sst_secrets],
             environment: {
                 TANSTACK_TARGET,
                 VITE_BASE_URL
