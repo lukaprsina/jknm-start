@@ -4,7 +4,7 @@
 export default $config({
     app(input) {
         return {
-            name: "jknm-tanstack-start",
+            name: "aws-tanstack-start",
             removal: input?.stage === "production" ? "retain" : "remove",
             protect: ["production"].includes(input?.stage),
             home: "aws",
